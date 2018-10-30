@@ -1,4 +1,8 @@
 library(testthat)
-if (identical(Sys.getenv("TRAVIS"), "true") || identical(Sys.getenv("R_EXPENSIVE_TEST_OK"), "true")) {
+# NOT_CRAN = true is set by devtools and is the default way introduced by testthat to use skip_on_cran().
+if (identical(Sys.getenv("TRAVIS"), "true") ||
+    identical(Sys.getenv("R_EXPENSIVE_TEST_OK"), "true") ||
+    identical(Sys.getenv("NOT_CRAN"), "true") ||
+    identical(Sys.getenv("APPVEYOR"), "True")) {
   test_check("mlr", "_classif_[a-l].*")
 }
