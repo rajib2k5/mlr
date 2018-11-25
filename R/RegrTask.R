@@ -8,8 +8,9 @@ makeRegrTask = function(id = deparse(substitute(data)), data, target, weights = 
   assertFlag(check.data)
 
   if (fixup.data != "no") {
-    if (is.integer(data[[target]]))
+    if (is.integer(data[[target]])) {
       data[[target]] = as.double(data[[target]])
+    }
   }
 
   task = makeSupervisedTask("regr", data, target, weights, blocking, coordinates, fixup.data = fixup.data, check.data = check.data)

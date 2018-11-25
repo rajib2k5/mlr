@@ -44,7 +44,7 @@
 #'   regrTask = makeRegrTask(data = BostonHousing, target = "medv")
 #'   getCaretParamSet("gbm", length = 9L, task = regrTask, discretize = FALSE)
 #' }
-getCaretParamSet = function(learner, length = 3L, task, discretize = TRUE){
+getCaretParamSet = function(learner, length = 3L, task, discretize = TRUE) {
   td = getTaskData(task, target.extra = TRUE)
   caret.grid = caret::getModelInfo(learner)[[learner]]$grid(
     x = td$data, y = td$target, len = length)
@@ -62,32 +62,37 @@ getCaretParamSet = function(learner, length = 3L, task, discretize = TRUE){
         cl = "character"
       }
     }
-    if (discretize)
+    if (discretize) {
       cl = "character"
+    }
     switch(cl,
       character = makeDiscreteParam(id = i, values = par.vals),
       logical = makeLogicalParam(id = i),
       numeric = makeNumericParam(id = i, lower = min(par.vals), upper = max(par.vals)),
       integer = makeIntegerParam(id = i, lower = min(par.vals), upper = max(par.vals))
     )
-  })
+  }
+  )
   names(params) = colnames(caret.grid)
 
   # are the parameters configurable or are the values unique?
   is.tunable = vlapply(params, function(x) {
     (!is.null(x$values) && length(x$values) > 1) |
       (!is.null(x$lower) && !is.null(x$upper) && (x$upper > x$lower))
-  })
+  }
+  )
 
   # define par.vals (if existing)
   if (all(is.tunable)) {
     par.vals = NULL
   } else {
     par.vals = lapply(caret.grid[!is.tunable], function(x) {
-      if (is.factor(x))
+      if (is.factor(x)) {
         x = as.character(x)
+      }
       return(x[1L])
-    })
+    }
+    )
     # convert integerish variables into integer
     par.vals[vlapply(par.vals, testIntegerish)] =
       lapply(par.vals[vlapply(par.vals, testIntegerish)], as.integer)

@@ -103,10 +103,12 @@ reduceBatchmarkResults = function(ids = NULL, keep.pred = TRUE, show.info = getM
   assertFlag(keep.pred)
   assertClass(reg, "ExperimentRegistry")
 
-  if (is.null(ids))
+  if (is.null(ids)) {
     ids = batchtools::findDone(reg = reg)
-  if (NROW(ids) != nrow(batchtools::findExperiments(reg = reg)))
+  }
+  if (NROW(ids) != nrow(batchtools::findExperiments(reg = reg))) {
     warning("Collecting results for a subset of jobs. The resulting BenchmarkResult may be misleading.")
+  }
 
   problem = algorithm = NULL # for data.table's NSE
   tab = batchtools::getJobPars(ids, reg = reg)[, c("job.id", "problem", "algorithm")]

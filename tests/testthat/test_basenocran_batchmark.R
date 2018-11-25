@@ -217,7 +217,8 @@ test_that("batchmark", {
   f(getBMRFeatSelResults(res), "FeatSelResult")
   f(getBMRTuneResults(res), "TuneResult")
   f(getBMRFilteredFeatures(res), "character")
-})
+}
+)
 
 test_that("keep.preds and models are passed down to resample()", {
   skip_if_not_installed("batchtools")
@@ -238,7 +239,7 @@ test_that("keep.preds and models are passed down to resample()", {
   expect_list(x$models, types = "WrappedModel")
   expect_is(x$pred, "ResamplePrediction")
 
-  ##test getter function for models
+  ## test getter function for models
   models = getBMRModels(res)
   expect_true(is.list(models))
   expect_true(setequal(names(models), "binary"))
@@ -261,7 +262,8 @@ test_that("keep.preds and models are passed down to resample()", {
   expect_is(x, "ResampleResult")
   expect_null(x$pred)
   expect_null(models11)
-})
+}
+)
 
 
 test_that("batchmark works with resampling instances", {
@@ -275,7 +277,8 @@ test_that("batchmark works with resampling instances", {
   rin = makeResampleInstance(rdesc, task)
   ids = batchmark(learners = learners, task = task, resampling = rin, reg = reg)
   expect_data_table(ids, nrow = 4)
-})
+}
+)
 
 test_that("batchmark works with incomplete results", {
   skip_if_not_installed("batchtools")
@@ -289,14 +292,21 @@ test_that("batchmark works with incomplete results", {
   ids = batchmark(learners = learners, task = task, resampling = rin, reg = reg)
   submitJobs(1:6, reg = reg)
   expect_true(waitForJobs(reg = reg))
-  expect_warning({res = reduceBatchmarkResults(ids = 1:6, reg = reg, keep.pred = FALSE)}, "subset")
+  expect_warning({
+    res = reduceBatchmarkResults(ids = 1:6, reg = reg, keep.pred = FALSE)
+  }, "subset")
   expect_set_equal(getBMRLearnerIds(res), c("classif.lda", "classif.rpart"))
 
-  expect_warning({res = reduceBatchmarkResults(ids = 1:3, reg = reg, keep.pred = FALSE)}, "subset")
+  expect_warning({
+    res = reduceBatchmarkResults(ids = 1:3, reg = reg, keep.pred = FALSE)
+  }, "subset")
   expect_set_equal(getBMRLearnerIds(res), "classif.lda")
 
-  expect_warning({res = reduceBatchmarkResults(ids = data.table(job.id = 5), reg = reg, keep.pred = FALSE)}, "subset")
+  expect_warning({
+    res = reduceBatchmarkResults(ids = data.table(job.id = 5), reg = reg, keep.pred = FALSE)
+  }, "subset")
   expect_set_equal(getBMRLearnerIds(res), "classif.rpart")
-})
+}
+)
 
 options(batchtools.verbose = prev)

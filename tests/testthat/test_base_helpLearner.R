@@ -8,19 +8,26 @@ test_that("helpLearner of learner with single help page", {
   environment(testfn)$readline = function(x) stop("Was not expecting readline.")
 
   expect_true(length(quiet(testfn("classif.logreg"))) == 1)
-})
+}
+)
 
 test_that("helpLearner of learner with multiple help pages", {
   testfn = helpLearner
   environment(testfn) = new.env(parent = environment(testfn))
 
-  environment(testfn)$readline = function(x) { cat(x, "\n") ; 0 }
+  environment(testfn)$readline = function(x) {
+    cat(x, "\n")
+    0
+  }
 
   expect_output(testfn("classif.qda"), "Choose help page:(\\n[0-9]+ : [0-9a-zA-Z._]+)+\\n\\.\\.\\.: *$")
 
   expect_null(quiet(testfn("classif.qda")))
 
-  environment(testfn)$readline = function(x) { cat(x, "\n") ; 1 }
+  environment(testfn)$readline = function(x) {
+    cat(x, "\n")
+    1
+  }
 
   hlp1 = quiet(testfn("classif.qda"))
 
@@ -33,7 +40,10 @@ test_that("helpLearner of learner with multiple help pages", {
     expect_equivalent(rfhelp, quiet(testfn("regr.randomForest")))
   }
 
-  environment(testfn)$readline = function(x) { cat(x, "\n") ; 2 }
+  environment(testfn)$readline = function(x) {
+    cat(x, "\n")
+    2
+  }
 
   hlp3 = quiet(testfn("classif.qda"))
 
@@ -43,8 +53,8 @@ test_that("helpLearner of learner with multiple help pages", {
 
   # regr.randomForest with option '2' should give the randomForest help page.
   expect_true(length(quiet(testfn("regr.randomForest"))) == 1)
-
-})
+}
+)
 
 test_that("helpLearner of wrapped learner", {
   testfn = helpLearner
@@ -54,7 +64,8 @@ test_that("helpLearner of wrapped learner", {
 
   # check that it doesn't give an error
   expect_output(testfn(makeBaggingWrapper(makeLearner("classif.qda"), 2)), "No information about learner")
-})
+}
+)
 
 test_that("helpLearnerParam", {
   # mention parameters
@@ -85,13 +96,14 @@ test_that("helpLearnerParam", {
   # check that values are printed
   expect_output(helpLearnerParam(
     makeLearner("classif.qda", nu = 3), "nu"),
-    "Value: +3")
+  "Value: +3")
 
   # values for vectorial params work
   expect_output(helpLearnerParam(
     makeLearner("classif.randomForest", cutoff = c(.1, .2, .3)), "cutoff"),
-    "Value:.+0\\.1.+0\\.2.+0\\.3")
-})
+  "Value:.+0\\.1.+0\\.2.+0\\.3")
+}
+)
 
 test_that("helpLearnerParam of wrapped learner", {
   w1 = makeBaggingWrapper(makeLearner("classif.qda", nu = 4), 2)
@@ -105,5 +117,5 @@ test_that("helpLearnerParam of wrapped learner", {
     "is a wrapped learner. Showing documentation of 'classif.qda' instead", fixed = TRUE, all = TRUE)
   expect_message(quiet(helpLearnerParam(w2)),
     "is a wrapped learner. Showing documentation of 'classif.qda' instead", fixed = TRUE, all = TRUE)
-
-})
+}
+)

@@ -28,7 +28,8 @@ test_that("PreprocWrapper", {
   m = train(lrn2, task = multiclass.task)
   capture.output(print(m))
   expect_true(setequal(getHyperPars(m$learner), list(xval = 0, minsplit = 10, x = 1, y = 2)))
-})
+}
+)
 
 test_that("getLearnerModel on nested PreprocWrapper", {
   lrn = makeLearner("classif.rpart")
@@ -37,7 +38,8 @@ test_that("getLearnerModel on nested PreprocWrapper", {
   m = train(lrn, binaryclass.task)
   expect_is(getLearnerModel(m), "PreprocModel")
   expect_is(getLearnerModel(m, TRUE), "rpart")
-})
+}
+)
 
 test_that("PreprocWrapper with glmnet (#958)", {
   lrn = makeLearner("classif.glmnet", predict.type = "response")
@@ -46,5 +48,5 @@ test_that("PreprocWrapper with glmnet (#958)", {
   mod = train(lrn2, multiclass.task)
   pred = predict(mod, multiclass.task)
   expect_error(pred, NA)
-})
-
+}
+)

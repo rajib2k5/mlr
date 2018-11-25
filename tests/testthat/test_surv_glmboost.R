@@ -26,7 +26,7 @@ test_that("surv_glmboost", {
     pars = c(pars, parset)
     set.seed(getOption("mlr.debug.seed"))
     m = do.call(mboost::glmboost, pars)
-    p  = predict(m, newdata = surv.test, type = "link")
+    p = predict(m, newdata = surv.test, type = "link")
     old.predicts.list[[i]] = drop(p)
   }
 
@@ -36,4 +36,5 @@ test_that("surv_glmboost", {
   mod1 = train(makeLearner("surv.glmboost", use.formula = FALSE, center = FALSE), wpbc.task)
   mod2 = train(makeLearner("surv.glmboost", use.formula = TRUE, center = FALSE), wpbc.task)
   expect_equal(coef(mod1$learner.model), coef(mod2$learner.model))
-})
+}
+)

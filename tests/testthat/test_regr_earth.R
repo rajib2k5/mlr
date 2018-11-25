@@ -7,7 +7,7 @@ test_that("regr_earth", {
     list(),
     list(degree = 2),
     list(penalty = 4)
-    )
+  )
 
   old.predicts.list = list()
 
@@ -22,4 +22,5 @@ test_that("regr_earth", {
   }
 
   testSimpleParsets("regr.earth", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-})
+}
+)

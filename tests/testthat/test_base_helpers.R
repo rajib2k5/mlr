@@ -11,7 +11,8 @@ test_that("makeOptPathDFFromMeasures", {
   res = getOptPathEl(opt.path, 1L)
   supposed.names = sapply(measures, function(m) paste(m$id, m$aggr$id, sep = "."))
   expect_equal(names(res$y), supposed.names)
-})
+}
+)
 
 test_that("propVectorToMatrix", {
   x = seq(0, 1, length.out = 11)
@@ -20,23 +21,27 @@ test_that("propVectorToMatrix", {
   expect_equal(m[, 1], 1 - x)
   expect_equal(m[, 2], x)
   expect_equal(colnames(m), levs)
-})
+}
+)
 
 test_that("listTaskTypes", {
   expected = c("classif", "regr", "surv", "costsens", "cluster", "multilabel")
   expect_equal(expected, listTaskTypes())
-})
+}
+)
 
 test_that("listLearnerProperties", {
   expected = c("classif", "regr", "surv", "costsens", "cluster", "multilabel")
   expect_equal(expected, listTaskTypes())
-})
+}
+)
 
 
 test_that("suppressWarning works", {
   foo = function(x) {
-    if (x > 3)
+    if (x > 3) {
       warning("x is pretty large.")
+    }
     x
   }
 
@@ -44,4 +49,5 @@ test_that("suppressWarning works", {
   expect_equal(suppressWarning(foo(3), "<nomatch>"), 3)
   expect_equal(suppressWarning(foo(4), "pretty"), 4)
   expect_warning(suppressWarning(foo(4), "<nomatch>"), "pretty")
-})
+}
+)

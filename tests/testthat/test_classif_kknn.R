@@ -38,4 +38,5 @@ test_that("classif_kknn", {
 
   testCVParsets("classif.kknn", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp,
     parset.list = parset.list)
-})
+}
+)

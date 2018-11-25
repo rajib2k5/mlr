@@ -102,8 +102,9 @@ NULL
 
 benchmarkParallel = function(task, learner, learners, tasks, resamplings, measures, keep.pred = TRUE, models = TRUE, show.info) {
   setSlaveOptions()
-  if (show.info)
+  if (show.info) {
     messagef("Task: %s, Learner: %s", task, learner)
+  }
   lrn = learners[[learner]]
   extract.this = getExtractor(lrn)
   r = resample(lrn, tasks[[task]], resamplings[[task]],

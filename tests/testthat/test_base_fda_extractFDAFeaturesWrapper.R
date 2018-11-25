@@ -11,4 +11,5 @@ test_that("extractFDAFeaturesWrapper", {
   expect_numeric(prd$data$response, lower = 0, upper = Inf)
   res = resample(lrn, fuelsubset.task, cv2)
   expect_class(res, "ResampleResult")
-})
+}
+)

@@ -30,4 +30,5 @@ test_that("surv_ranger", {
   }
 
   testSimpleParsets("surv.ranger", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-})
+}
+)

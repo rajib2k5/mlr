@@ -10,4 +10,5 @@ test_that("train works with subset", {
   mod = train("classif.rpart", binaryclass.task, subset = subs)
   expect_equal(mod$subset, c(1L, 3L, 4L))
   expect_equal(length(mod$learner.model$y), sum(subs))
-})
+}
+)

@@ -31,4 +31,5 @@ test_that("classif_bst", {
 
   testSimpleParsets("classif.bst", binaryclass.df, binaryclass.target, binaryclass.train.inds,
     old.predicts.list, parset.list2)
-})
+}
+)

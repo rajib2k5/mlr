@@ -17,9 +17,10 @@ test_that("classif_ranger", {
     parset = c(parset, list(data = binaryclass.train, formula = binaryclass.formula, write.forest = TRUE, probability = TRUE, respect.unordered.factors = TRUE))
     set.seed(getOption("mlr.debug.seed"))
     m = do.call(ranger::ranger, parset)
-    p  = predict(m, data = binaryclass.test)
+    p = predict(m, data = binaryclass.test)
     old.probs.list[[i]] = p$predictions[, 1]
   }
 
   testProbParsets("classif.ranger", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.probs.list, parset.list)
-})
+}
+)

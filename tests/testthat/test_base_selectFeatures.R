@@ -33,7 +33,7 @@ test_that("selectFeatures", {
     bits.to.features = btf, control = ctrl, show.info = FALSE)
   df = as.data.frame(fr$opt.path)
   expect_true(setequal(colnames(df), c("b1", "b2", "mmce.test.mean", "dob", "eol",
-        "exec.time", "error.message")))
+    "exec.time", "error.message")))
   expect_equal(nrow(df), 2L)
 
   expect_error(selectFeatures(lrn, task = multiclass.task, resampling = rdesc, bit.names = bns, control = ctrl, show.info = FALSE), "you also have to set bits.to.features")
@@ -43,7 +43,8 @@ test_that("selectFeatures", {
   expect_error(selectFeatures(lrn, task = multiclass.task, resampling = rdesc, bits.to.features = function(x, task) c("test1", "test2"), control = ctrl, show.info = FALSE), "\\(test1,test2\\) that are not in the task.")
 
   expect_error(selectFeatures(lrn, task = multiclass.task, resampling = rdesc, bits.to.features = function(x, task) NULL, control = ctrl, show.info = FALSE), "but an object of type NULL")
-})
+}
+)
 
 test_that("threshold tuning with feature selection", {
   rdesc = makeResampleDesc("Holdout")
@@ -53,7 +54,8 @@ test_that("threshold tuning with feature selection", {
   fr = selectFeatures(lrn, task = binaryclass.task, resampling = rdesc, control = ctrl, show.info = FALSE)
   df = as.data.frame(fr$opt.path)
   expect_true(is.numeric(df$threshold) && !any(is.na(df$threshold)))
-})
+}
+)
 
 test_that("show info works in selectFeatures", {
   rdesc = makeResampleDesc("Holdout", split = 0.05, stratify = TRUE)
@@ -63,8 +65,9 @@ test_that("show info works in selectFeatures", {
   }, "1: [01].*([0-9]+ bits)")
   expect_message({
     z = selectFeatures("classif.rpart", task = iris.task, resampling = rdesc, control = ctrl, show.info = TRUE)
-   }, "mmce.test.mean=0.[0-9]+")
-})
+  }, "mmce.test.mean=0.[0-9]+")
+}
+)
 
 # we had a bug here when an empty model was created and isFailureModel could not be called on it, cf. #284
 test_that("selectFeatures/sfs works with wrapper", {
@@ -75,4 +78,5 @@ test_that("selectFeatures/sfs works with wrapper", {
   rdesc = makeResampleDesc("Holdout", split = 0.8, stratify = TRUE)
   sel = selectFeatures(lrn2, task, rdesc, control = ctrl)
   expect_class(sel, "FeatSelResult")
-})
+}
+)

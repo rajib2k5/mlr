@@ -30,10 +30,12 @@ test_that("classif_dcSVM", {
   x = train(makeLearner("classif.dcSVM", seed = 0), traintask)
   result = predict(x, testtask)$data$response
   expect_equal(as.character(result), c("a", "a"))
-})
+}
+)
 
 test_that("classif_dcSVM works correctly when e1071 is used (#733)", {
   requirePackagesOrSkip("SwarmSVM", default.method = "load")
 
   x = train(makeLearner("classif.dcSVM", kernel = 1), binaryclass.task)
-})
+}
+)

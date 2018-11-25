@@ -58,7 +58,7 @@ makeRLearner.regr.randomForest = function() {
       makeIntegerLearnerParam(id = "ntree", default = 500L, lower = 1L),
       makeIntegerLearnerParam(id = "se.ntree", default = 100L, lower = 1L, when = "both", requires = quote(se.method == "bootstrap")),
       makeDiscreteLearnerParam(id = "se.method", default = "sd",
-        values = c("bootstrap", "jackknife",  "sd"),
+        values = c("bootstrap", "jackknife", "sd"),
         requires = quote(se.method %in% "jackknife" && keep.inbag == TRUE),
         when = "both"),
       makeIntegerLearnerParam(id = "se.boot", default = 50L, lower = 1L, when = "both"),
@@ -102,10 +102,11 @@ trainLearner.regr.randomForest = function(.learner, .task, .subset, .weights = N
 
 #' @export
 predictLearner.regr.randomForest = function(.learner, .model, .newdata, se.method = "sd", ...) {
-  if (se.method == "bootstrap")
+  if (se.method == "bootstrap") {
     pred = predict(.model$learner.model$single.model, newdata = .newdata, ...)
-  else
+  } else {
     pred = predict(.model$learner.model, newdata = .newdata, ...)
+  }
   if (.learner$predict.type == "se") {
     se.fun = switch(se.method,
       bootstrap = bootstrapStandardError,
@@ -129,8 +130,8 @@ getOOBPredsLearner.regr.randomForest = function(.learner, .model) {
 # Set se.ntree << ntree for the noisy bootstrap (mc bias corrected)
 bootstrapStandardError = function(.learner, .model, .newdata,
   se.ntree = 100L, se.boot = 50L, ...) {
-  single.model = getLearnerModel(.model)$single.model #get raw RF model
-  bagged.models = getLearnerModel(getLearnerModel(.model)$bagged.models) #get list of unbagged mlr models
+  single.model = getLearnerModel(.model)$single.model # get raw RF model
+  bagged.models = getLearnerModel(getLearnerModel(.model)$bagged.models) # get list of unbagged mlr models
   pred.bagged = lapply(bagged.models, function(x) predict(getLearnerModel(x), newdata = .newdata, predict.all = TRUE))
   pred.boot.all = extractSubList(pred.bagged, "individual", simplify = FALSE)
   ntree = single.model$ntree

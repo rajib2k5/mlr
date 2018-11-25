@@ -19,4 +19,5 @@ test_that("DummyFeaturesWrapper", {
     pred.w = predict(mod.w, bc.task, subset = 401:getTaskSize(bc.task))
     expect_equal(getPredictionResponse(pred), getPredictionResponse(pred.w))
   }
-})
+}
+)

@@ -6,7 +6,7 @@ makeRLearner.regr.h2o.gbm = function() {
     par.set = makeParamSet(
       makeIntegerLearnerParam("ntrees", lower = 1L, default = 50L),
       makeIntegerLearnerParam("max_depth", lower = 1L, default = 5L),
-      makeIntegerLearnerParam("min_rows", lower = 1L,  default = 10L),
+      makeIntegerLearnerParam("min_rows", lower = 1L, default = 10L),
       makeNumericLearnerParam("learn_rate", lower = 0, upper = 1, default = 0.1),
       makeIntegerLearnerParam("nbins", lower = 1L, default = 20L),
       makeIntegerLearnerParam("nbins_cats", lower = 1L, default = 1024),
@@ -21,7 +21,7 @@ makeRLearner.regr.h2o.gbm = function() {
 }
 
 #' @export
-trainLearner.regr.h2o.gbm = function(.learner, .task, .subset, .weights = NULL,  ...) {
+trainLearner.regr.h2o.gbm = function(.learner, .task, .subset, .weights = NULL, ...) {
   # check if h2o connection already exists, otherwise start one
   conn.up = tryCatch(h2o::h2o.getConnection(), error = function(err) return(FALSE))
   if (!inherits(conn.up, "H2OConnection")) {

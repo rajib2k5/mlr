@@ -13,4 +13,5 @@ test_that("ordered factors", {
   expect_error(train("classif.lda", task), "has ordered factor")
   z = holdout("classif.rpart", task)
   expect_true(!is.na(z$aggr))
-})
+}
+)

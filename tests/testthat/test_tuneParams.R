@@ -10,7 +10,8 @@ test_that("names for minimize are set correctly", {
   tr = tuneParams(lrn, multiclass.task, rdesc, measures = list(foo = acc), par.set = ps, control = ctrl)
   expect_is(tr, "TuneResult")
   expect_equal(names(tr$opt.path$minimize), "acc.test.mean")
-})
+}
+)
 
 test_that("tuneParams with resample.fun", {
   lrn = makeLearner("classif.rpart")
@@ -41,11 +42,13 @@ test_that("tuneParams with resample.fun", {
 
   ctrl = suppressWarnings({
     # this currently is a warning because printHead is in mlr and BBmisc
-     makeTuneControlMBO(budget = 10, learner = "regr.lm")
-  })
+    makeTuneControlMBO(budget = 10, learner = "regr.lm")
+  }
+  )
   tr = tuneParams(lrn, multiclass.task, rdesc, par.set = ps, control = ctrl, resample.fun = constant05Resample)
   expect_true(all(getOptPathY(tr$opt.path) == 0.5))
-})
+}
+)
 
 test_that("tuneParams output works as documented", {
   lrn = makeLearner("classif.ksvm")
@@ -65,6 +68,5 @@ test_that("tuneParams output works as documented", {
 
   expect_message(tuneParams(lrn, multiclass.task, rdesc, measures = list(foo = acc), par.set = ps, control = ctrl.user, show.info = TRUE),
     "^Hi")
-})
-
-
+}
+)

@@ -11,4 +11,5 @@ test_that("ModelMultiplexer inherits properties", {
 
   lrn = setHyperPars(lrn, selected.learner = "classif.randomForest")
   expect_set_equal(getLearnerProperties(lrn), getLearnerProperties(bls[[2L]]))
-})
+}
+)

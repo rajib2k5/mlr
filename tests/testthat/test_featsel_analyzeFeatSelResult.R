@@ -8,7 +8,8 @@ test_that("analyzeFeatSelResult", {
   sf.seq = selectFeatures(learner = lrn, task = multiclass.task, resampling = rdesc,
     control = ctrl.seq, show.info = FALSE)
   expect_output(analyzeFeatSelResult(sf.seq, reduce = TRUE), "Petal.Width")
-})
+}
+)
 
 test_that("analyzeFeatSelResult with tune threshold (cf. issue #245)", {
   set.seed(1909)
@@ -19,4 +20,5 @@ test_that("analyzeFeatSelResult with tune threshold (cf. issue #245)", {
   sfeats = selectFeatures(learner = lrn, task = task, resampling = rdesc, control = ctrl,
     show.info = FALSE)
   expect_output(analyzeFeatSelResult(sfeats, reduce = TRUE), "V12")
-})
+}
+)

@@ -80,7 +80,8 @@ trainLearner.classif.dcSVM = function(.learner, .task, .subset, .weights = NULL,
 #' @export
 predictLearner.classif.dcSVM = function(.learner, .model, .newdata, ...) {
   prediction = predict(.model$learner.model, newdata = .newdata, ...)
-  if (!is.factor(prediction))  # depends on parameters AND data
+  if (!is.factor(prediction)) { # depends on parameters AND data
     prediction = factor(prediction, levels = c(1, 2), labels = .model$factor.levels[[1]])
+  }
   prediction
 }

@@ -20,4 +20,5 @@ test_that("regr_plsr", {
   }
 
   testSimpleParsets("regr.plsr", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-})
+}
+)

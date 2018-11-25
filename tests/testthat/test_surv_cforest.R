@@ -33,4 +33,5 @@ test_that("surv_cforest", {
   )
   testSimpleParsets("surv.cforest", surv.df, surv.target, surv.train.inds,
     old.predicts.list, parset.list3)
-})
+}
+)

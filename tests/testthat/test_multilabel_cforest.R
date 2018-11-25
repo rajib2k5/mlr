@@ -29,6 +29,5 @@ test_that("multilabel_cforest", {
 
   testProbParsets("multilabel.cforest", multilabel.df, multilabel.target,
     multilabel.train.inds, old.probs.list, parset.list2)
-
-})
-
+}
+)

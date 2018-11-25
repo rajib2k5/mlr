@@ -57,10 +57,11 @@ capLargeValues.data.frame = function(obj, target = character(0L), cols = NULL,
   allnumfeats = setdiff(allnumfeats, target)
 
   # check that user requested cols are only numeric cols with the target
-  if (!is.null(cols))
+  if (!is.null(cols)) {
     assertSubset(cols, allnumfeats)
-  else
+  } else {
     cols = allnumfeats
+  }
 
   fun = switch(what,
     abs = function(x) abs(x) > threshold,
@@ -71,8 +72,9 @@ capLargeValues.data.frame = function(obj, target = character(0L), cols = NULL,
   for (cn in cols) {
     x = obj[[cn]]
     ind = which(fun(x))
-    if (length(ind) > 0L)
+    if (length(ind) > 0L) {
       obj[ind, cn] = ifelse(x[ind] > threshold, impute, -impute)
+    }
   }
   return(obj)
 }

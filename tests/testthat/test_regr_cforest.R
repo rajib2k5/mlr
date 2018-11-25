@@ -33,4 +33,5 @@ test_that("regr_cforest", {
     list(replace = FALSE)
   )
   testSimpleParsets("regr.cforest", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list3)
-})
+}
+)

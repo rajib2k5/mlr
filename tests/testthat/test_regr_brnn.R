@@ -15,11 +15,15 @@ test_that("regr_brnn", {
     pars = list(formula = regr.formula, data = regr.train)
     pars = c(pars, parset.list[[i]])
     set.seed(getOption("mlr.debug.seed"))
-    capture.output({m = do.call(brnn::brnn, pars)})
+    capture.output({
+      m = do.call(brnn::brnn, pars)
+    }
+    )
     p = predict(m, newdata = regr.test)
     old.predicts.list[[i]] = p
   }
 
   testSimpleParsets("regr.brnn", regr.df, regr.target, regr.train.inds,
     old.predicts.list, parset.list)
-})
+}
+)

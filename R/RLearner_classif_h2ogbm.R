@@ -6,7 +6,7 @@ makeRLearner.classif.h2o.gbm = function() {
     par.set = makeParamSet(
       makeIntegerLearnerParam("ntrees", lower = 1L, default = 50L),
       makeIntegerLearnerParam("max_depth", lower = 1L, default = 5L),
-      makeIntegerLearnerParam("min_rows", lower = 1L,  default = 10L),
+      makeIntegerLearnerParam("min_rows", lower = 1L, default = 10L),
       makeNumericLearnerParam("learn_rate", lower = 0, upper = 1, default = 0.1),
       makeIntegerLearnerParam("nbins", lower = 1L, default = 20L),
       makeIntegerLearnerParam("nbins_cats", lower = 1L, default = 1024L),
@@ -23,7 +23,7 @@ makeRLearner.classif.h2o.gbm = function() {
 }
 
 #' @export
-trainLearner.classif.h2o.gbm = function(.learner, .task, .subset, .weights = NULL,  ...) {
+trainLearner.classif.h2o.gbm = function(.learner, .task, .subset, .weights = NULL, ...) {
   # check if h2o connection already exists, otherwise start one
   conn.up = tryCatch(h2o::h2o.getConnection(), error = function(err) return(FALSE))
   if (!inherits(conn.up, "H2OConnection")) {
@@ -47,8 +47,9 @@ predictLearner.classif.h2o.gbm = function(.learner, .model, .newdata, ...) {
   # check if class names are integers. if yes, colnames of p.df need to be adapted
   int = stri_detect_regex(p.df$predict, "^[[:digit:]]+$")
   pcol = stri_detect_regex(colnames(p.df), "^p[[:digit:]]+$")
-  if (any(int) && any(pcol))
+  if (any(int) && any(pcol)) {
     colnames(p.df)[pcol] = stri_sub(colnames(p.df)[pcol], 2L)
+  }
 
   if (.learner$predict.type == "response") {
     return(p.df$predict)

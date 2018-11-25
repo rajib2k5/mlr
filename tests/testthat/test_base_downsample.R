@@ -1,6 +1,6 @@
 context("downsample")
 
-test_that("downsample",  {
+test_that("downsample", {
   down.tsk = downsample(multiclass.task, perc = 1 / 3)
   expect_equal(getTaskSize(down.tsk), 50L)
   rsm.methods = c("Bootstrap", "Subsample", "Holdout")
@@ -14,9 +14,10 @@ test_that("downsample",  {
       )
     )
   }
-})
+}
+)
 
-test_that("downsample wrapper",  {
+test_that("downsample wrapper", {
   # test it with classif
   rdesc = makeResampleDesc("CV", iters = 2)
   lrn = makeDownsampleWrapper("classif.rpart", dw.perc = 0.5)
@@ -28,18 +29,20 @@ test_that("downsample wrapper",  {
   lrn = makeDownsampleWrapper("regr.rpart", dw.perc = 0.5)
   r = resample(lrn, regr.task, rdesc)
   expect_true(!is.na(r$aggr))
-})
+}
+)
 
-test_that("downsample wrapper works with xgboost, we had issue #492",  {
+test_that("downsample wrapper works with xgboost, we had issue #492", {
   skip_if_not_installed("xgboost") # xgboost broken on CRAN, they cannot run our tests
   rdesc = makeResampleDesc("CV", iters = 2)
   lrn = makeDownsampleWrapper("classif.xgboost", dw.perc = 0.5)
   expect_output(print(lrn), "down")
   r = resample(lrn, binaryclass.task, rdesc)
   expect_true(!is.na(r$aggr))
-})
+}
+)
 
-test_that("downsample wrapper works with weights, we had issue #838",  {
+test_that("downsample wrapper works with weights, we had issue #838", {
   n = nrow(regr.df)
   w = 1:n
   task = makeRegrTask(data = regr.df, target = regr.target, weights = w)
@@ -62,7 +65,8 @@ test_that("downsample wrapper works with weights, we had issue #838",  {
   u = getLearnerModel(m, more.unwrap = TRUE)$weights
   expect_equal(length(u), 5)
   expect_subset(u, 1:10)
-})
+}
+)
 
 test_that("training performance works as expected (#1357)", {
   num = makeMeasure(id = "num", minimize = FALSE,
@@ -77,4 +81,5 @@ test_that("training performance works as expected (#1357)", {
   lrn = makeDownsampleWrapper("classif.rpart", dw.perc = 0.1)
   r = resample(lrn, multiclass.task, rdesc, measures = list(setAggregation(num, train.mean)))
   expect_lte(r$measures.train$num, getTaskSize(multiclass.task) * 0.1)
-})
+}
+)

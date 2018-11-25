@@ -20,7 +20,7 @@ test_that("regr_rpart", {
     pars = c(pars, parset)
     set.seed(getOption("mlr.debug.seed"))
     m = do.call(rpart::rpart, pars)
-    p  = predict(m, newdata = regr.test)
+    p = predict(m, newdata = regr.test)
     old.predicts.list[[i]] = p
   }
 
@@ -30,4 +30,5 @@ test_that("regr_rpart", {
   tp = function(model, newdata) predict(model, newdata)
 
   testCVParsets("regr.rpart", regr.df, regr.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-})
+}
+)

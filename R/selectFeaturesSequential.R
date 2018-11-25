@@ -2,11 +2,13 @@
 selectFeaturesSequential = function(learner, task, resampling, measures, bit.names, bits.to.features, control, opt.path, show.info) {
   seq.step = function(forward, state, gen.new.states, compare) {
     # we have too many vars already and cannot move forward
-    if (forward && !is.na(control$max.features) && control$max.features <= sum(unlist(state$x)))
+    if (forward && !is.na(control$max.features) && control$max.features <= sum(unlist(state$x))) {
       return(NULL)
+    }
     xs = gen.new.states(state$x)
-    if (length(xs) == 0)
+    if (length(xs) == 0) {
       return(NULL)
+    }
     dob = max(opt.path$env$dob) + 1L
     # die at once
     evalOptimizationStatesFeatSel(learner, task, resampling, measures, bits.to.features, control, opt.path, show.info, xs, dob, dob)
@@ -74,7 +76,7 @@ selectFeaturesSequential = function(learner, task, resampling, measures, bit.nam
 
   forward = (method %in% c("sfs", "sffs"))
   fail = 0
-  while ((method %in% c("sfs", "sbs")  && fail == 0) || (method %in% c("sffs", "sfbs") && fail < 2)) {
+  while ((method %in% c("sfs", "sbs") && fail == 0) || (method %in% c("sffs", "sfbs") && fail < 2)) {
     state2 = seq.step(forward, state, gen.new.states, compare)
     # we could not move to state2 in normal step, stay where we are
     if (!is.null(state2)) {
@@ -85,11 +87,11 @@ selectFeaturesSequential = function(learner, task, resampling, measures, bit.nam
       fail = fail + 1
     }
     if (method %in% c("sffs", "sfbs")) {
-      #cat("forward:", !forward, "\n")
+      # cat("forward:", !forward, "\n")
       gns = switch(method,
         sffs = gen.new.states.sbs,
         sfbs = gen.new.states.sfs
-        )
+      )
       state2 = seq.step(!forward, state, gns, compare)
       if (!is.null(state2)) {
         state = state2
@@ -103,7 +105,8 @@ selectFeaturesSequential = function(learner, task, resampling, measures, bit.nam
   # if last generation contains no better element, go to second to last
   last = max(opt.path$env$dob)
 
-  if (all(opt.path$env$eol[opt.path$env$dob == last] == last))
+  if (all(opt.path$env$eol[opt.path$env$dob == last] == last)) {
     last = last - 1
+  }
   makeFeatSelResultFromOptPath(learner, measures, resampling, control, opt.path, dob = last, ties = "first", task = task, bits.to.features = bits.to.features)
 }

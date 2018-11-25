@@ -25,11 +25,12 @@ test_that("generate data", {
   names(orig)[names(orig) == "dob"] = "iteration"
   new = generateHyperParsEffectData(res, trafo = TRUE)
   expect_equivalent(new$data, orig)
-})
+}
+)
 
 test_that("1 numeric hyperparam", {
   # generate data
-  ps = makeParamSet(makeDiscreteParam("C", values = 2^ (-2:2)))
+  ps = makeParamSet(makeDiscreteParam("C", values = 2^(-2:2)))
   ctrl = makeTuneControlGrid()
   rdesc = makeResampleDesc("Holdout")
   res = tuneParams("classif.ksvm", task = pid.task, resampling = rdesc,
@@ -54,7 +55,8 @@ test_that("1 numeric hyperparam", {
   expect_equal(plt$labels$y, "acc.test.mean")
 
   # FIXME: make sure plot looks as expected
-})
+}
+)
 
 test_that("1 discrete hyperparam", {
   # generate data
@@ -83,7 +85,8 @@ test_that("1 discrete hyperparam", {
   expect_equal(plt$labels$y, "acc.test.mean")
 
   # FIXME: make sure plot looks as expected
-})
+}
+)
 
 test_that("1 numeric hyperparam with optimizer failure", {
   # generate data
@@ -112,7 +115,8 @@ test_that("1 numeric hyperparam with optimizer failure", {
   expect_equal(plt$labels$y, "acc.test.mean")
 
   # FIXME: make sure plot looks as expected
-})
+}
+)
 
 test_that("1 numeric hyperparam with nested cv", {
   # generate data
@@ -143,7 +147,8 @@ test_that("1 numeric hyperparam with nested cv", {
   expect_equal(plt$labels$y, "mmce.test.mean")
 
   # FIXME: make sure plot looks as expected
-})
+}
+)
 
 test_that("2 hyperparams", {
   # generate data
@@ -209,7 +214,8 @@ test_that("2 hyperparams", {
   expect_equal(plt$labels$shape, "learner_status")
 
   # FIXME: make sure plots looks as expected
-})
+}
+)
 
 test_that("2 hyperparams nested", {
   # generate data
@@ -264,7 +270,8 @@ test_that("2 hyperparams nested", {
   expect_equal(plt$labels$y, "sigma")
   expect_equal(plt$labels$fill, "acc.test.mean")
   expect_equal(plt$labels$shape, "learner_status")
-})
+}
+)
 
 test_that("2+ hyperparams", {
   # generate data
@@ -352,4 +359,5 @@ test_that("2+ hyperparams", {
   expect_equal(plt$labels$y, "acc.test.mean")
 
   # FIXME: make sure plots looks as expected
-})
+}
+)

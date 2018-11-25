@@ -20,7 +20,8 @@ test_that("parallel resampling", {
   doit("socket", as.character(NA))
   doit("socket", "mlr.resample")
   doit("socket", "mlr.tuneParams")
-})
+}
+)
 
 test_that("parallel tuning", {
   doit = function(mode, level) {
@@ -44,7 +45,8 @@ test_that("parallel tuning", {
   doit("socket", as.character(NA))
   doit("socket", "mlr.resample")
   doit("socket", "mlr.tuneParams")
-})
+}
+)
 
 test_that("parallel featsel", {
   doit = function(mode, level) {
@@ -67,7 +69,8 @@ test_that("parallel featsel", {
   doit("socket", as.character(NA))
   doit("socket", "mlr.resample")
   doit("socket", "mlr.tuneParams")
-})
+}
+)
 
 test_that("parallel exporting of options works", {
   doit = function(mode, level) {
@@ -86,7 +89,8 @@ test_that("parallel exporting of options works", {
   doit("socket", as.character(NA))
   # make sure
   configureMlr(on.learner.error = "stop")
-})
+}
+)
 
 test_that("parallel partial dependence", {
   doit = function(mode) {
@@ -102,7 +106,8 @@ test_that("parallel partial dependence", {
     doit("mpi")
   }
   doit("socket")
-})
+}
+)
 
 test_that("parallel ensembles", {
   doit = function(mode, level) {
@@ -148,10 +153,11 @@ test_that("parallel ensembles", {
     p = predict(fit, multilabel.task)
   }
 
-    ## CostSensWeightedPairsWrapper
+  ## CostSensWeightedPairsWrapper
   if (Sys.info()["sysname"] != "Windows") {
     doit("multicore", "mlr.ensemble")
     doit("mpi", "mlr.ensemble")
   }
   doit("socket", "mlr.ensemble")
-})
+}
+)

@@ -6,4 +6,5 @@ test_that("b632+", {
   r = resample(makeLearner("classif.lda"), multiclass.task, res, measures = m)
   x = r$aggr[["mmce.b632plus"]]
   expect_true(is.numeric(x) & length(x) == 1 && !is.na(x))
-})
+}
+)

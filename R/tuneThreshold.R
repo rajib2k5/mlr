@@ -31,10 +31,12 @@ tuneThreshold = function(pred, measure, task, model, nsub = 20L, control = list(
   td = pred$task.desc
   ttype = td$type
   measure = checkMeasures(measure, td)[[1L]]
-  if (!missing(task))
+  if (!missing(task)) {
     assertClass(task, classes = "SupervisedTask")
-  if (!missing(model))
+  }
+  if (!missing(model)) {
     assertClass(model, classes = "WrappedModel")
+  }
   assertList(control)
 
   probs = getPredictionProbabilities(pred)
@@ -47,8 +49,9 @@ tuneThreshold = function(pred, measure, task, model, nsub = 20L, control = list(
   cls = pred$task.desc$class.levels
   k = length(cls)
   fitn = function(x) {
-    if (ttype == "multilabel" || k > 2)
+    if (ttype == "multilabel" || k > 2) {
       names(x) = cls
+    }
     performance(setThreshold(pred, x), measure, task, model)
   }
 

@@ -30,8 +30,9 @@ trainLearner.surv.cv.CoxBoost = function(.learner, .task, .subset, .weights = NU
   data = getTaskData(.task, subset = .subset, target.extra = TRUE, recode.target = "surv")
   info = getFixDataInfo(data$data, factors.to.dummies = TRUE, ordered.to.int = TRUE)
 
-  if (is.null(penalty))
+  if (is.null(penalty)) {
     penalty = 9 * sum(data$target[, 2L])
+  }
 
   pars = c(list(
     time = data$target[, 1L],
@@ -44,8 +45,9 @@ trainLearner.surv.cv.CoxBoost = function(.learner, .task, .subset, .weights = NU
 
   res = do.call(CoxBoost::cv.CoxBoost, pars)
   res$optimal.step
-  if (res$optimal.step == 0L)
+  if (res$optimal.step == 0L) {
     warning("Could not determine the optimal step number in cv.CoxBoost")
+  }
 
   pars = insert(pars, list(stepno = res$optimal.step))
   pars$maxstepno = NULL

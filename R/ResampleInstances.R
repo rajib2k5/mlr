@@ -20,7 +20,7 @@ instantiateResampleInstance.CVDesc = function(desc, size, task = NULL) {
 
     # CV with only predefined indices ("fixed")
 
-    if(is.null(task$blocking)) {
+    if (is.null(task$blocking)) {
       stopf("To use blocking in resampling, you need to pass a factor variable when creating the task!")
     }
 
@@ -52,7 +52,7 @@ instantiateResampleInstance.CVDesc = function(desc, size, task = NULL) {
     if (0 %in% length.test.inds) {
       index = match(0, length.test.inds)
       test.inds[[index]] = NULL
-      size = length(task$env$data[,1])
+      size = length(task$env$data[, 1])
       desc$iters = length(test.inds)
     }
     makeResampleInstanceInternal(desc, size, test.inds = test.inds)
@@ -60,7 +60,6 @@ instantiateResampleInstance.CVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.SpCVDesc = function(desc, size, task = NULL) {
-
   if (is.null(task)) {
     stopf("Please provide a task.")
   }
@@ -124,9 +123,9 @@ instantiateResampleInstance.GrowingWindowCVDesc = function(desc, size, task = NU
 }
 
 instantiateResampleInstance.CVHelperDesc = function(desc, size, task = NULL) {
-
-  if (desc$iters > size)
+  if (desc$iters > size) {
     stopf("Cannot use more folds (%i) than size (%i)!", desc$iters, size)
+  }
   test.inds = chunk(seq_len(size), shuffle = TRUE, n.chunks = desc$iters)
   makeResampleInstanceInternal(desc, size, test.inds = test.inds)
 }

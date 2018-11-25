@@ -9,4 +9,5 @@ test_that("getOptions and configureMlr", {
 
   do.call(configureMlr, mlr.options)
   expect_equal(getMlrOptions(), mlr.options)
-})
+}
+)

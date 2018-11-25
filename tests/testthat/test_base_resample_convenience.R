@@ -1,7 +1,6 @@
 context("resample_convenience")
 
 test_that("resample convenience functions", {
-
   mycheck = function(r) {
     expect_true(all(!is.na(r$aggr)))
   }
@@ -26,4 +25,5 @@ test_that("resample convenience functions", {
   mycheck(r)
   r = bootstrapB632plus("classif.rpart", multiclass.task, iters = 1L)
   mycheck(r)
-})
+}
+)

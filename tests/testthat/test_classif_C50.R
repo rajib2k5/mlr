@@ -48,5 +48,5 @@ test_that("classif_C50", {
     multiclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.C50", multiclass.df, multiclass.target,
     multiclass.train.inds, old.probs.list, parset.list)
-})
-
+}
+)

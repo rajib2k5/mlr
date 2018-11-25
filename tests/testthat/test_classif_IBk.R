@@ -16,7 +16,7 @@ test_that("classif_IBk", {
     ctrl = do.call(RWeka::Weka_control, parset)
     set.seed(getOption("mlr.debug.seed"))
     m = RWeka::IBk(formula = multiclass.formula, data = multiclass.train, control = ctrl)
-    p  = predict(m, newdata = multiclass.test, type = "class")
+    p = predict(m, newdata = multiclass.test, type = "class")
     p2 = predict(m, newdata = multiclass.test, type = "prob")
     old.predicts.list[[i]] = p
     old.probs.list[[i]] = p2
@@ -32,4 +32,5 @@ test_that("classif_IBk", {
   tp = function(model, newdata) predict(model, newdata, type = "class")
 
   testCVParsets("classif.IBk", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-})
+}
+)

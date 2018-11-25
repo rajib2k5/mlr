@@ -17,4 +17,5 @@ test_that("loo instance works", {
     expect_equal(length(i2), 1)
     expect_equal(sort(c(unique(i1), i2)), 1:10)
   }
-})
+}
+)

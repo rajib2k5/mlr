@@ -12,12 +12,14 @@ makeSurvTask = function(id = deparse(substitute(data)), data, target, weights = 
     time = data[[target[1L]]]
     event = data[[target[2L]]]
 
-    if (is.integer(time))
+    if (is.integer(time)) {
       data[[target[1L]]] = as.double(time)
+    }
 
     if (is.numeric(event)) {
-      if (testIntegerish(event) && all(as.integer(event) %in% c(0L, 1L)))
+      if (testIntegerish(event) && all(as.integer(event) %in% c(0L, 1L))) {
         data[[target[2L]]] = (as.integer(event) == 1L)
+      }
     } else if (is.factor(event)) {
       lvls = levels(event)
       if (length(lvls) == 2L) {

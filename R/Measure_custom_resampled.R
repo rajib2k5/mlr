@@ -54,7 +54,6 @@
 makeCustomResampledMeasure = function(measure.id, aggregation.id, minimize = TRUE, properties = character(0L),
   fun, extra.args = list(), best = NULL, worst = NULL, measure.name = measure.id,
   aggregation.name = aggregation.id, note = "") {
-
   assertString(measure.id)
   assertString(aggregation.id)
   assertFlag(minimize)
@@ -69,7 +68,7 @@ makeCustomResampledMeasure = function(measure.id, aggregation.id, minimize = TRU
   fun1 = function(task, model, pred, feats, extra.args) NA_real_
   # args are checked here
   custom = makeMeasure(id = measure.id, minimize, properties, fun1, extra.args,
-   best = best, worst = worst, name = measure.name, note = note)
+    best = best, worst = worst, name = measure.name, note = note)
   fun2 = function(task, perf.test, perf.train, measure, group, pred)
     fun(task, group, pred, extra.args)
   # we set the properties to "no requirements" here

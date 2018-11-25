@@ -27,4 +27,5 @@ test_that("summarizeColumns", {
   expect_equal(s$na, c(0, 0, 0, 0, 1))
   expect_equal(s[5L, "min"], 49L)
   expect_equal(s[5L, "max"], 50L)
-})
+}
+)

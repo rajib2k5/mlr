@@ -30,7 +30,7 @@ makeRLearner.classif.h2o.glm = function() {
 }
 
 #' @export
-trainLearner.classif.h2o.glm = function(.learner, .task, .subset, .weights = NULL,  ...) {
+trainLearner.classif.h2o.glm = function(.learner, .task, .subset, .weights = NULL, ...) {
   # check if h2o connection already exists, otherwise start one
   conn.up = tryCatch(h2o::h2o.getConnection(), error = function(err) return(FALSE))
   if (!inherits(conn.up, "H2OConnection")) {
@@ -58,8 +58,9 @@ predictLearner.classif.h2o.glm = function(.learner, .model, .newdata, ...) {
   # check if class names are integers. if yes, colnames of p.df need to be adapted
   int = stri_detect_regex(p.df$predict, "^[[:digit:]]+$")
   pcol = stri_detect_regex(colnames(p.df), "^p[[:digit:]]+$")
-  if (any(int) && any(pcol))
+  if (any(int) && any(pcol)) {
     colnames(p.df)[pcol] = stri_sub(colnames(p.df)[pcol], 2L)
+  }
 
   if (.learner$predict.type == "response") {
     return(p.df$predict)

@@ -4,7 +4,7 @@ test_that("classif_randomForest", {
   requirePackagesOrSkip("randomForest", default.method = "load")
   parset.list = list(
     list(),
-    list(ntree = 50,  mtry = 2),
+    list(ntree = 50, mtry = 2),
     list(ntree = 50, mtry = 4),
     list(ntree = 200, mtry = 2),
     list(ntree = 2000, mtry = 4, proximity = TRUE, oob.prox = TRUE)
@@ -37,13 +37,14 @@ test_that("classif_randomForest", {
   testCVParsets("classif.randomForest", multiclass.df, multiclass.target, tune.train = tt, parset.list = parset.list)
 
   # FIXME test RF with one constant feature
-  #data = multiclass.df
-  #data = data[, c(1,5)]
-  #data[, 1] = 1
-  #task = makeClassifTask(data=data, target=multiclass.target)
-  #m = train(makeLearner("classif.randomForest"), task)
-  #p = predict(m, task=task)
-})
+  # data = multiclass.df
+  # data = data[, c(1,5)]
+  # data[, 1] = 1
+  # task = makeClassifTask(data=data, target=multiclass.target)
+  # m = train(makeLearner("classif.randomForest"), task)
+  # p = predict(m, task=task)
+}
+)
 
 test_that("fix factors work", {
   data(iris)
@@ -59,4 +60,5 @@ test_that("fix factors work", {
   newdata = data[head(test, 1L), ]
   newdata$Species = droplevels(newdata$Species)
   expect_is(predict(model, newdata = newdata), "Prediction")
-})
+}
+)

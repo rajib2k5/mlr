@@ -44,7 +44,7 @@ trainLearner.MultilabelStackingWrapper = function(.learner, .task, .subset = NUL
     ctask = makeClassifTask(id = tn, data = data2, target = tn)
     rdesc = makeResampleDesc("CV", iters = .learner$cv.folds)
     r = resample(.learner$next.learner, ctask, rdesc, weights = .weights, show.info = FALSE)
-    as.numeric(as.logical(r$pred$data[order(r$pred$data$id), ]$response)) #did not use getPredictionResponse, because of ordering
+    as.numeric(as.logical(r$pred$data[order(r$pred$data$id), ]$response)) # did not use getPredictionResponse, because of ordering
   }
   pred.labels = sapply(targets, f)
   # train meta level learners

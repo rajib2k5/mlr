@@ -1,5 +1,4 @@
 tuneMultiCritNSGA2 = function(learner, task, resampling, measures, par.set, control, opt.path, show.info, resample.fun) {
-
   requirePackages("mco", why = "tuneMultiCritNSGA2", default.method = "load")
   low = getLower(par.set)
   upp = getUpper(par.set)
@@ -16,4 +15,3 @@ tuneMultiCritNSGA2 = function(learner, task, resampling, measures, par.set, cont
 
   makeTuneMultiCritResultFromOptPath(learner, par.set, measures, resampling, control, opt.path)
 }
-

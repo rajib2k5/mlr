@@ -29,7 +29,7 @@ test_that("surv_glmnet", {
     } else {
       m = do.call(glmnet::glmnet, pars)
     }
-    p  = predict(m, newx = as.matrix(surv.test[, -c(1, 2, 7)]), type = "link", s = 0.01)
+    p = predict(m, newx = as.matrix(surv.test[, -c(1, 2, 7)]), type = "link", s = 0.01)
     old.predicts.list[[i]] = as.numeric(p)
   }
 
@@ -37,4 +37,5 @@ test_that("surv_glmnet", {
 
   # check that we restored the factory default
   expect_true(glmnet::glmnet.control()$prec < 1e-4) # should be ==1e-5
-})
+}
+)

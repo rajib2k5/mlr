@@ -25,4 +25,5 @@ test_that("surv_rpart", {
   }
 
   testSimpleParsets("surv.rpart", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-})
+}
+)

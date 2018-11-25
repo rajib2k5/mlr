@@ -45,8 +45,7 @@
 #' @noMd
 #' @export
 generateLearningCurveData = function(learners, task, resampling = NULL,
-  percs = seq(0.1, 1, by = 0.1), measures, stratify = FALSE, show.info = getMlrOption("show.info"))  {
-
+  percs = seq(0.1, 1, by = 0.1), measures, stratify = FALSE, show.info = getMlrOption("show.info")) {
   learners = ensureVector(learners, 1, "Learner")
   learners = lapply(learners, checkLearner)
   assertClass(task, "Task")
@@ -54,10 +53,11 @@ generateLearningCurveData = function(learners, task, resampling = NULL,
   measures = checkMeasures(measures, task)
   assertFlag(stratify)
 
-  if (is.null(resampling))
+  if (is.null(resampling)) {
     resampling = makeResampleInstance("Holdout", task = task)
-  else
+  } else {
     assert(checkClass(resampling, "ResampleDesc"), checkClass(resampling, "ResampleInstance"))
+  }
 
   # create downsampled versions for all learners
   lrnds1 = lapply(learners, function(lrn) {
@@ -69,12 +69,14 @@ generateLearningCurveData = function(learners, task, resampling = NULL,
         lrn = setLearnerId(dsw, stri_paste(lrn$id, ".", p.id)),
         perc = perc
       )
-    })
-  })
+    }
+    )
+  }
+  )
   lrnds2 = unlist(lrnds1, recursive = FALSE)
   dsws = extractSubList(lrnds2, "lrn", simplify = FALSE)
 
-  bench.res = benchmark(dsws, task, resampling,  measures, show.info = show.info)
+  bench.res = benchmark(dsws, task, resampling, measures, show.info = show.info)
   perfs = getBMRAggrPerformances(bench.res, as.df = TRUE)
 
   # get perc and learner col data
@@ -138,15 +140,18 @@ plotLearningCurve = function(obj, facet = "measure", pretty.names = TRUE,
   nlearn = length(unique(data$learner))
   nmeas = length(unique(data$measure))
 
-  if ((color == "learner" & nlearn == 1L) | (color == "measure" & nmeas == 1L))
+  if ((color == "learner" & nlearn == 1L) | (color == "measure" & nmeas == 1L)) {
     color = NULL
-  if ((facet == "learner" & nlearn == 1L) | (facet == "measure" & nmeas == 1L))
+  }
+  if ((facet == "learner" & nlearn == 1L) | (facet == "measure" & nmeas == 1L)) {
     facet = NULL
+  }
 
-  if (!is.null(color))
+  if (!is.null(color)) {
     plt = ggplot(data, aes_string(x = "percentage", y = "performance", colour = color))
-  else
+  } else {
     plt = ggplot(data, aes_string(x = "percentage", y = "performance"))
+  }
   plt = plt + geom_point()
   plt = plt + geom_line()
   if (!is.null(facet)) {

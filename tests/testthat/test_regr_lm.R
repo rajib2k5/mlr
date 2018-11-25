@@ -7,4 +7,5 @@ test_that("regr_lm", {
   p = predict(m, newdata = regr.test)
 
   testSimple("regr.lm", regr.df, regr.target, regr.train.inds, p)
-})
+}
+)

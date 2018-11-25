@@ -8,8 +8,9 @@ selectFeaturesGA = function(learner, task, resampling, measures, bit.names, bits
   for (i in seq_len(mu)) {
     while (TRUE) {
       states[[i]] = rbinom(length(bit.names), 1, 0.5)
-      if (is.na(control$max.features) || sum(states[[i]] <= control$max.features))
+      if (is.na(control$max.features) || sum(states[[i]] <= control$max.features)) {
         break
+      }
     }
   }
   evalOptimizationStatesFeatSel(learner, task, resampling, measures,
@@ -53,8 +54,9 @@ generateKid = function(featmat, control) {
   while (TRUE) {
     kid = crossover(featmat[parents[1L], ], featmat[parents[2L], ], control$extra.args$crossover.rate)
     kid = mutateBits(kid, control$extra.args$mutation.rate)
-    if (is.na(control$max.features) || sum(kid) <= control$max.features)
+    if (is.na(control$max.features) || sum(kid) <= control$max.features) {
       break
+    }
   }
   return(kid)
 }

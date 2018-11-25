@@ -60,14 +60,14 @@ calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = 
   truth = getPredictionTruth(pred)
 
   if (set != "both") {
-      assertClass(pred, classes = "ResamplePrediction")
-      subset.idx = (pred$data$set == set)
+    assertClass(pred, classes = "ResamplePrediction")
+    subset.idx = (pred$data$set == set)
 
-      if (!any(subset.idx)) {
-          stopf("prediction object contains no observations for set = '%s'", set)
-      }
-      truth = truth[subset.idx]
-      resp = resp[subset.idx]
+    if (!any(subset.idx)) {
+      stopf("prediction object contains no observations for set = '%s'", set)
+    }
+    truth = truth[subset.idx]
+    resp = resp[subset.idx]
   }
 
   cls = union(levels(resp), levels(truth))
@@ -98,19 +98,19 @@ calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = 
   js = 1:k # indexes for nonmargin cols
 
   if (relative) {
-
     normConfMatrix = function(r) {
-      if (any(r[js] > 0))
+      if (any(r[js] > 0)) {
         r / sum(r[js])
-      else
+      } else {
         rep(0, k)
+      }
     }
 
-    #normalize by rows and add margins as a new column
+    # normalize by rows and add margins as a new column
     result.rel.row = t(apply(tab, 1, normConfMatrix))
     result.rel.row = cbind(result.rel.row, "-err-" = rowSums(result.rel.row) - diag(result.rel.row))
 
-    #normalize by columns and add margins as a new row
+    # normalize by columns and add margins as a new row
     result.rel.col = apply(tab, 2, normConfMatrix)
     result.rel.col = rbind(result.rel.col, "-err-" = colSums(result.rel.col) - diag(result.rel.col))
 
@@ -134,11 +134,10 @@ calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = 
 #' @param ... (any)\cr
 #'  Currently not used.
 print.ConfusionMatrix = function(x, both = TRUE, digits = 2, ...) {
-
   assertFlag(both)
   assertInt(digits, lower = 1)
 
-  #formatting stuff, use digits after(!) the decimal point.
+  # formatting stuff, use digits after(!) the decimal point.
   nsmall = digits
   digits = nsmall - 1
 
@@ -159,12 +158,12 @@ print.ConfusionMatrix = function(x, both = TRUE, digits = 2, ...) {
     full.err = stri_pad_right(format(x$relative.error, digits = digits, nsmall = nsmall),
       width = nchar(res[1, 1]))
 
-    #bind marginal errors correctly formatted to rows and columns
+    # bind marginal errors correctly formatted to rows and columns
     res = rbind(res, stri_pad_left(format(col.err, digits = digits, nsmall = nsmall),
       width = nchar(res[1, 1])))
     res = cbind(res, c(format(row.err, digits = digits, nsmall = nsmall), full.err))
 
-    #also bind the marginal sums to the relative confusion matrix for printing
+    # also bind the marginal sums to the relative confusion matrix for printing
     if (x$sums) {
       res = rbind(cbind(res, c(x$result["-n-", 1:k], NA)), c(x$result[1:k, "-n-"], NA, n))
       dimnames(res) = list(true = c(cls, "-err.-", "-n-"), predicted = c(cls, "-err.-", "-n-"))

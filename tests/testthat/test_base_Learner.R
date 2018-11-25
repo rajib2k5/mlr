@@ -21,7 +21,8 @@ test_that("Learner", {
   expect_equal(wl$config$on.learner.error, "quiet")
 
   expect_error(makeLearner("classif.lda", predict.threshold = 1, "'prob' must hold"))
-})
+}
+)
 
 test_that("Learner operators work", {
   lrn = makeLearner("classif.lda", nu = 3)
@@ -48,4 +49,5 @@ test_that("Learner operators work", {
   wrapped.lrn = makeImputeWrapper(wrapped.lrn)
   wrapped.lrn.short.name = paste(c(wrapped.lrn.short.name, "imputed"), collapse = ".")
   expect_equal(getLearnerShortName(wrapped.lrn), wrapped.lrn.short.name)
-})
+}
+)

@@ -4,7 +4,10 @@ test_that("classif_multinom", {
   requirePackagesOrSkip("nnet", default.method = "load")
 
   set.seed(getOption("mlr.debug.seed"))
-  capture.output({m = nnet::multinom(formula = multiclass.formula, data = multiclass.train)})
+  capture.output({
+    m = nnet::multinom(formula = multiclass.formula, data = multiclass.train)
+  }
+  )
 
   set.seed(getOption("mlr.debug.seed"))
   p = predict(m, newdata = multiclass.test)
@@ -29,4 +32,5 @@ test_that("classif_multinom", {
   i = as.integer(pp < 0.5) + 1
   labs = as.factor(getTaskClassLevels(binaryclass.task)[i])
   expect_equal(rr, labs)
-})
+}
+)

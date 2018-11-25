@@ -37,7 +37,6 @@
 #' calculateROCMeasures(pred)
 #'
 calculateROCMeasures = function(pred) {
-
   checkPrediction(pred, task.type = "classif", check.truth = TRUE, no.na = TRUE, binary = TRUE)
   tab = calculateConfusionMatrix(pred, relative = FALSE)$result[1:2, 1:2]
   response = getPredictionResponse(pred)
@@ -45,7 +44,7 @@ calculateROCMeasures = function(pred) {
   positive = pred$task.desc$positive
   negative = pred$task.desc$negative
 
-  #calculate measures
+  # calculate measures
   r.tpr = measureTPR(truth, response, positive)
   r.fnr = measureFNR(truth, response, negative, positive)
   r.fpr = measureFPR(truth, response, negative, positive)
@@ -87,11 +86,10 @@ calculateROCMeasures = function(pred) {
 #'  Currently not used.
 #' @export
 print.ROCMeasures = function(x, abbreviations = TRUE, digits = 2, ...) {
-
   checkFlag(abbreviations)
   checkInt(digits, lower = 1)
 
-  #format measures
+  # format measures
   x$measures = mapply(function(m, v) paste0(m, ": ", round(v, digits)), names(x$measures), x$measures)
 
   res = cbind(round(x$confusion.matrix, digits = digits),
@@ -101,7 +99,7 @@ print.ROCMeasures = function(x, abbreviations = TRUE, digits = 2, ...) {
     c(x$measures[["ppv"]], x$measures[["fomr"]], x$measures[["lrp"]], x$measures[["acc"]]),
     c(x$measures[["fdr"]], x$measures[["npv"]], x$measures[["lrm"]], x$measures[["dor"]]))
 
-  #since we should not use "for" as a variable name in a list we replace it in the printer
+  # since we should not use "for" as a variable name in a list we replace it in the printer
   res[3, 2] = stri_replace_all_fixed(res[3, 2], "fomr", "for")
 
   names(dimnames(res)) = c("true", "predicted")
@@ -122,4 +120,3 @@ print.ROCMeasures = function(x, abbreviations = TRUE, digits = 2, ...) {
     cat("dor - Diagnostic odds ratio\n")
   }
 }
-

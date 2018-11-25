@@ -19,4 +19,5 @@ test_that("cluster_dbscan", {
 
   testSimpleParsets("cluster.dbscan", noclass.df, character(0L), noclass.train.inds,
     old.predicts.list, parset.list)
-})
+}
+)

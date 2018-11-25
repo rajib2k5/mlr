@@ -14,4 +14,5 @@ test_that("regr_GPfit", {
   m = GPfit::GP_fit(x[train.inds, ], y[train.inds])
   p = predict(m, xnew = x[-train.inds, ])
   testSimple("regr.GPfit", gpfit.test.df, "y", train.inds, p$Y_hat)
-})
+}
+)

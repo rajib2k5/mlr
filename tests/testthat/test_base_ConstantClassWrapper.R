@@ -18,7 +18,10 @@ test_that("ConstantClassWrapper predicts with response", {
   # one class present
   train.inds = 1:20
   try({
-    suppressAll({train(lrn1, multiclass.task, subset = train.inds)})
+    suppressAll({
+      train(lrn1, multiclass.task, subset = train.inds)
+    }
+    )
     fail("Data has more than one class.")
   }, silent = TRUE)
   m2 = train(lrn2, multiclass.task, subset = train.inds)
@@ -28,7 +31,8 @@ test_that("ConstantClassWrapper predicts with response", {
   have = getPredictionResponse(p2)
   want = rep.int(unique(multiclass.df[train.inds, multiclass.target]), length(multiclass.test.inds))
   expect_equal(have, want)
-})
+}
+)
 
 test_that("ConstantClassWrapper predicts with frac", {
   lrn1 = makeLearner("classif.rpart")
@@ -45,7 +49,8 @@ test_that("ConstantClassWrapper predicts with frac", {
   have = getPredictionResponse(p2)
   want = rep.int(multiclass.df[1, multiclass.target], length(multiclass.test.inds))
   expect_equal(have, want)
-})
+}
+)
 
 test_that("ConstantClassWrapper predicts with probs", {
   lrn1 = makeLearner("classif.rpart", predict.type = "prob")
@@ -65,7 +70,10 @@ test_that("ConstantClassWrapper predicts with probs", {
   # one class present
   train.inds = 1:20
   try({
-    suppressAll({train(lrn1, multiclass.task, subset = train.inds)})
+    suppressAll({
+      train(lrn1, multiclass.task, subset = train.inds)
+    }
+    )
     fail("Data has more than one class.")
   }, silent = TRUE)
   m2 = train(lrn2, multiclass.task, subset = train.inds)
@@ -80,5 +88,7 @@ test_that("ConstantClassWrapper predicts with probs", {
   sapply(names(probs), function(col) {
     prob = ifelse(col == unique(multiclass.df[train.inds, multiclass.target]), 1, 0)
     expect_true(all(probs[col] == prob))
-  })
-})
+  }
+  )
+}
+)

@@ -72,8 +72,9 @@ makeRLearnerInternal = function(id, type, package, par.set, par.vals, properties
   assertClass(par.set, classes = "ParamSet")
   checkListElementClass(par.set$pars, "LearnerParam")
   assertList(par.vals)
-  if (!isProperlyNamed(par.vals))
+  if (!isProperlyNamed(par.vals)) {
     stop("Argument par.vals must be a properly named list!")
+  }
   assertString(name)
   assertString(short.name)
   assertString(note)
@@ -93,14 +94,12 @@ makeRLearnerInternal = function(id, type, package, par.set, par.vals, properties
   learner$callees = callees
   learner$help.list = makeParamHelpList(callees, package, par.set)
   return(learner)
-
 }
 
 #' @export
 #' @rdname RLearner
 makeRLearnerClassif = function(cl, package, par.set, par.vals = list(), properties = character(0L),
   name = cl, short.name = cl, note = "", class.weights.param = NULL, callees = character(0L)) {
-
   lrn = addClasses(
     makeRLearnerInternal(cl, "classif", package, par.set, par.vals, properties, name, short.name, note, callees),
     c(cl, "RLearnerClassif")
@@ -109,10 +108,11 @@ makeRLearnerClassif = function(cl, package, par.set, par.vals = list(), properti
   # include the class.weights.param
   if ("class.weights" %in% getLearnerProperties(lrn)) {
     assertString(class.weights.param)
-    if (!is.null(par.set$pars[[class.weights.param]]))
+    if (!is.null(par.set$pars[[class.weights.param]])) {
       lrn$class.weights.param = class.weights.param
-    else
+    } else {
       stopf("'%s' needs to be defined in the parameter set as well.", class.weights.param)
+    }
   }
   return(lrn)
 }
@@ -157,7 +157,6 @@ makeRLearnerCluster = function(cl, package, par.set, par.vals = list(), properti
 #' @rdname RLearner
 makeRLearnerCostSens = function(cl, package, par.set, par.vals = list(), properties = character(0L),
   name = cl, short.name = cl, note = "", callees = character(0L)) {
-
   lrn = addClasses(
     makeRLearnerInternal(cl, "costsens", package, par.set, par.vals, properties, name, short.name, note, callees),
     c(cl, "RLearnerCostSens")

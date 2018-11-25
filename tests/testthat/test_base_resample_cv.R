@@ -16,7 +16,8 @@ test_that("cv instance works", {
     expect_true(max(i2) <= 25)
     expect_equal(sort(c(unique(i1), i2)), 1:25)
   }
-})
+}
+)
 
 test_that("cv resampling works", {
   data = multiclass.df
@@ -29,8 +30,10 @@ test_that("cv resampling works", {
 
   expect_true({
     testCV("classif.rpart", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp, parset = parset)
-  })
-})
+  }
+  )
+}
+)
 
 test_that("cv instance works is stochastic", {
   rin = makeResampleInstance(makeResampleDesc("CV", iters = 3), size = 25)
@@ -50,7 +53,8 @@ test_that("cv instance works is stochastic", {
   rin1 = makeResampleInstance(makeResampleDesc("CV", iters = 2L), size = 500)
   rin2 = makeResampleInstance(makeResampleDesc("CV", iters = 2L), size = 500)
   expect_true(!all(sort(rin1$test.inds[[1]]) == sort(rin2$test.inds[[1]])))
-})
+}
+)
 
 
 test_that("test.join works somehow", {
@@ -62,4 +66,5 @@ test_that("test.join works somehow", {
   rpred = getRRPredictions(r)
   expect_equal(as.numeric(r$aggr),
     mean(getPredictionTruth(rpred) == getPredictionResponse(rpred)))
-})
+}
+)

@@ -23,7 +23,8 @@ test_that("listLearners", {
   x = listLearners(properties = "factors", create = FALSE)
   expect_data_frame(x, min.rows = 20, min.cols = 3)
   expect_true(length(unique(x$type)) > 3L)
-})
+}
+)
 
 test_that("listLearners printer (#1336)", {
   x1 = listLearners(create = FALSE, warn.missing.packages = FALSE)
@@ -34,4 +35,5 @@ test_that("listLearners printer (#1336)", {
   out = capture.output(print(x1, n = 10), file = NULL)
   expect_equal(length(stri_match_all(out, regex = "\n")), 12)
   options(width = width)
-})
+}
+)

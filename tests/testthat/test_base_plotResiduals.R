@@ -1,7 +1,6 @@
 context("plotResiduals")
 
 test_that("plotResiduals with prediction object", {
-
   learner = makeLearner("regr.rpart")
   mod = train(learner, regr.task)
   preds = predict(mod, regr.task)
@@ -34,7 +33,8 @@ test_that("plotResiduals with prediction object", {
   doc = XML::xmlParse(path)
   num.points = sum(calculateConfusionMatrix(preds)$result[1:3, 1:3] != 0)
   expect_true(length(XML::getNodeSet(doc, black.circle.xpath, ns.svg)) > num.points)
-})
+}
+)
 
 test_that("plotResiduals with BenchmarkResult", {
   lrns = list(makeLearner("classif.ksvm"), makeLearner("classif.rpart"))
@@ -75,4 +75,5 @@ test_that("plotResiduals with BenchmarkResult", {
   res = benchmark(lrns, tasks, hout)
   expect_error(plotBMRSummary(res),
     "names are not unique")
-})
+}
+)

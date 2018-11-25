@@ -30,4 +30,5 @@ test_that("blocking", {
   rdesc = makeResampleDesc("RepCV", folds = 3, reps = 2, blocking.cv = TRUE)
   p = resample(lrn, ct, rdesc)$pred
   mycheck(rdesc, p, b)
-})
+}
+)

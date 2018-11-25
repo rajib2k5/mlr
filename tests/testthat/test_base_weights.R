@@ -26,7 +26,8 @@ test_that("weights", {
   expect_equal(p2, p$data$response, check.attributes = FALSE)
 
   expect_error(train(lrn, rger.task, weights = 1:2))
-})
+}
+)
 
 test_that("weights remain after subset", {
   tasks = list(binaryclass.task, multiclass.task, multilabel.task, regr.task, surv.task, noclass.task)
@@ -39,5 +40,5 @@ test_that("weights remain after subset", {
     expect_equal(subsetTask(wtask, 1:10)$weights, 1:10)
     expect_true(getTaskDesc(subsetTask(wtask, 1:10))$has.weights)
   }
-})
-    
+}
+)

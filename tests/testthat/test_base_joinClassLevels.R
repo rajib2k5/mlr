@@ -21,4 +21,5 @@ test_that("joinClassLevels", {
   expect_true(is.factor(d$Species))
   expect_equal(sum(d$Species == "versicolor"), 50L)
   expect_equal(sum(d$Species == "a"), 100L)
-})
+}
+)

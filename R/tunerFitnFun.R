@@ -8,7 +8,6 @@
 # one x
 tunerFitnFun = function(x, learner, task, resampling, measures, par.set, ctrl,
   opt.path, show.info, convertx, remove.nas, resample.fun, always.minimize = TRUE) {
-
   x = convertx(x, par.set)
   # transform parameters
   dob = ifelse(getOptPathLength(opt.path) == 0, 1, max(opt.path$env$dob) + 1)
@@ -29,7 +28,6 @@ tunerFitnFun = function(x, learner, task, resampling, measures, par.set, ctrl,
 }
 
 tunerSmoofFun = function(learner, task, resampling, measures, par.set, ctrl, opt.path, show.info, convertx, remove.nas, resample.fun) {
-
   measures = ensureVector(measures, n = 1L, cl = "Measure")
 
   # remove trafos for mbo, we do this in tunerFitnFun
@@ -56,7 +54,6 @@ tunerSmoofFun = function(learner, task, resampling, measures, par.set, ctrl, opt
 # multiple xs in parallel
 tunerFitnFunVectorized = function(xs, learner, task, resampling, measures, par.set, ctrl,
   opt.path, show.info, convertx, remove.nas, resample.fun) {
-
   xs = convertx(xs, par.set)
   dob = ifelse(getOptPathLength(opt.path) == 0, 1, max(opt.path$env$dob) + 1)
   res.list = evalOptimizationStatesTune(learner, task, resampling, measures, par.set, ctrl,
@@ -73,14 +70,16 @@ convertYForTuner = function(y, measures, ctrl, always.minimize = TRUE) {
   for (j in seq_len(k)) {
     z = y[[j]]
     # if there was any problem we return the imputed value that the user selected
-    if (is.na(z) || is.nan(z) || is.infinite(z))
+    if (is.na(z) || is.nan(z) || is.infinite(z)) {
       z = ctrl$impute.val[[j]]
+    }
     # we now negate values for maximization
     y[[j]] = if (always.minimize && !measures[[j]]$minimize) -1 * z else z
   }
   # for multicrit, return vector (without names), otherwise just scalar y
-  if (inherits(ctrl, "TuneMultiCritControl"))
+  if (inherits(ctrl, "TuneMultiCritControl")) {
     return(as.numeric(y))
-  else
+  } else {
     return(y[[1L]])
+  }
 }

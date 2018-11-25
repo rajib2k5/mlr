@@ -39,4 +39,5 @@ test_that("classif_cforest", {
   )
   testSimpleParsets("classif.cforest", binaryclass.df, binaryclass.target, binaryclass.train.inds,
     old.predicts.list, parset.list3)
-})
+}
+)

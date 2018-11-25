@@ -17,5 +17,5 @@ test_that("makeLearners", {
   expect_equal(res, lrns1)
   res = makeLearners(cls2, type = "classif", predict.type = "prob")
   expect_equal(res, lrns3)
-})
-
+}
+)

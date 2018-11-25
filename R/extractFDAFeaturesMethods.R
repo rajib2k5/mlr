@@ -54,7 +54,6 @@ extractFDAFourier = function(trafo.coeff = "phase") {
   assertChoice(trafo.coeff, choices = c("phase", "amplitude"))
 
   lrn = function(data, target = NULL, col, trafo.coeff) {
-
     assertClass(data, "data.frame")
     assertChoice(trafo.coeff, choices = c("amplitude", "phase"))
 
@@ -119,7 +118,8 @@ extractFDAWavelets = function(filter = "la8", boundary = "periodic") {
     wtdata = t(dapply(df, fun = function(x) {
       wt = wavelets::dwt(as.numeric(x), filter = filter, boundary = boundary)
       unlist(c(wt@W, wt@V[[wt@level]]))
-    }))
+    }
+    ))
 
     df = as.data.frame(wtdata)
     colnames(df) = stri_paste("wav", filter, seq_len(ncol(wtdata)), sep = ".")
@@ -158,14 +158,15 @@ extractFDAFPCA = function(pve = 0.99, npc = NULL) {
     data = data[, col, drop = FALSE]
 
     # transform dataframe into matrix
-    if (inherits(data, "data.frame"))
+    if (inherits(data, "data.frame")) {
       data = as.matrix(data)
+    }
 
     # extract fpca features
     # FIXME: Add other fpca. options, maybe via function args ?
     rst = refund::fpca.sc(Y = data, pve = pve, npc = npc)
     # Order the columns by score
-    features.fpca = rst$scores[, order(rst$evalues,  decreasing = TRUE)]
+    features.fpca = rst$scores[, order(rst$evalues, decreasing = TRUE)]
     df.fpca = as.data.frame(features.fpca)
     names(df.fpca) = paste0("Fpca", seq_len(ncol(df.fpca)))
     return(df.fpca)
@@ -210,7 +211,8 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
       }, clsum - curve.lens + 1, cumsum(curve.lens))
       # And return as vector
       unlist(subfeats)
-    })
+    }
+    )
     data.frame(t(feat.list))
   }
 
@@ -220,23 +222,24 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
     m = length(x)
     start = 1L
     feats = numeric(0L)
-    ssize = m  # initialize segment size to be the length of the curve
-    for (rl in 1:res.level) {  # ssize is divided by 2 at the end of the loop
-      soffset = ceiling(shift * ssize)  # overlap distance
+    ssize = m # initialize segment size to be the length of the curve
+    for (rl in 1:res.level) { # ssize is divided by 2 at the end of the loop
+      soffset = ceiling(shift * ssize) # overlap distance
       # messagef("reslev = %i, ssize = %i, soffset=%i", rl, ssize, soffset)
       sstart = 1L
-      send = sstart + ssize - 1L  # end position
-      while (send <= m) {  # until the segment reach the end
+      send = sstart + ssize - 1L # end position
+      while (send <= m) { # until the segment reach the end
         # messagef("start, end: %i, %i", sstart, send)
         f = getSegmentFeatures(x[sstart:send])
         # print(f)
-        feats = c(feats, f)  # append the feats from the last resolution hierachy
+        feats = c(feats, f) # append the feats from the last resolution hierachy
         sstart = sstart + soffset
         send = send + soffset
       }
-      ssize = ceiling(ssize / 2)  # decrease the segment size
-      if (ssize < 1L)  # if the the divide by 2 is too much
+      ssize = ceiling(ssize / 2) # decrease the segment size
+      if (ssize < 1L) { # if the the divide by 2 is too much
         break
+      }
     }
     return(feats)
   }
@@ -246,10 +249,10 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
   }
 
   lrn = function(data, target, col, res.level, shift, curve.lens) {
-
     data = data[, col, drop = FALSE]
-    if (is.data.frame(data))
+    if (is.data.frame(data)) {
       data = as.matrix(data)
+    }
     assertMatrix(data, mode = "numeric")
 
     # The difference is that for the getFDAMultiResFeatures, the curve is again subdivided into

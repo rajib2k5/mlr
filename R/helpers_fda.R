@@ -6,8 +6,9 @@ fdFeatsToColumnIndex = function(df, fd.features = NULL, exclude.cols = NULL) {
 
   # If fd.features is NULL, all numerics are a single functional feature
   # Already existing matricies are not converted
-  if (is.null(fd.features))
+  if (is.null(fd.features)) {
     fd.features = list("fd1" = setdiff(which(vlapply(df, is.numeric)), c(exclude.cols, fd.mats)))
+  }
 
   # Return the column index and check if indices/names refer to columns
   lapply(fd.features, function(fd.feature) {
@@ -18,7 +19,8 @@ fdFeatsToColumnIndex = function(df, fd.features = NULL, exclude.cols = NULL) {
       assertSubset(fd.feature, seq_len(ncol(df)))
       setdiff(fd.feature, exclude.cols)
     }
-  })
+  }
+  )
 }
 
 # Convert a data.frame containing functional features to a data.frame containing
@@ -30,6 +32,3 @@ functionalToNormalData = function(df) {
   }
   return(df)
 }
-
-
-

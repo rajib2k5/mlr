@@ -18,9 +18,10 @@ test_that("surv_coxph", {
     pars = c(pars, parset)
     set.seed(getOption("mlr.debug.seed"))
     m = do.call(survival::coxph, pars)
-    p  = predict(m, newdata = surv.test, type = "lp")
+    p = predict(m, newdata = surv.test, type = "lp")
     old.predicts.list[[i]] = p
   }
 
   testSimpleParsets("surv.coxph", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-})
+}
+)

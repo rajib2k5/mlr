@@ -25,15 +25,14 @@ test_that("classif_adaboostm1", {
     p = predict(m, newdata = binaryclass.test, type = "probability")
     old.probs.list[[i]] = p[, 1]
     old.predicts.list[[i]] = as.factor(binaryclass.class.levs[ifelse(p[, 2] > 0.5, 2, 1)])
-
   }
 
 
   testSimpleParsets("classif.adaboostm1", binaryclass.df, binaryclass.target,
-                    binaryclass.train.inds, old.predicts.list, parset.list)
+    binaryclass.train.inds, old.predicts.list, parset.list)
 
   testProbParsets("classif.adaboostm1", binaryclass.df, binaryclass.target,
-                  binaryclass.train.inds, old.probs.list, parset.list)
+    binaryclass.train.inds, old.probs.list, parset.list)
 
   for (i in seq_along(parset.list)) {
     parset = parset.list[[i]]
@@ -46,14 +45,13 @@ test_that("classif_adaboostm1", {
     p2 = predict(m, newdata = multiclass.test, type = "prob")
     old.predicts.list[[i]] = p
     old.probs.list[[i]] = p2
-
   }
 
   testSimpleParsets("classif.adaboostm1", multiclass.df, multiclass.target,
-                    multiclass.train.inds, old.predicts.list, parset.list)
+    multiclass.train.inds, old.predicts.list, parset.list)
 
   testProbParsets("classif.adaboostm1", multiclass.df, multiclass.target,
-                  multiclass.train.inds, old.probs.list, parset.list)
+    multiclass.train.inds, old.probs.list, parset.list)
 
   tt = function(formula, data, subset, ...) {
     RWeka::AdaBoostM1(formula, data = data[subset, ], control = RWeka::Weka_control(...))
@@ -62,5 +60,5 @@ test_that("classif_adaboostm1", {
   tp = function(model, newdata) predict(model, newdata, type = "class")
 
   testCVParsets("classif.adaboostm1", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-})
-
+}
+)

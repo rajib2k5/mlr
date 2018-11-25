@@ -28,5 +28,5 @@ test_that("classif_LiblineaRL2L1SVC", {
 
   testSimpleParsets("classif.LiblineaRL2L1SVC", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.predicts.list, parset.list)
-
-})
+}
+)

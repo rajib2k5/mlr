@@ -1,6 +1,5 @@
 tuneMBO = function(learner, task, resampling, measures, par.set, control,
   opt.path, show.info, resample.fun) {
-
   requirePackages("mlrMBO", why = "tuneMBO", default.method = "load")
   mbo.control = control$mbo.control
 

@@ -10,4 +10,5 @@ test_that("regr_rsm", {
   p = predict(m, newdata = regr.test)
 
   testSimple("regr.rsm", data, regr.target, regr.train.inds, p)
-})
+}
+)

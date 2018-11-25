@@ -47,5 +47,4 @@ predictLearner.regr.bgpllm = function(.learner, .model, .newdata, ...) {
   } else {
     return(cbind(p$ZZ.km, sqrt(p$ZZ.ks2)))
   }
-
 }

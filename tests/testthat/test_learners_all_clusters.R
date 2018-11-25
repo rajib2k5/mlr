@@ -22,4 +22,5 @@ test_that("learners work: cluster", {
   lapply(lrns, testThatLearnerRespectsWeights, hyperpars = hyperpars,
     task = task, train.inds = 1:20, test.inds = 1:20, weights = rep(c(1, 5), length.out = 20),
     pred.type = "prob", get.pred.fun = getPredictionProbabilities)
-})
+}
+)

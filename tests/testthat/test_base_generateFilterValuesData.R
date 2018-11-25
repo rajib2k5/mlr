@@ -38,7 +38,7 @@ test_that("filterFeatures", {
   expect_equal(ns, feat.imp.new$data$name)
   f = filterFeatures(binaryclass.task, method = "variance", abs = 5L)
   expect_true(setequal(getTaskFeatureNames(f),
-      head(sortByCol(feat.imp.new$data, "variance", asc = FALSE), 5L)$name))
+    head(sortByCol(feat.imp.new$data, "variance", asc = FALSE), 5L)$name))
   # now check that we get the same result by operating on generateFilterValuesData
   feat.imp.new = generateFilterValuesData(binaryclass.task, method = "variance")
   ff = filterFeatures(binaryclass.task, fval = feat.imp.new, abs = 5L)
@@ -57,7 +57,8 @@ test_that("filterFeatures", {
   f = getFilteredFeatures(m)
   expect_is(f, "character")
   expect_equal(length(f), 1L)
-})
+}
+)
 
 test_that("plotFilterValues", {
   filter.methods = listFilterMethods(tasks = TRUE)
@@ -86,7 +87,8 @@ test_that("plotFilterValues", {
   testFacetting(q, 2L)
   q = plotFilterValues(fv2, facet.wrap.ncol = 2L)
   testFacetting(q, ncol = 2L)
-})
+}
+)
 
 test_that("args are passed down to filter methods", { # we had an issue here, see #941
 
@@ -98,7 +100,8 @@ test_that("args are passed down to filter methods", { # we had an issue here, se
     nselect = 3, more.args = list(univariate.model.score = list(perf.learner = "regr.lm")))
 
   # create stupid dummy data and check that we can change the na.rm arg of filter "variance" in multiple ways
-  d = iris; d[1L, 1L] = NA_real_
+  d = iris
+  d[1L, 1L] = NA_real_
   task = makeClassifTask(data = d, target = "Species")
 
   f1 = generateFilterValuesData(task, method = "variance", na.rm = FALSE)
@@ -110,13 +113,15 @@ test_that("args are passed down to filter methods", { # we had an issue here, se
   expect_false(is.na(f2$data$variance[1L]))
   expect_false(is.na(f3$data$variance[1L]))
   expect_false(is.na(f4$data$variance[1L]))
-})
+}
+)
 
 test_that("errors for unsupported task and feature types", {
   expect_error(generateFilterValuesData(multiclass.task, method = c("mrmr", "variance", "linear.correlation")), "Filter(s) 'mrmr', 'linear.correlation' not compatible with task of type 'classif'", fixed = TRUE)
   expect_error(generateFilterValuesData(regr.task, method = c("mrmr", "carscore")), "Filter(s) 'mrmr', 'carscore' not compatible with features of type 'factors', and 'factors' respectively", fixed = TRUE)
   expect_error(generateFilterValuesData(regr.task, method = "carscore"), "Filter(s) 'carscore' not compatible with features of type 'factors' respectively", fixed = TRUE)
-})
+}
+)
 
 test_that("filter values are named and ordered correctly", { # we had an issue here, see #940
   ns = getTaskFeatureNames(regr.task)
@@ -132,14 +137,17 @@ test_that("filter values are named and ordered correctly", { # we had an issue h
       names(d) = ns
       d = c(d[-1], d[1])
       d
-  })
+    }
+  )
   fv = generateFilterValuesData(regr.task, method = "mock.filter")
   expect_equal(fv$data$name, ns)
   expect_equal(fv$data$mock.filter, seq_along(ns))
   rm("mock.filter", envir = mlr:::.FilterRegister)
-})
+}
+)
 
 test_that("filter method 'variance' works with missing values", {
   fi = generateFilterValuesData(regr.na.num.task, method = "variance")
   expect_false(anyMissing(fi$data$variance))
-})
+}
+)

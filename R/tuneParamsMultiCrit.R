@@ -50,10 +50,12 @@ tuneParamsMultiCrit = function(learner, task, resampling, measures, par.set, con
   assertList(measures, types = "Measure", min.len = 2L)
   assertClass(par.set, classes = "ParamSet")
   assertClass(control, classes = "TuneMultiCritControl")
-  if (!inherits(resampling, "ResampleDesc") &&  !inherits(resampling, "ResampleInstance"))
+  if (!inherits(resampling, "ResampleDesc") && !inherits(resampling, "ResampleInstance")) {
     stop("Argument resampling must be of class ResampleDesc or ResampleInstance!")
-  if (inherits(resampling, "ResampleDesc") && control$same.resampling.instance)
+  }
+  if (inherits(resampling, "ResampleDesc") && control$same.resampling.instance) {
     resampling = makeResampleInstance(resampling, task = task)
+  }
   assertFlag(show.info)
   control = setDefaultImputeVal(control, measures)
   checkTunerParset(learner, par.set, measures, control)
@@ -75,10 +77,8 @@ tuneParamsMultiCrit = function(learner, task, resampling, measures, par.set, con
     messagef("Imputation value: %g", control$impute.val)
   }
   or = sel.func(learner, task, resampling, measures, par.set, control, opt.path, show.info, resample.fun)
-  if (show.info)
+  if (show.info) {
     messagef("[Tune] Result: Points on front : %i", length(or$x))
+  }
   return(or)
 }
-
-
-

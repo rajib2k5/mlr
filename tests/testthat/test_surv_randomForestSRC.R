@@ -23,4 +23,5 @@ test_that("surv_randomForestSRC", {
   }
 
   testSimpleParsets("surv.randomForestSRC", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-})
+}
+)

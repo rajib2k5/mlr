@@ -73,7 +73,6 @@ makeFilterWrapper = function(learner, fw.method = "randomForestSRC.rfsrc", fw.pe
 #' @export
 trainLearner.FilterWrapper = function(.learner, .task, .subset = NULL, .weights = NULL,
   fw.method = "randomForestSRC.rfsrc", fw.perc = NULL, fw.abs = NULL, fw.threshold = NULL, fw.mandatory.feat = NULL, ...) {
-
   .task = subsetTask(.task, subset = .subset)
   .task = do.call(filterFeatures, c(list(task = .task, method = fw.method, perc = fw.perc, abs = fw.abs, threshold = fw.threshold, mandatory.feat = fw.mandatory.feat), .learner$more.args))
   m = train(.learner$next.learner, .task, weights = .weights)

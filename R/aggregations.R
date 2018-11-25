@@ -190,7 +190,7 @@ b632 = makeAggregation(
 )
 
 
-#FIXME: read this again properly and double check it
+# FIXME: read this again properly and double check it
 #' @export
 #' @rdname aggregations
 b632plus = makeAggregation(
@@ -258,6 +258,7 @@ test.join = makeAggregation(
         id = NULL, truth = df$truth, predict.type = pred$predict.type, y = y,
         time = NA_real_)
       performance(npred, measure)
-    }))
+    }
+    ))
   }
 )

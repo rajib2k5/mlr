@@ -30,7 +30,7 @@
 #' @export
 #' @family filter
 filterFeatures = function(task, method = "randomForestSRC.rfsrc", fval = NULL, perc = NULL, abs = NULL,
-                          threshold = NULL, mandatory.feat = NULL, ...) {
+  threshold = NULL, mandatory.feat = NULL, ...) {
   assertClass(task, "SupervisedTask")
   assertChoice(method, choices = ls(.FilterRegister))
   select = checkFilterArguments(perc, abs, threshold)
@@ -66,15 +66,18 @@ filterFeatures = function(task, method = "randomForestSRC.rfsrc", fval = NULL, p
 
   if (!is.null(mandatory.feat)) {
     assertCharacter(mandatory.feat)
-    if (!all(mandatory.feat %in% fval$name))
+    if (!all(mandatory.feat %in% fval$name)) {
       stop("At least one mandatory feature was not found in the task.")
-    if (select != "threshold" && nselect < length(mandatory.feat))
+    }
+    if (select != "threshold" && nselect < length(mandatory.feat)) {
       stop("The number of features to be filtered cannot be smaller than the number of mandatory features.")
-    #Set the the filter values of the mandatory features to infinity to always select them
+    }
+    # Set the the filter values of the mandatory features to infinity to always select them
     fval[fval$name %in% mandatory.feat, method] = Inf
   }
-  if (select == "threshold")
+  if (select == "threshold") {
     nselect = sum(fval[[method]] >= threshold, na.rm = TRUE)
+  }
   features = as.character(head(sortByCol(fval, method, asc = FALSE)$name, nselect))
   allfeats = getTaskFeatureNames(task)
   j = match(features, allfeats)
@@ -84,10 +87,12 @@ filterFeatures = function(task, method = "randomForestSRC.rfsrc", fval = NULL, p
 
 checkFilterArguments = function(perc, abs, threshold) {
   sum.null = sum(!is.null(perc), !is.null(abs), !is.null(threshold))
-  if (sum.null == 0L)
+  if (sum.null == 0L) {
     stop("At least one of 'perc', 'abs' or 'threshold' must be not NULL")
-  if (sum.null >= 2L)
+  }
+  if (sum.null >= 2L) {
     stop("Arguments 'perc', 'abs' and 'threshold' are mutually exclusive")
+  }
 
   if (!is.null(perc)) {
     assertNumber(perc, lower = 0, upper = 1)

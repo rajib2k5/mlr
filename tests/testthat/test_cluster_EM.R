@@ -20,4 +20,5 @@ test_that("cluster_EM", {
   }
 
   testSimpleParsets("cluster.EM", noclass.df, character(0L), noclass.train.inds, old.predicts.list, parset.list)
-})
+}
+)

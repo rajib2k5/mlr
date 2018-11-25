@@ -9,10 +9,11 @@
 #' @export
 #' @family resample
 getRRPredictions = function(res) {
-  if (is.null(res$pred))
+  if (is.null(res$pred)) {
     stopf("The 'pred' slot is empty because the ResampleResult was generated with keep.pred = FALSE.")
-  else
+  } else {
     res$pred
+  }
 }
 
 #' @title Get task description from resample results (DEPRECATED).
@@ -85,7 +86,7 @@ getRRPredictionList = function(res, ...) {
         y = p[, stri_startswith_fixed(colnames(p), "prob."), drop = FALSE]
         # we need to remove the "prob." part in the colnames, otherwise
         # makePrediction thinks that the factor starts with "prob."
-        colnames(y) = stri_replace_first_fixed(colnames(y), "prob.", replacement =  "")
+        colnames(y) = stri_replace_first_fixed(colnames(y), "prob.", replacement = "")
       } else if (predict.type == "se") {
         y = as.matrix(p[c("response", "se")])
       } else {
@@ -94,12 +95,14 @@ getRRPredictionList = function(res, ...) {
       makePrediction(task.desc, id = p$id,
         truth = p$truth, y = y, row.names = p$id,
         predict.type = predict.type, time = NA_real_, ...)
-    })
+    }
+    )
     # add time info afterwards
     for (i in seq_along(p.split))
       p.split[[i]]$time = time[i]
     return(p.split)
-  })
+  }
+  )
 
   ret = setNames(prediction, set)
   if (is.null(ret$train)) ret = append(ret, list(train = NULL))
@@ -135,16 +138,22 @@ addRRMeasure = function(res, measures) {
       as.data.frame(do.call("rbind", lapply(pred[[s]], function(p) {
         ret = performance(p, measures)
         matrix(ret, ncol = length(measures), dimnames = list(NULL, names(ret)))
-      })))
-    }), set)
+      }
+      )))
+    }
+    ), set)
 
     # add missing measures to resample result
-    if (is.null(perf$train))
-      res$measures.train[, missing.measures] = NA else
-        res$measures.train = cbind(res$measures.train, perf$train[, missing.measures, drop = FALSE])
-    if (is.null(perf$test))
-      res$measures.test[, missing.measures] = NA else
-        res$measures.test = cbind(res$measures.test, perf$test[, missing.measures, drop = FALSE])
+    if (is.null(perf$train)) {
+      res$measures.train[, missing.measures] = NA
+    } else {
+      res$measures.train = cbind(res$measures.train, perf$train[, missing.measures, drop = FALSE])
+    }
+    if (is.null(perf$test)) {
+      res$measures.test[, missing.measures] = NA
+    } else {
+      res$measures.test = cbind(res$measures.test, perf$test[, missing.measures, drop = FALSE])
+    }
     aggr = vnapply(measures[measures.id %in% missing.measures], function(m) {
       m$aggr$fun(task = NULL,
         perf.test = res$measures.test[, m$id],
@@ -152,7 +161,8 @@ addRRMeasure = function(res, measures) {
         measure = m,
         pred = getRRPredictions(res),
         group = res$pred$instance$group)
-    })
+    }
+    )
     names(aggr) = vcapply(measures[measures.id %in% missing.measures], measureAggrName)
     res$aggr = c(res$aggr, aggr)
   }

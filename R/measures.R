@@ -46,7 +46,7 @@ NULL
 featperc = makeMeasure(id = "featperc", minimize = TRUE, best = 0, worst = 1,
   properties = c("classif", "classif.multi", "multilabel", "regr", "surv", "costsens", "cluster", "req.model", "req.pred"),
   name = "Percentage of original features used for model",
-  note =  "Useful for feature selection.",
+  note = "Useful for feature selection.",
   fun = function(task, model, pred, feats, extra.args) {
     length(model$features) / sum(pred$task.desc$n.feat)
   }
@@ -242,7 +242,7 @@ rsq = makeMeasure(id = "rsq", minimize = FALSE, best = 1, worst = -Inf,
 measureRSQ = function(truth, response) {
   rss = measureSSE(truth, response)
   ess = sum((truth - mean(truth))^2L)
-  if (ess == 0){
+  if (ess == 0) {
     warning("Measure is undefined if all truth values are equal.")
     return(NA_real_)
   }
@@ -267,7 +267,7 @@ expvar = makeMeasure(id = "expvar", minimize = FALSE, best = 1, worst = 0,
 measureEXPVAR = function(truth, response) {
   regss = sum((response - mean(truth))^2L)
   ess = sum((truth - mean(truth))^2L)
-  if (ess == 0){
+  if (ess == 0) {
     warning("Measure is undefined if all truth values are equal.")
     return(NA_real_)
   }
@@ -284,7 +284,7 @@ arsq = makeMeasure(id = "arsq", minimize = FALSE, best = 1, worst = 0,
   fun = function(task, model, pred, feats, extra.args) {
     n = length(pred$data$truth)
     p = length(model$features)
-    if (n == p + 1){
+    if (n == p + 1) {
       warning("Adjusted R-squared is undefined if the number observations is equal to the number of independent variables plus one.")
       return(NA_real_)
     }
@@ -307,9 +307,9 @@ rrse = makeMeasure(id = "rrse", minimize = TRUE, best = 0, worst = Inf,
 #' @export measureRRSE
 #' @rdname measures
 #' @format none
-measureRRSE = function(truth, response){
+measureRRSE = function(truth, response) {
   tss = sum((truth - mean(truth))^2L)
-  if (tss == 0){
+  if (tss == 0) {
     warning("Measure is undefined if all truth values are equal.")
     return(NA_real_)
   }
@@ -331,9 +331,9 @@ rae = makeMeasure(id = "rae", minimize = TRUE, best = 0, worst = Inf,
 #' @export measureRAE
 #' @rdname measures
 #' @format none
-measureRAE = function(truth, response){
+measureRAE = function(truth, response) {
   meanad = sum(abs(truth - mean(truth)))
-  if (meanad == 0){
+  if (meanad == 0) {
     warning("Measure is undefined if all truth values are equal.")
     return(NA_real_)
   }
@@ -355,8 +355,8 @@ mape = makeMeasure(id = "mape", minimize = TRUE, best = 0, worst = Inf,
 #' @export measureMAPE
 #' @rdname measures
 #' @format none
-measureMAPE = function(truth, response){
-  if (any(truth == 0)){
+measureMAPE = function(truth, response) {
+  if (any(truth == 0)) {
     warning("Measure is undefined if any truth value is equal to 0.")
     return(NA_real_)
   }
@@ -381,10 +381,12 @@ msle = makeMeasure(id = "msle", minimize = TRUE, best = 0, worst = Inf,
 #' @rdname measures
 #' @format none
 measureMSLE = function(truth, response) {
-  if (any(truth < -1))
+  if (any(truth < -1)) {
     stop("All truth values must be greater or equal -1")
-  if (any(response < -1))
+  }
+  if (any(response < -1)) {
     stop("All predicted values must be greater or equal -1")
+  }
 
   mean((log(response + 1) - log(truth + 1))^2)
 }
@@ -509,8 +511,9 @@ ber = makeMeasure(id = "ber", minimize = TRUE, best = 0, worst = 1,
 #' @format none
 measureBER = function(truth, response) {
   # special case for predictions from FailureModel
-  if (anyMissing(response))
+  if (anyMissing(response)) {
     return(NA_real_)
+  }
   mean(diag(1 - (table(truth, response) / table(truth, truth))))
 }
 
@@ -530,7 +533,7 @@ multiclass.aunu = makeMeasure(id = "multiclass.aunu", minimize = FALSE, best = 1
 #' @rdname measures
 #' @format none
 measureAUNU = function(probabilities, truth) {
-  if (length(unique(truth)) != nlevels(truth)){
+  if (length(unique(truth)) != nlevels(truth)) {
     warning("Measure is undefined if there isn't at least one sample per class.")
     return(NA_real_)
   }
@@ -553,7 +556,7 @@ multiclass.aunp = makeMeasure(id = "multiclass.aunp", minimize = FALSE, best = 1
 #' @rdname measures
 #' @format none
 measureAUNP = function(probabilities, truth) {
-  if (length(unique(truth)) != nlevels(truth)){
+  if (length(unique(truth)) != nlevels(truth)) {
     warning("Measure is undefined if there isn't at least one sample per class.")
     return(NA_real_)
   }
@@ -566,7 +569,7 @@ measureAUNP = function(probabilities, truth) {
 multiclass.au1u = makeMeasure(id = "multiclass.au1u", minimize = FALSE, best = 1, worst = 0.5,
   properties = c("classif", "classif.multi", "req.pred", "req.truth", "req.prob"),
   name = "Average 1 vs. 1 multiclass AUC",
-  note =  "Computes AUC of c(c - 1) binary classifiers (all possible pairwise combinations) while considering uniform distribution of the classes. See Ferri et al.: https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.",
+  note = "Computes AUC of c(c - 1) binary classifiers (all possible pairwise combinations) while considering uniform distribution of the classes. See Ferri et al.: https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.",
   fun = function(task, model, pred, feats, extra.args) {
     measureAU1U(getPredictionProbabilities(pred, pred$task.desc$class.levels), pred$data$truth)
   }
@@ -640,9 +643,9 @@ logloss = makeMeasure(id = "logloss", minimize = TRUE, best = 0, worst = Inf,
 #' @export measureLogloss
 #' @rdname measures
 #' @format none
-measureLogloss = function(probabilities, truth){
+measureLogloss = function(probabilities, truth) {
   eps = 1e-15
-  #let's confine the predicted probabilities to [eps,1 - eps], so logLoss doesn't reach infinity under any circumstance
+  # let's confine the predicted probabilities to [eps,1 - eps], so logLoss doesn't reach infinity under any circumstance
   probabilities[probabilities > 1 - eps] = 1 - eps
   probabilities[probabilities < eps] = eps
   truth = match(as.character(truth), colnames(probabilities))
@@ -666,7 +669,7 @@ ssr = makeMeasure(id = "ssr", minimize = FALSE, best = 1, worst = 0,
 #' @export measureSSR
 #' @rdname measures
 #' @format none
-measureSSR = function(probabilities, truth){
+measureSSR = function(probabilities, truth) {
   truth = match(as.character(truth), colnames(probabilities))
   p = getRowEls(probabilities, truth)
   mean(p / sqrt(rowSums(probabilities^2)))
@@ -689,8 +692,8 @@ qsr = makeMeasure(id = "qsr", minimize = FALSE, best = 1, worst = -1,
 #' @export measureQSR
 #' @rdname measures
 #' @format none
-measureQSR = function(probabilities, truth){
-  #We add this line because binary tasks only output one probability column
+measureQSR = function(probabilities, truth) {
+  # We add this line because binary tasks only output one probability column
   if (is.null(dim(probabilities))) probabilities = cbind(probabilities, 1 - probabilities)
   truth = factor(truth, levels = colnames(probabilities))
   1 - mean(rowSums((probabilities - createDummyFeatures(truth))^2))
@@ -713,7 +716,7 @@ lsr = makeMeasure(id = "lsr", minimize = FALSE, best = 0, worst = -Inf,
 #' @export measureLSR
 #' @rdname measures
 #' @format none
-measureLSR = function(probabilities, truth){
+measureLSR = function(probabilities, truth) {
   -1 * measureLogloss(probabilities, truth)
 }
 
@@ -795,8 +798,9 @@ auc = makeMeasure(id = "auc", minimize = FALSE, best = 1, worst = 0,
   name = "Area under the curve",
   note = "Integral over the graph that results from computing fpr and tpr for many different thresholds.",
   fun = function(task, model, pred, feats, extra.args) {
-    if (anyMissing(pred$data$response) || length(unique(pred$data$truth)) == 1L)
+    if (anyMissing(pred$data$response) || length(unique(pred$data$truth)) == 1L) {
       return(NA_real_)
+    }
     measureAUC(getPredictionProbabilities(pred), pred$data$truth, pred$task.desc$negative, pred$task.desc$positive)
   }
 )
@@ -813,7 +817,7 @@ measureAUC = function(probabilities, truth, negative, positive) {
   if (length(unique(i)) < 2L) {
     stop("truth vector must have at least two classes")
   }
-  #Use fast ranking function from data.table for larger vectors
+  # Use fast ranking function from data.table for larger vectors
   if (length(i) > 5000L) {
     r = frankv(probabilities)
   } else {
@@ -885,7 +889,7 @@ bac = makeMeasure(id = "bac", minimize = FALSE, best = 1, worst = 0,
 #' @rdname measures
 #' @format none
 measureBAC = function(truth, response) {
-    mean(diag(table(truth, response) / table(truth, truth)))
+  mean(diag(table(truth, response) / table(truth, truth)))
 }
 
 #' @export tp
@@ -1052,7 +1056,7 @@ ppv = makeMeasure(id = "ppv", minimize = FALSE, best = 1, worst = 0,
       prob = getPredictionProbabilities(pred)
     } else {
       prob = NULL
-      }
+    }
     measurePPV(pred$data$truth, pred$data$response, pred$task.desc$positive, prob)
   }
 )
@@ -1218,7 +1222,8 @@ multilabel.hamloss = makeMeasure(id = "multilabel.hamloss", minimize = TRUE, bes
   fun = function(task, model, pred, feats, extra.args) {
     measureMultilabelHamloss(getPredictionTruth.PredictionMultilabel(pred),
       getPredictionResponse.PredictionMultilabel(pred))
-})
+  }
+)
 
 #' @export measureMultilabelHamloss
 #' @rdname measures
@@ -1237,7 +1242,7 @@ multilabel.subset01 = makeMeasure(id = "multilabel.subset01", minimize = TRUE, b
   following the definition by Charte and Charte: https://journal.r-project.org/archive/2015-2/charte-charte.pdf.",
   fun = function(task, model, pred, feats, extra.args) {
     measureMultilabelSubset01(getPredictionTruth.PredictionMultilabel(pred),
-    getPredictionResponse.PredictionMultilabel(pred))
+      getPredictionResponse.PredictionMultilabel(pred))
   }
 )
 
@@ -1259,7 +1264,7 @@ multilabel.f1 = makeMeasure(id = "multilabel.f1", minimize = FALSE, best = 1, wo
   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.",
   fun = function(task, model, pred, feats, extra.args) {
     measureMultilabelF1(getPredictionTruth.PredictionMultilabel(pred),
-    getPredictionResponse.PredictionMultilabel(pred))
+      getPredictionResponse.PredictionMultilabel(pred))
   }
 )
 
@@ -1283,7 +1288,7 @@ multilabel.acc = makeMeasure(id = "multilabel.acc", minimize = FALSE, best = 1, 
   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.",
   fun = function(task, model, pred, feats, extra.args) {
     measureMultilabelACC(getPredictionTruth.PredictionMultilabel(pred),
-    getPredictionResponse.PredictionMultilabel(pred))
+      getPredictionResponse.PredictionMultilabel(pred))
   }
 )
 
@@ -1307,7 +1312,7 @@ multilabel.ppv = makeMeasure(id = "multilabel.ppv", minimize = FALSE, best = 1, 
   Fractions where the denominator becomes 0 are ignored in the average calculation.",
   fun = function(task, model, pred, feats, extra.args) {
     measureMultilabelPPV(getPredictionTruth.PredictionMultilabel(pred),
-    getPredictionResponse.PredictionMultilabel(pred))
+      getPredictionResponse.PredictionMultilabel(pred))
   }
 )
 
@@ -1331,7 +1336,7 @@ multilabel.tpr = makeMeasure(id = "multilabel.tpr", minimize = FALSE, best = 1, 
   Fractions where the denominator becomes 0 are ignored in the average calculation.",
   fun = function(task, model, pred, feats, extra.args) {
     measureMultilabelTPR(getPredictionTruth.PredictionMultilabel(pred),
-    getPredictionResponse.PredictionMultilabel(pred))
+      getPredictionResponse.PredictionMultilabel(pred))
   }
 )
 
@@ -1357,8 +1362,9 @@ cindex = makeMeasure(id = "cindex", minimize = FALSE, best = 1, worst = 0,
   fun = function(task, model, pred, feats, extra.args) {
     requirePackages("_Hmisc")
     y = getPredictionResponse(pred)
-    if (anyMissing(y))
+    if (anyMissing(y)) {
       return(NA_real_)
+    }
     s = getPredictionTruth(pred)
     Hmisc::rcorr.cens(-1 * y, s)[["C Index"]]
   }
@@ -1378,8 +1384,9 @@ cindex.uno = makeMeasure(id = "cindex.uno", minimize = FALSE, best = 1, worst = 
   fun = function(task, model, pred, feats, extra.args) {
     requirePackages("_survAUC")
     y = getPredictionResponse(pred)
-    if (anyMissing(y))
+    if (anyMissing(y)) {
       return(NA_real_)
+    }
     surv.train = getTaskTargets(task, recode.target = "surv")[model$subset]
     max.time = assertNumber(extra.args$max.time, null.ok = TRUE) %??% max(getTaskTargets(task)[, 1L])
     survAUC::UnoC(Surv.rsp = surv.train, Surv.rsp.new = getPredictionTruth(pred), time = max.time, lpnew = y)
@@ -1404,8 +1411,9 @@ iauc.uno = makeMeasure(id = "iauc.uno", minimize = FALSE, best = 1, worst = 0,
     times = seq(from = 0, to = max.time, length.out = extra.args$resolution)
     surv.train = getTaskTargets(task, recode.target = "surv")[model$subset]
     y = getPredictionResponse(pred)
-    if (anyMissing(y))
+    if (anyMissing(y)) {
       return(NA_real_)
+    }
     survAUC::AUC.uno(Surv.rsp = surv.train, Surv.rsp.new = getPredictionTruth(pred), times = times, lpnew = y)$iauc
   },
   extra.args = list(max.time = NULL, resolution = 1000L)
@@ -1510,7 +1518,7 @@ dunn = makeMeasure(id = "dunn", minimize = FALSE, best = Inf, worst = 0,
 #' @export G1
 #' @rdname measures
 #' @format none
-G1 = makeMeasure(id = "G1", minimize = FALSE, best = Inf, worst = 0,  # nolint
+G1 = makeMeasure(id = "G1", minimize = FALSE, best = Inf, worst = 0, # nolint
   properties = c("cluster", "req.pred", "req.feats"),
   name = "Calinski-Harabasz pseudo F statistic",
   note = "Defined as ratio of between-cluster variance to within cluster variance. See `?clusterSim::index.G1`.",
@@ -1524,7 +1532,7 @@ G1 = makeMeasure(id = "G1", minimize = FALSE, best = Inf, worst = 0,  # nolint
 #' @export G2
 #' @rdname measures
 #' @format none
-G2 = makeMeasure(id = "G2", minimize = FALSE, best = 1, worst = 0,  # nolint
+G2 = makeMeasure(id = "G2", minimize = FALSE, best = 1, worst = 0, # nolint
   properties = c("cluster", "req.pred", "req.feats"),
   name = "Baker and Hubert adaptation of Goodman-Kruskal's gamma statistic",
   note = "Defined as: (number of concordant comparisons - number of discordant comparisons) / (number of concordant comparisons + number of discordant comparisons). See `?clusterSim::index.G2`.",

@@ -41,4 +41,5 @@ test_that("classif_cvglmnet", {
     binaryclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.cvglmnet", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.probs.list, parset.list)
-})
+}
+)

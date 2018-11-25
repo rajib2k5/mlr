@@ -15,7 +15,8 @@ getLearnerTable = function() {
       properties = list(row$properties),
       note = row$note %??% ""
     )
-  }))
+  }
+  ))
 
   # set learner type (classif, regr, surv, ...)
   tab$type = vcapply(stri_split_fixed(tab$id, ".", n = 2L), head, 1L)
@@ -31,11 +32,13 @@ getLearnerTable = function() {
 filterLearnerTable = function(tab = getLearnerTable(), types = character(0L), properties = character(0L), check.packages = FALSE) {
   contains = function(lhs, rhs) all(lhs %in% rhs)
 
-  if (check.packages)
+  if (check.packages) {
     tab = tab[tab$installed]
+  }
 
-  if (length(types) > 0L && !isScalarNA(types))
+  if (length(types) > 0L && !isScalarNA(types)) {
     tab = tab[tab$type %in% types]
+  }
 
   if (length(properties) > 0L) {
     i = vlapply(tab$properties, contains, lhs = properties)
@@ -94,9 +97,8 @@ filterLearnerTable = function(tab = getLearnerTable(), types = character(0L), pr
 #' listLearners(task)
 #' }
 #' @export
-listLearners  = function(obj = NA_character_, properties = character(0L),
+listLearners = function(obj = NA_character_, properties = character(0L),
   quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
-
   assertSubset(properties, listLearnerProperties())
   assertFlag(quiet)
   assertFlag(warn.missing.packages)
@@ -108,26 +110,28 @@ listLearners  = function(obj = NA_character_, properties = character(0L),
 
 #' @export
 #' @rdname listLearners
-listLearners.default  = function(obj = NA_character_, properties = character(0L),
+listLearners.default = function(obj = NA_character_, properties = character(0L),
   quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
-
   listLearners.character(obj = NA_character_, properties, quiet, warn.missing.packages, check.packages, create)
 }
 
 #' @export
 #' @rdname listLearners
-listLearners.character  = function(obj = NA_character_, properties = character(0L), quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
-  if (!isScalarNA(obj))
+listLearners.character = function(obj = NA_character_, properties = character(0L), quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
+  if (!isScalarNA(obj)) {
     assertSubset(obj, listTaskTypes())
+  }
   tab = getLearnerTable()
 
-  if (warn.missing.packages && !all(tab$installed))
+  if (warn.missing.packages && !all(tab$installed)) {
     warningf("The following learners could not be constructed, probably because their packages are not installed:\n%s\nCheck ?learners to see which packages you need or install mlr with all suggestions.", collapse(tab[!tab$installed]$id))
+  }
 
   tab = filterLearnerTable(tab, types = obj, properties = properties, check.packages = check.packages && !create)
 
-  if (create)
+  if (create) {
     return(lapply(tab$id[tab$installed], makeLearner))
+  }
 
   tab$package = vcapply(tab$package, collapse)
   properties = listLearnerProperties()
@@ -142,7 +146,6 @@ listLearners.character  = function(obj = NA_character_, properties = character(0
 #' @rdname listLearners
 listLearners.Task = function(obj = NA_character_, properties = character(0L),
   quiet = TRUE, warn.missing.packages = TRUE, check.packages = TRUE, create = FALSE) {
-
   task = obj
   td = getTaskDesc(task)
 

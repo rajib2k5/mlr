@@ -31,15 +31,17 @@ convertXVectorizedMatrixCols = function(xs, par.set) {
   rownames(xs) = colnames(xs) = NULL
   xs = lapply(seq_col(xs), function(i) {
     convertXNumeric(xs[, i], par.set)
-  })
+  }
+  )
 }
 
 roundIntegers = function(x, par.set) {
   Map(function(par, v) {
-    if (par$type %in% c("integer", "integervector"))
+    if (par$type %in% c("integer", "integervector")) {
       as.integer(round(v))
-    else
+    } else {
       v
+    }
   }, par.set$pars, x)
 }
 
@@ -49,10 +51,10 @@ convertXVectorizedBooleanStringsToLogical = function(x, par.set) {
   cx = function(x) {
     types = getParamTypes(par.set, use.names = TRUE)
     j = types %in% c("logical", "logicalvector")
-    if (any(j))
+    if (any(j)) {
       x[j] = lapply(x[j], as.logical)
+    }
     return(x)
   }
   lapply(x, cx)
 }
-

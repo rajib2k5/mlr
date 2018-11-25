@@ -34,5 +34,5 @@ test_that("BenchmarkSummary", {
   res = benchmark(lrns, tasks, rdesc, meas)
   expect_error(plotBMRSummary(res),
     "names are not unique")
-
-})
+}
+)

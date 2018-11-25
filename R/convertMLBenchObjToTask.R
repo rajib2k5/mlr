@@ -62,9 +62,10 @@ convertMLBenchObjToTask = function(x, n = 100L, ...) {
     d = as.data.frame(z)
     target = if (!is.null(z$classes)) "classes" else "y"
   }
-  task = if (is.factor(d[, target]))
+  task = if (is.factor(d[, target])) {
     makeClassifTask(id = id, data = d, target = target)
-  else
+  } else {
     makeRegrTask(id = id, data = d, target = target)
+  }
   return(task)
 }

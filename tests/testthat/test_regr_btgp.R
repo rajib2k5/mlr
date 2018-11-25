@@ -18,7 +18,7 @@ test_that("regr_btgp", {
   df = cbind(df.num, df.factor)
   inds = 1:10
   train = df[inds, ]
-  test  = df[-inds, ]
+  test = df[-inds, ]
   y = regr.df[inds, regr.target]
 
   old.predicts.list = list()
@@ -31,4 +31,5 @@ test_that("regr_btgp", {
     old.predicts.list[[i]] = predict(m, XX = test, pred.n = FALSE)$ZZ.km
   }
   testSimpleParsets("regr.btgpllm", regr.df[, c(2:5, 14)], regr.target, inds, old.predicts.list, parset.list)
-})
+}
+)

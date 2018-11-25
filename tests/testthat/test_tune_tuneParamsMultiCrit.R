@@ -1,7 +1,7 @@
 context("tuneParamsMultiCrit")
 
 test_that("tuneParamsMultiCrit", {
-  lrn =  makeLearner("classif.rpart")
+  lrn = makeLearner("classif.rpart")
   rdesc = makeResampleDesc("Holdout")
   ps = makeParamSet(
     makeIntegerParam("minsplit", lower = 1, upper = 50)
@@ -9,7 +9,7 @@ test_that("tuneParamsMultiCrit", {
   ctrl = makeTuneMultiCritControlRandom(maxit = 2)
   expect_error(tuneParamsMultiCrit(lrn, binaryclass.task, rdesc,
     par.set = ps, measures = mmce, control = ctrl),
-    ".* May only contain the following types: Measure.")
+  ".* May only contain the following types: Measure.")
 
   mycheck = function(res, k) {
     expect_output(print(res), "Points on front")
@@ -67,7 +67,8 @@ test_that("tuneParamsMultiCrit", {
   res = tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl)
   mycheck(res, 4L * length(ps$pars) + 1L)
-})
+}
+)
 
 
 test_that("tuneParamsMultiCrit works with low number of evals and dependencies", {
@@ -84,7 +85,8 @@ test_that("tuneParamsMultiCrit works with low number of evals and dependencies",
   rdesc = makeResampleDesc("Holdout")
   res = tuneParamsMultiCrit("classif.ksvm", sonar.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl)
-})
+}
+)
 
 # FIXME: I am not sure how we can check wich value is imputed for theoptimizer?
 test_that("y imputing works", {
@@ -102,10 +104,11 @@ test_that("y imputing works", {
     measures = list(tpr, fpr), control = ctrl)
 
   configureMlr(on.learner.error = "stop")
-})
+}
+)
 
 test_that("tuneParamsMultiCrit with budget", {
-  lrn =  makeLearner("classif.rpart")
+  lrn = makeLearner("classif.rpart")
   rdesc = makeResampleDesc("Holdout")
   ps = makeParamSet(
     makeNumericParam("cp", lower = 0.001, upper = 1),
@@ -114,8 +117,9 @@ test_that("tuneParamsMultiCrit with budget", {
 
   mycheck = function(ctrl, expected.budget) {
     if ("TuneMultiCritControlGrid" %in% class(ctrl)) {
-      if (!is.null(ctrl$budget))
+      if (!is.null(ctrl$budget)) {
         expect_equal(ctrl$budget, expected.budget)
+      }
     } else {
       expect_equal(ctrl$budget, expected.budget)
     }
@@ -140,7 +144,7 @@ test_that("tuneParamsMultiCrit with budget", {
   ctrl = makeTuneMultiCritControlGrid(resolution = 3, budget = 10L)
   expect_error(tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl),
-    ".* does not fit to the size of the grid .*")
+  ".* does not fit to the size of the grid .*")
 
   # nsga2
   ctrl = makeTuneMultiCritControlNSGA2(popsize = 4L, generations = 1L)
@@ -152,22 +156,24 @@ test_that("tuneParamsMultiCrit with budget", {
   ctrl = makeTuneMultiCritControlNSGA2(popsize = 4L, budget = 12L)
   expect_equal(ctrl$extra.args$generations, 2L)
   mycheck(ctrl, 12L)
-})
+}
+)
 
 test_that("plotTuneMultiCritResult works with pretty.names", {
   lrn = makeLearner("classif.rpart")
   ps = makeParamSet(
     makeDiscreteParam("minsplit", values = c(5, 10))
-    )
+  )
   ctrl.grid = makeTuneMultiCritControlGrid()
   opt.multi.crit = tuneParamsMultiCrit(lrn, multiclass.task, hout,
     list(mmce, acc), par.set = ps, control = ctrl.grid)
   plotTuneMultiCritResult(opt.multi.crit)
   plotTuneMultiCritResult(opt.multi.crit, pretty.names = FALSE)
-})
+}
+)
 
 test_that("tuneParamsMultiCrit with resample.fun", {
-  lrn =  makeLearner("classif.rpart")
+  lrn = makeLearner("classif.rpart")
   rdesc = makeResampleDesc("Holdout")
   ps = makeParamSet(
     makeIntegerParam("minsplit", lower = 1, upper = 50)
@@ -196,10 +202,11 @@ test_that("tuneParamsMultiCrit with resample.fun", {
   res = tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl, resample.fun = constant05Resample)
   expect_true(all(getOptPathY(res$opt.path) == 0.5))
-})
+}
+)
 
 test_that("check n.objectives for MBO multi crit", {
-  lrn =  makeLearner("classif.rpart")
+  lrn = makeLearner("classif.rpart")
   rdesc = makeResampleDesc("Holdout")
   ps = makeParamSet(
     makeIntegerParam("minsplit", lower = 1, upper = 50)
@@ -213,8 +220,9 @@ test_that("check n.objectives for MBO multi crit", {
 
   expect_error(tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, measures = list(mmce),
     par.set = ps, control = ctrl),
-    ".* Must have length >= 2, but has length 1.")
+  ".* Must have length >= 2, but has length 1.")
   expect_error(tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, measures = list(mmce, tpr, fpr),
     par.set = ps, control = ctrl),
-    ".* Must have length 2, but has length 3.")
-})
+  ".* Must have length 2, but has length 3.")
+}
+)

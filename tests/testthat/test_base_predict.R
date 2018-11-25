@@ -51,7 +51,8 @@ test_that("predict", {
     levels = getTaskDesc(binaryclass.task)$class.levels)
   expect_equal(cp5d$data$response, f2)
   expect_true(setequal(levels(cp5e$data$response), c("M", "R")))
-})
+}
+)
 
 
 test_that("predict works with type = se", {
@@ -59,7 +60,8 @@ test_that("predict works with type = se", {
   mod = train(lrn, regr.task)
   p = predict(mod, regr.task)
   expect_equal(colnames(p$data), c("id", "truth", "response", "se"))
-})
+}
+)
 
 
 test_that("predict works with strange class labels", {
@@ -69,11 +71,13 @@ test_that("predict works with strange class labels", {
   mod = train(makeLearner("classif.lda", predict.type = "prob"), task = task)
   p = predict(mod, task = task)
   expect_equal(colnames(p$data), c("id", "truth", "prob.-1", "prob.1", "response"))
-})
+}
+)
 
 test_that("predict correctly propagates exception in predictLearner", {
   capture.output(expect_error(holdout("classif.__mlrmocklearners__1", multiclass.task), "foo"))
-})
+}
+)
 
 test_that("predict works with newdata / subset", {
   mod = train(makeLearner("classif.lda"), multiclass.task)
@@ -82,7 +86,8 @@ test_that("predict works with newdata / subset", {
 
   p2 = predict(mod, newdata = multiclass.df, subset = c(rep(TRUE, 10)))
   expect_equal(getPredictionResponse(p1), getPredictionResponse(p2))
-})
+}
+)
 
 test_that("predict preserves rownames", {
   data = multiclass.df
@@ -95,7 +100,8 @@ test_that("predict preserves rownames", {
   expect_equal(rownames(as.data.frame(p)), as.character(c(nrow(data), nrow(data) - 1L)))
   p = predict(mod, newdata = nd, subset = 2)
   expect_equal(rownames(as.data.frame(p)), as.character(nrow(data) - 1L))
-})
+}
+)
 
 test_that("setThreshold does not produce NAs for extreme thresholds", {
   # we had bug / issue 168 here
@@ -106,7 +112,8 @@ test_that("setThreshold does not produce NAs for extreme thresholds", {
   p1 = predict(mod, task = credit.task)
   p2 = setThreshold(p1, 0)
   expect_true(!any(is.na(p2$data$response)))
-})
+}
+)
 
 test_that("predict.threshold", {
   td = getTaskDesc(binaryclass.task)
@@ -128,7 +135,8 @@ test_that("predict.threshold", {
   lrn2 = setPredictThreshold(lrn2, 0)
   r = holdout(lrn2, binaryclass.task)
   expect_true(all(r$pred$data$response == td$positive))
-})
+}
+)
 
 test_that("predict doesn't warn if 'on.learner.error' is 'quiet'", {
   lrn = makeLearner("classif.qda", predict.type = "prob",
@@ -136,10 +144,12 @@ test_that("predict doesn't warn if 'on.learner.error' is 'quiet'", {
   mod = train(lrn, iris.task, subset = c(1L, 51L, 101L))
   expect_true(inherits(mod, "FailureModel"))
   expect_warning(predict(mod, multiclass.task), NA)
-})
+}
+)
 
 test_that("predict works with data.table as newdata", {
   lrn = makeLearner("classif.qda")
   mod = train(lrn, iris.task)
   expect_warning(predict(mod, newdata = data.table(iris)), regexp = "Provided data for prediction is not a pure data.frame but from class data.table, hence it will be converted.")
-})
+}
+)

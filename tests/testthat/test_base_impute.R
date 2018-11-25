@@ -88,7 +88,7 @@ test_that("Impute data frame", {
   imputed = reimpute(data.frame(f = factor("newlvl"), x = NA_real_), x$desc)
   expect_equal(as.character(imputed$f), "xxx")
   expect_equal(imputed$x, 1)
-  #FIXME: y was never in input data? therefore next test fails?
+  # FIXME: y was never in input data? therefore next test fails?
   # expect_equal(imputed$y, 8)
 
   x = impute(data, target = target, cols = list(f = "xxx"), impute.new.levels = FALSE)
@@ -110,7 +110,7 @@ test_that("Impute data frame", {
   expect_true(setequal(names(x), c(names(data), "x.dummy", "y.dummy", "z.dummy")))
 
   x = impute(data, target = character(0), classes = list(factor = imputeMode(), numeric = imputeMedian(),
-      integer = imputeMedian(), logical = imputeConstant(1)))
+    integer = imputeMedian(), logical = imputeConstant(1)))
   expect_true(all(!is.na(x$data)))
 
   data2 = data[1:5, ]
@@ -118,18 +118,19 @@ test_that("Impute data frame", {
   expect_true(setequal(x$desc$dummies, c("f", "x", "y")))
   x = impute(data2, target = target, dummy.classes = c("numeric", "logical", "factor"), force.dummies = FALSE)
   expect_true(setequal(x$desc$dummies, character(0)))
-})
+}
+)
 
 test_that("Impute and reimpute task", {
   data = data.frame(f = letters[c(1, 1, 1, 1, 2)], x = rep(1., 5), y = c(1, 2, 3, 3, 4))
   data[6L, ] = NA
   classif.tar = factor(c(rep(c("a", "b"), 3L)))
   regr.tar = rep(c(.1, .2), 3L)
-  #additional data-frame to check reimpute
+  # additional data-frame to check reimpute
   data2 = data.frame(f = letters[c(2, 1, 1, 1, 1)], x = rep(2., 5), y = c(2, 4, 2, 3, 3))
   data2[6L, ] = NA
   data2$z = classif.tar
-  #test classif task
+  # test classif task
   data$z = classif.tar
   data2$z = classif.tar
   classif.tsk = makeClassifTask(data = data, target = "z")
@@ -146,7 +147,8 @@ test_that("Impute and reimpute task", {
   expect_equal(class(classif.tsk), class(imputed$task))
   expect_identical(test.imputed, imputed.test.tsk$env$data)
   expect_equal(class(test.tsk), class(imputed.test.tsk))
-})
+}
+)
 
 test_that("ImputeWrapper", {
   d = iris[seq(1, 150, 3), ]
@@ -163,7 +165,8 @@ test_that("ImputeWrapper", {
   expect_output(print(mm), "Model")
   expect_is(mm, "WrappedModel")
   expect_match(lrn$id, "[.]imputed$")
-})
+}
+)
 
 test_that("Impute works on non missing data", { # we had issues here: 848,893
   data = data.frame(a = c(1, 1, 2), b = 1:3)
@@ -189,11 +192,13 @@ test_that("Impute works on non missing data", { # we had issues here: 848,893
   implrn = imputeLearner(makeLearner("regr.rpart"))
   lrn = makeImputeWrapper(makeLearner("regr.lm"), cols = list(a = implrn))
   holdout(lrn, task)
-})
+}
+)
 
 test_that("Logicals are casted to factors instead of character (#1522)", {
   x = data.frame(a = c(TRUE, FALSE, NA))
   y = impute(x, cols = list(a = imputeConstant("__miss__")))
   res = factor(c("TRUE", "FALSE", "__miss__"), levels = c("FALSE", "TRUE", "__miss__"))
   expect_equal(y$data$a, res)
-})
+}
+)

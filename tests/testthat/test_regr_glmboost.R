@@ -14,9 +14,9 @@ test_that("regr_glmboost", {
     list(),
     list(family = "Gaussian", nu = 0.03),
     list(family = "GammaReg", nuirange = c(0, 50), mstop = 600, center = TRUE),
-    list(family = "custom.family", custom.family.definition =  mboost::Family(ngradient = function(y, f, w = 1) y - f,
-    loss = function(y, f) (y - f)^2,
-    name = "My Gauss Variant"))
+    list(family = "custom.family", custom.family.definition = mboost::Family(ngradient = function(y, f, w = 1) y - f,
+      loss = function(y, f) (y - f)^2,
+      name = "My Gauss Variant"))
   )
   old.predicts.list = list()
   for (i in seq_along(parset.list1)) {
@@ -29,7 +29,8 @@ test_that("regr_glmboost", {
     old.predicts.list[[i]] = as.vector(predict(m, newdata = regr.test))
   }
   testSimpleParsets("regr.glmboost", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list2)
-})
+}
+)
 
 
 test_that("regr_glmboost works with families for count data", {
@@ -59,4 +60,5 @@ test_that("regr_glmboost works with families for count data", {
     old.predicts.list[[i]] = as.vector(predict(m, newdata = new.regr.test))
   }
   testSimpleParsets("regr.glmboost", new.regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list2)
-})
+}
+)

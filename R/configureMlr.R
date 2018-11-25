@@ -59,7 +59,6 @@
 configureMlr = function(show.info, on.learner.error, on.learner.warning,
   on.par.without.desc, on.par.out.of.bounds, on.measure.not.applicable,
   show.learner.output, on.error.dump) {
-
   defaults = list(
     show.info = TRUE,
     on.learner.error = "stop",
@@ -115,7 +114,8 @@ configureMlr = function(show.info, on.learner.error, on.learner.warning,
 
   # no change, set everything to defaults
   # FIXME: this is a horrible mechanism! How can I get a list of all mlr options?
-  if (!any.change)
+  if (!any.change) {
     Map(setMlrOption, names(defaults), defaults)
+  }
   invisible(NULL)
 }

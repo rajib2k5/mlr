@@ -19,11 +19,13 @@ test_that("survival measures do not do stupid things", {
       r = range(measure$worst, measure$best)
       x = aggr[[sprintf("%s.test.mean", measure$id)]]
       expect_number(x, lower = r[1], upper = r[2], label = sprintf("%s/%s", lrn$id, measure$id))
-      if (!anyInfinite(r))
+      if (!anyInfinite(r)) {
         expect_true(abs(x - measure$worst) >= abs(x - measure$best), label = sprintf("%s/%s", lrn$id, measure$id))
+      }
     }
   }
-})
+}
+)
 
 test_that("setting measure pars works", {
   mod = train("surv.rpart", wpbc.task)
@@ -40,7 +42,8 @@ test_that("setting measure pars works", {
   measures = list(setMeasurePars(iauc.uno, resolution = 10), iauc.uno)
   perf = performance(pred = pred, task = wpbc.task, model = mod, measures = measures)
   expect_string(all.equal(perf[1], perf[2]))
-})
+}
+)
 
 test_that("hand constructed tests", {
   n = 100
@@ -54,4 +57,5 @@ test_that("hand constructed tests", {
 
   perf = performance(pred = pred, model = mod, task = task, measures = list(cindex, cindex.uno, iauc.uno))
   expect_equal(unname(perf), c(1, 1, 0.99))
-})
+}
+)

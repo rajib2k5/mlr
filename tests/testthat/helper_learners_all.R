@@ -14,11 +14,11 @@
 
 testThatLearnerRespectsWeights = function(lrn, task, train.inds, test.inds, weights, hyperpars,
   pred.type, get.pred.fun) {
-
   lrn = setPredictType(lrn, pred.type)
 
-  if (lrn$id %in% names(hyperpars))
+  if (lrn$id %in% names(hyperpars)) {
     lrn = setHyperPars(lrn, par.vals = hyperpars[[lrn$id]])
+  }
 
   rin = makeResampleInstance("Holdout", task = task)
   m1 = train(lrn, task, subset = train.inds)
@@ -57,8 +57,9 @@ testThatLearnerRespectsWeights = function(lrn, task, train.inds, test.inds, weig
 testBasicLearnerProperties = function(lrn, task, hyperpars, pred.type = "response") {
   # handling special par.vals and predict type
   info = lrn$id
-  if (lrn$id %in% names(hyperpars))
+  if (lrn$id %in% names(hyperpars)) {
     lrn = setHyperPars(lrn, par.vals = hyperpars[[lrn$id]])
+  }
 
   lrn = setPredictType(lrn, pred.type)
 
@@ -109,7 +110,6 @@ testBasicLearnerProperties = function(lrn, task, hyperpars, pred.type = "respons
 # can be trained, can predict and produces reasonable performance output.
 
 testThatLearnerHandlesFactors = function(lrn, task, hyperpars) {
-
   d = getTaskData(task)
   f = getTaskFeatureNames(task)[1]
   d[, f] = as.factor(rep_len(c("a", "b"), length.out = nrow(d)))
@@ -127,14 +127,12 @@ testThatLearnerHandlesFactors = function(lrn, task, hyperpars) {
 # can be trained, can predict and produces reasonable performance output.
 
 testThatLearnerHandlesOrderedFactors = function(lrn, task, hyperpars) {
-
   d = getTaskData(task)
   f = getTaskFeatureNames(task)[1]
   d[, f] = as.ordered(rep_len(c("a", "b", "c"), length.out = nrow(d)))
   new.task = changeData(task = task, data = d)
 
   testBasicLearnerProperties(lrn = lrn, task = task, hyperpars = hyperpars)
-
 }
 
 
@@ -146,7 +144,6 @@ testThatLearnerHandlesOrderedFactors = function(lrn, task, hyperpars) {
 # can be trained, can predict and produces reasonable performance output.
 
 testThatLearnerHandlesMissings = function(lrn, task, hyperpars) {
-
   d = getTaskData(task)
   f = getTaskFeatureNames(task)[1]
   d[1, f] = NA
@@ -180,32 +177,35 @@ testThatGetOOBPredsWorks = function(lrn, task) {
 }
 
 testThatLearnerCanCalculateImportance = function(lrn, task, hyperpars) {
-
-
-  if (lrn$id %in% names(hyperpars))
+  if (lrn$id %in% names(hyperpars)) {
     lrn = setHyperPars(lrn, par.vals = hyperpars[[lrn$id]])
+  }
 
   # some learners need special param settings to compute variable importance
   # add them here if you implement a measure that requires that.
   # you may also want to change the params for the learner if training takes
   # a long time
-  if (lrn$short.name == "ranger")
+  if (lrn$short.name == "ranger") {
     lrn = setHyperPars(lrn, importance = "permutation")
-  if (lrn$short.name == "adabag")
+  }
+  if (lrn$short.name == "adabag") {
     lrn = setHyperPars(lrn, mfinal = 5L)
-  if (lrn$short.name == "cforest")
+  }
+  if (lrn$short.name == "cforest") {
     lrn = setHyperPars(lrn, ntree = 5L)
-  if (lrn$short.name == "rfsrc")
+  }
+  if (lrn$short.name == "rfsrc") {
     lrn = setHyperPars(lrn, ntree = 5L)
-  if (lrn$short.name == "xgboost")
+  }
+  if (lrn$short.name == "xgboost") {
     lrn = setHyperPars(lrn, nrounds = 10L)
+  }
 
   mod = train(lrn, task)
   feat.imp = getFeatureImportance(mod)$res
   expect_data_frame(feat.imp, types = rep("numeric", getTaskNFeats(task)),
     any.missing = FALSE, nrows = 1, ncols = getTaskNFeats(task))
   expect_equal(colnames(feat.imp), mod$features)
-
 }
 
 

@@ -58,4 +58,5 @@ test_that("BaseEnsemble", {
   be.pt = setPredictType(be, predict.type = "response")
   expect_equal(be.pt$predict.type, "response")
   expect_equal(lapply(be.pt$base.learners, function(x) x$predict.type), list(rpart = "response", ksvm.filtered.oversampled = "response"))
-})
+}
+)

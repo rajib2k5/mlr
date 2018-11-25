@@ -29,7 +29,8 @@ test_that("classif_extraTrees", {
   }
 
   testSimpleParsets("classif.extraTrees", binaryclass.df, binaryclass.target, binaryclass.train.inds,
-                    old.predicts.list, parset.list)
+    old.predicts.list, parset.list)
   testProbParsets("classif.extraTrees", binaryclass.df, binaryclass.target, binaryclass.train.inds,
-                   old.probs.list, parset.list)
-})
+    old.probs.list, parset.list)
+}
+)

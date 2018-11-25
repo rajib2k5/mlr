@@ -25,7 +25,8 @@ test_that("hyperpars", {
   expect_warning(makeLearner("classif.rpart", foo = 1), NA)
   configureMlr(show.learner.output = FALSE)
   do.call(configureMlr, mlr.opts)
-})
+}
+)
 
 
 test_that("removing par settings works", {
@@ -48,7 +49,8 @@ test_that("removing par settings works", {
   lrn = makeOversampleWrapper(makeFilterWrapper(makeLearner("classif.qda", nu = 2), fw.perc = 0.5), osw.rate = 1)
   lrn1 = removeHyperPars(lrn, ids = names(getHyperPars(lrn)))
   expect_true(length(getHyperPars(lrn1)) == 0)
-})
+}
+)
 
 test_that("setting 'when' works for hyperpars", {
   lrn = makeLearner("regr.__mlrmocklearners__4", p1 = 1, p2 = 2, p3 = 3)
@@ -59,7 +61,8 @@ test_that("setting 'when' works for hyperpars", {
   expect_equal(m$learner.model, list(foo = 1 + 3))
   p = predict(m, regr.task)
   expect_equal(p$data$response, rep(1 + 2 + 2 * 3, getTaskSize(regr.task)))
-})
+}
+)
 
 test_that("fuzzy matching works for mistyped hyperpars", {
   msg = "classif.ksvm: Setting parameter sigm without available description object!\nDid you mean one of these hyperparameters instead: sigma fit type\nYou can switch off this check by using configureMlr!"
@@ -93,7 +96,8 @@ test_that("fuzzy matching works for mistyped hyperpars", {
   expect_warning(expect_equal(getHyperPars(setHyperPars(lrn, sigm = 1))$sigm, 1))
 
   do.call(configureMlr, mlr.opts)
-})
+}
+)
 
 test_that("options are respected", {
   # with local option
@@ -123,4 +127,5 @@ test_that("options are respected", {
   expect_is(setHyperPars(lrn, alpha = 2), "Learner")
 
   do.call(configureMlr, mlr.opts)
-})
+}
+)

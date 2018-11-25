@@ -33,7 +33,6 @@
 makeTuneControlMBO = function(same.resampling.instance = TRUE, impute.val = NULL,
   learner = NULL, mbo.control = NULL, tune.threshold = FALSE, tune.threshold.args = list(),
   continue = FALSE, log.fun = "default", final.dw.perc = NULL, budget = NULL, mbo.design = NULL) {
-
   if (!is.null(learner)) {
     learner = checkLearner(learner, type = "regr")
     learner = setPredictType(learner, "se")
@@ -44,10 +43,10 @@ makeTuneControlMBO = function(same.resampling.instance = TRUE, impute.val = NULL
   assertClass(mbo.control, "MBOControl")
   assertFlag(continue)
 
-  if (!is.null(budget) && !is.null(mbo.design) && nrow(mbo.design) > budget)
+  if (!is.null(budget) && !is.null(mbo.design) && nrow(mbo.design) > budget) {
     stopf("The size of the initial design (init.design.points = %i) exceeds the given budget (%i).",
       nrow(mbo.design), budget)
-  else if (!is.null(budget)) {
+  } else if (!is.null(budget)) {
     mbo.control = mlrMBO::setMBOControlTermination(mbo.control, max.evals = budget)
   }
 

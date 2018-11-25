@@ -125,16 +125,17 @@ createSpatialResamplingPlots = function(task = NULL, resample = NULL, crs = NULL
   datum = 4326, repetitions = 1, color.train = "#0072B5", color.test = "#E18727",
   point.size = 0.5, axis.text.size = 14, x.axis.breaks = waiver(),
   y.axis.breaks = waiver()) {
-
   requireNamespace("hrbrthemes", quietly = TRUE)
   requireNamespace("sf", quietly = TRUE)
 
   # some checks
-  if (is.null(crs))
+  if (is.null(crs)) {
     stopf("Please specify a crs that matches the coordinates of the task.")
-  if(task$task.desc$has.coordinates == FALSE)
+  }
+  if (task$task.desc$has.coordinates == FALSE) {
     stopf("The supplied task needs to have coordinates.")
-  if(!identical(as.integer(rownames(task$env$data)), 1:length(task$env$data[, 1]))) {
+  }
+  if (!identical(as.integer(rownames(task$env$data)), 1:length(task$env$data[, 1]))) {
     rownames(task$env$data) = seq(1:length(task$env$data[, 1]))
   }
 
@@ -165,25 +166,26 @@ createSpatialResamplingPlots = function(task = NULL, resample = NULL, crs = NULL
     # create plot list with length = folds
     plot.list = rep(list(data), nfolds * repetitions)
 
-    plot.list.out = imap(plot.list, function (.x, .y) {
+    plot.list.out = imap(plot.list, function(.x, .y) {
       ggplot(.x) +
-      geom_sf(data = subset(.x, as.integer(rownames(.x)) %in%
-                       r$pred$instance[["train.inds"]][[.y]]),
+        geom_sf(data = subset(.x, as.integer(rownames(.x)) %in%
+          r$pred$instance[["train.inds"]][[.y]]),
         color = color.train, size = point.size, ) +
-      geom_sf(data = subset(.x,as.integer(rownames(.x)) %in%
-                       r$pred$instance[["test.inds"]][[.y]]),
+        geom_sf(data = subset(.x, as.integer(rownames(.x)) %in%
+          r$pred$instance[["test.inds"]][[.y]]),
         color = color.test, size = point.size) +
-      scale_x_continuous(breaks = x.axis.breaks) +
-      scale_y_continuous(breaks = y.axis.breaks) +
-      coord_sf(datum = sf::st_crs(datum)) +
-      hrbrthemes::theme_ipsum_rc() +
-      theme(axis.text.x = element_text(size = axis.text.size),
-        axis.text.y = element_text(size = axis.text.size),
-        plot.margin = unit(c(0.5, 0.2, 0.2, 0.2), "cm"))
-      }
+        scale_x_continuous(breaks = x.axis.breaks) +
+        scale_y_continuous(breaks = y.axis.breaks) +
+        coord_sf(datum = sf::st_crs(datum)) +
+        hrbrthemes::theme_ipsum_rc() +
+        theme(axis.text.x = element_text(size = axis.text.size),
+          axis.text.y = element_text(size = axis.text.size),
+          plot.margin = unit(c(0.5, 0.2, 0.2, 0.2), "cm"))
+    }
     )
     return(plot.list.out)
-  })
+  }
+  )
 
   plot.list = unlist(plot.list.out.all, recursive = FALSE)
 
@@ -197,7 +199,7 @@ createSpatialResamplingPlots = function(task = NULL, resample = NULL, crs = NULL
       reps_nfolds = c(reps_nfolds, rep(i, nfolds))
       if (!is.null(names(resample))) {
         names.resample = c(names.resample, rep(names(resample)[i],
-                                             nfolds * repetitions))
+          nfolds * repetitions))
       }
     }
     # account for multiple resamp objects

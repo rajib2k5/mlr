@@ -16,12 +16,13 @@ test_that("regr_ranger", {
     parset = c(parset, list(data = regr.train, formula = regr.formula, respect.unordered.factors = "order"))
     set.seed(getOption("mlr.debug.seed"))
     m = do.call(ranger::ranger, parset)
-    p  = predict(m, data = regr.test)
+    p = predict(m, data = regr.test)
     old.predicts.list[[i]] = p$predictions
   }
 
   testSimpleParsets("regr.ranger", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-})
+}
+)
 
 test_that("regr_ranger se", {
   requirePackagesOrSkip("ranger", default.method = "load")
@@ -46,4 +47,5 @@ test_that("regr_ranger se", {
   }
 
   testSimpleParsets("regr.ranger", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-})
+}
+)

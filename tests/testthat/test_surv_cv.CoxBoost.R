@@ -9,7 +9,7 @@ test_that("surv_cv.CoxBoost", {
   )
   old.predicts.list = list()
 
-  #i = 1
+  # i = 1
   for (i in seq_along(parset.list)) {
     parset = parset.list[[i]]
     y = as.matrix(surv.train[, surv.target])
@@ -39,5 +39,5 @@ test_that("surv_cv.CoxBoost", {
     m = train(lrn, task = surv.task, subset = surv.train.inds)
     p = predict(m, task = surv.task)
   }
-})
-
+}
+)

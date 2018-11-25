@@ -29,7 +29,8 @@ test_that("makeModelMultiplexerParamSet works", {
   expect_equal(ps1, ps2)
   expect_equal(ps2, ps3)
   expect_equal(ps1, ps3)
-})
+}
+)
 
 # this is more or less a test for BaseEnsemble, that hyperpars work and so on
 test_that("ModelMultiplexer basic stuff works", {
@@ -54,7 +55,8 @@ test_that("ModelMultiplexer basic stuff works", {
   mod = train(lrn2, task = binaryclass.task)
   p = predict(mod, task = binaryclass.task)
   expect_numeric(getPredictionProbabilities(p), any.missing = FALSE, lower = 0, upper = 1)
-})
+}
+)
 
 test_that("FailureModel works", {
   lrn = list(
@@ -68,17 +70,23 @@ test_that("FailureModel works", {
   expect_false(isFailureModel(mod))
 
   lrn = setHyperPars(lrn, classif.__mlrmocklearners__2.alpha = 0)
-  expect_warning({mod = train(lrn, task = iris.task)}, "foo")
+  expect_warning({
+    mod = train(lrn, task = iris.task)
+  }, "foo")
   expect_true(isFailureModel(mod))
 
   tmp = getMlrOptions()$on.learner.error
   configureMlr(on.learner.error = "warn")
   lrn = setHyperPars(lrn, classif.__mlrmocklearners__2.alpha = 1)
   lrn = removeHyperPars(lrn, "selected.learner")
-  expect_warning({mod = train(lrn, task = iris.task)})
+  expect_warning({
+    mod = train(lrn, task = iris.task)
+  }
+  )
   expect_true(isFailureModel(mod))
   configureMlr(on.learner.error = tmp)
-})
+}
+)
 
 test_that("ModelMultiplexer tuning", {
   lrn = makeModelMultiplexer(c("classif.knn", "classif.rpart"))
@@ -99,7 +107,8 @@ test_that("ModelMultiplexer tuning", {
   expect_true(setequal(class(res), c("TuneResult", "OptResult")))
   y = getOptPathY(res$opt.path)
   expect_true(!is.na(y) && is.finite(y))
-})
+}
+)
 
 # we had bug here, see issue #609
 test_that("ModelMultiplexer inherits predict.type from base learners", {
@@ -121,7 +130,8 @@ test_that("ModelMultiplexer inherits predict.type from base learners", {
   rdesc = makeResampleDesc("Holdout")
   ctrl = makeTuneControlGrid(tune.threshold = TRUE)
   res = tuneParams(learner, binaryclass.task, resampling = rdesc, par.set = ps, control = ctrl)
-})
+}
+)
 
 # we had bug here, see issue #647
 test_that("ModelMultiplexer passes on hyper pars in predict", {
@@ -132,7 +142,8 @@ test_that("ModelMultiplexer passes on hyper pars in predict", {
   learner = makeModelMultiplexer(base.learners)
   expect_equal(learner$predict.type, "response")
   r = holdout(learner, regr.task)
-})
+}
+)
 
 # issue #707
 test_that("ModelMultiplexer handles tasks with no features", {
@@ -147,28 +158,29 @@ test_that("ModelMultiplexer handles tasks with no features", {
   p = predict(m, task)
   expect_is(p$data, "data.frame")
   expect_true(all(p$data$response == mean(p$data$response)))
-})
+}
+)
 
 # issue #760
 test_that("ModelMultiplexer passes on hyper pars in predict with both", {
   test.ps = makeRLearnerClassif("test.ps", character(0),
-      makeParamSet(makeIntegerLearnerParam("tpTRAIN", when = "train"),
-                   makeIntegerLearnerParam("tpPREDICT", when = "predict"),
-                   makeIntegerLearnerParam("tpBOTH", when = "both")),
-      properties = c("numerics", "twoclass"))
+    makeParamSet(makeIntegerLearnerParam("tpTRAIN", when = "train"),
+      makeIntegerLearnerParam("tpPREDICT", when = "predict"),
+      makeIntegerLearnerParam("tpBOTH", when = "both")),
+    properties = c("numerics", "twoclass"))
   test.ps$fix.factors.prediction = TRUE
 
   opts = NULL
   trainLearner.test.ps = function(.learner, .task, .subset, .weights = NULL, ...) {
-    opts <<- list(...)  # nolint
+    opts = list(...) # nolint
     # the following to make the type checking happy
     list(dummy = getTaskData(.task, .subset)[[getTaskTargetNames(.task)[1]]][1])
   }
   registerS3method("trainLearner", "test.ps", trainLearner.test.ps)
 
   predictLearner.test.ps = function(.learner, .model, .newdata, ...) {
-    opts <<- list(...)  # nolint
-    rep(.model$learner.model$dummy, nrow(.newdata))  # just do something
+    opts = list(...) # nolint
+    rep(.model$learner.model$dummy, nrow(.newdata)) # just do something
   }
   registerS3method("predictLearner", "test.ps", predictLearner.test.ps)
 
@@ -183,4 +195,5 @@ test_that("ModelMultiplexer passes on hyper pars in predict with both", {
   expect_false(is.null(opts$tpBOTH))
   expect_true(is.null(opts$tpTRAIN))
   expect_false(is.null(opts$tpPREDICT))
-})
+}
+)

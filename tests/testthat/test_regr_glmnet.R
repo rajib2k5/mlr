@@ -39,7 +39,8 @@ test_that("regr_glmnet", {
   test.dat = regr.df
   test.dat$chas = as.numeric(test.dat$chas)
   testSimpleParsets("regr.glmnet", test.dat, regr.target, regr.train.inds, old.predicts.list, parset.list)
-})
+}
+)
 
 
 test_that("regr_glmnet works with poisson", {
@@ -50,4 +51,5 @@ test_that("regr_glmnet works with poisson", {
   lrn = makeLearner("regr.glmnet", family = "poisson")
   r = holdout(lrn, task)
   expect_true(!is.na(r$aggr))
-})
+}
+)

@@ -10,7 +10,7 @@ test_that("classif_xgboost", {
 
   parset.probs.list = list(
     list(),
-    list(objective = "multi:softprob") #We had a bug here that 'multi:softprob' didn't work with binaryclass
+    list(objective = "multi:softprob") # We had a bug here that 'multi:softprob' didn't work with binaryclass
   )
 
   old.predicts.list = list()
@@ -37,8 +37,9 @@ test_that("classif_xgboost", {
     if (is.null(parset$objective)) parset$objective = "binary:logistic"
     if (is.null(parset$verbose)) parset$verbose = 0L
     if (is.null(parset$nround)) parset$nrounds = 1L
-    if (parset$objective == "multi:softprob")
+    if (parset$objective == "multi:softprob") {
       parset$num_class = length(binaryclass.class.levs)
+    }
     pars = c(pars, parset)
     set.seed(getOption("mlr.debug.seed"))
     model = do.call(xgboost::xgboost, pars)
@@ -56,20 +57,24 @@ test_that("classif_xgboost", {
 
   testProbParsets("classif.xgboost", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.probs.list, parset.probs.list)
-})
+}
+)
 
 test_that("xgboost works with different 'missing' arg vals", {
   lrn = makeLearner("classif.xgboost", missing = NA_real_)
   lrn = makeLearner("classif.xgboost", missing = NA)
   lrn = makeLearner("classif.xgboost", missing = NULL)
-})
+}
+)
 
 test_that("xgboost objective 'multi:softmax' does not work with predict.type = 'prob'", {
   expect_error(train(makeLearner("classif.xgboost", predict.type = "prob", objective = "multi:softmax"), binaryclass.task))
-})
+}
+)
 
 test_that("multiclass xgboost with 'multi:softmax' does not produce NA predictions", {
   mod = train(makeLearner("classif.xgboost", objective = "multi:softmax"), task = multiclass.task)
   pred = predict(mod, multiclass.task)
   expect_false(any(is.na(pred$data$response)))
-})
+}
+)

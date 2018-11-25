@@ -1,7 +1,6 @@
 context("convertBMRToRankMatrix")
 
 test_that("convertBMRToRankMatrix", {
-
   lrns = list(makeLearner("classif.nnet"), makeLearner("classif.rpart"))
   tasks = list(multiclass.task, binaryclass.task)
   rdesc = makeResampleDesc("CV", iters = 2L)
@@ -38,4 +37,5 @@ test_that("convertBMRToRankMatrix", {
   r = convertBMRToRankMatrix(res)
   expect_equivalent(rownames(r), getBMRLearnerIds(res))
   expect_equivalent(colnames(r), getBMRTaskIds(res))
-})
+}
+)

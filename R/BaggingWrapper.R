@@ -60,8 +60,9 @@ makeBaggingWrapper = function(learner, bw.iters = 10L, bw.replace = TRUE, bw.siz
     assertNumber(bw.feats, lower = 0, upper = 1)
     pv$bw.feats = bw.feats
   }
-  if (learner$predict.type != "response")
+  if (learner$predict.type != "response") {
     stop("Predict type of the basic learner must be 'response'.")
+  }
   id = stri_paste(learner$id, "bagged", sep = ".")
   packs = learner$package
   ps = makeParamSet(
@@ -85,9 +86,9 @@ print.BaggingModel = function(x, ...) {
 #' @export
 trainLearner.BaggingWrapper = function(.learner, .task, .subset = NULL, .weights = NULL,
   bw.iters = 10, bw.replace = TRUE, bw.size, bw.feats = 1, ...) {
-
-  if (missing(bw.size))
+  if (missing(bw.size)) {
     bw.size = if (bw.replace) 1 else 0.632
+  }
   .task = subsetTask(.task, subset = .subset)
   n = getTaskSize(.task)
   # number of observations to sample
@@ -117,19 +118,22 @@ predictLearner.BaggingWrapper = function(.learner, .model, .newdata, .subset = N
   p = asMatrixCols(lapply(models, function(m) {
     nd = .newdata[, m$features, drop = FALSE]
     g(predict(m, newdata = nd, subset = .subset, ...)$data$response)
-  }))
+  }
+  ))
   if (.learner$predict.type == "response") {
-    if (.learner$type == "classif")
+    if (.learner$type == "classif") {
       as.factor(apply(p, 1L, computeMode))
-    else
+    } else {
       rowMeans(p)
+    }
   } else {
     if (.learner$type == "classif") {
       levs = .model$task.desc$class.levels
       p = apply(p, 1L, function(x) {
         x = factor(x, levels = levs) # we need all level for the table and we need them in consistent order!
         as.numeric(prop.table(table(x)))
-      })
+      }
+      )
       setColNames(t(p), levs)
     } else {
       cbind(rowMeans(p), apply(p, 1L, sd))
@@ -146,7 +150,7 @@ setPredictType.BaggingWrapper = function(learner, predict.type) {
 
 #' @export
 getLearnerProperties.BaggingWrapper = function(learner) {
-    switch(learner$type,
+  switch(learner$type,
     "classif" = union(getLearnerProperties(learner$next.learner), "prob"),
     "regr" = union(getLearnerProperties(learner$next.learner), "se")
   )

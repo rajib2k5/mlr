@@ -10,10 +10,12 @@ matchBaseEnsembleLearner = function(ensemble, pn) {
 getHyperPars.BaseEnsemble = function(learner, for.fun = c("train", "predict", "both")) {
   pvs = lapply(learner$base.learners, function(lrn) {
     xs = getHyperPars(lrn, for.fun = for.fun)
-    if (length(xs) > 0L)
+    if (length(xs) > 0L) {
       names(xs) = stri_paste(lrn$id, ".", names(xs))
+    }
     return(xs)
-  })
+  }
+  )
   # if we dont do this, R prefixes the list names again.
   # I rather want to control this explicitly, who know about the special cases...
   names(pvs) = NULL

@@ -53,4 +53,5 @@ test_that("FailureModel", {
   expect_true(all(is.na(p$data$response)))
 
   configureMlr(on.learner.error = "stop", show.learner.output = FALSE)
-})
+}
+)
