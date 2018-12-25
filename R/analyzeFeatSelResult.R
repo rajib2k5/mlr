@@ -78,11 +78,13 @@ analyzeFeatSelResult = function(res, reduce = TRUE) {
       } else {
         change.feat = symdiff(cur.feats, old.feats)
       }
-      catf("- Features: %4i  %s : %-20s  Perf = %s  Diff: %s  %s",
+      catf(
+        "- Features: %4i  %s : %-20s  Perf = %s  Diff: %s  %s",
         length(cur.feats), change.txt, clipString(change.feat, width.feat),
         numToString(cur.perf),
         numToString(ifelse(minimize, 1, -1) * (old.perf - cur.perf)),
-        cur.sel)
+        cur.sel
+      )
     }
     # in last block be might not have selected any state because no improvement
     if (nrow(df.sel) > 0L) {

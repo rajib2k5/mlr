@@ -23,7 +23,7 @@ test_that("regr_FDboost is equal to reference", {
   ctrl = learnerArgsToControl(mboost::boost_control, mstop = 100L, nu = 0.1)
   set.seed(getOption("mlr.debug.seed"))
   true.mod = FDboost::FDboost(frm, data = mat.list,
-    timeformula = ~bols(1), control = ctrl, family = mboost::Gaussian())
+    timeformula = ~ bols(1), control = ctrl, family = mboost::Gaussian())
 
 
   prd = predict(mlr.mod, newdata = getTaskData(fda.regr.fs.task,

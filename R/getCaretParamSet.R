@@ -34,10 +34,10 @@
 #' if (requireNamespace("caret") && requireNamespace("mlbench")) {
 #'   library(caret)
 #'   classifTask = makeClassifTask(data = iris, target = "Species")
-#'
+#' 
 #'   # (1) classification (random forest) with discretized parameters
 #'   getCaretParamSet("rf", length = 9L, task = classifTask, discretize = TRUE)
-#'
+#' 
 #'   # (2) regression (gradient boosting machine) without discretized parameters
 #'   library(mlbench)
 #'   data(BostonHousing)

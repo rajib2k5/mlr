@@ -63,7 +63,6 @@
 #' df3 = generateHyperParsEffectData(res, trafo = TRUE)
 #' print(head(df2$data[, -ncol(df2$data)]))
 #' print(head(df3$data[, -ncol(df3$data)]))
-#'
 #' \dontrun{
 #' # we optimize the SVM over 3 kernels simultanously
 #' # note how we use dependent params (requires = ...) and iterated F-racing here
@@ -82,7 +81,7 @@
 #' print(res)
 #' df = as.data.frame(res$opt.path)
 #' print(head(df[, -ncol(df)]))
-#'
+#' 
 #' # include the training set performance as well
 #' rdesc = makeResampleDesc("Holdout", predict = "both")
 #' res = tuneParams("classif.ksvm", iris.task, rdesc, par.set = ps,

@@ -54,8 +54,10 @@ benchmark = function(learners, tasks, resamplings, measures, keep.pred = TRUE, m
     benchmarkParallel,
     task = grid$task,
     learner = grid$learner,
-    more.args = list(learners = learners, tasks = tasks, resamplings = resamplings,
-      measures = measures, keep.pred = keep.pred, models = models, show.info = show.info),
+    more.args = list(
+      learners = learners, tasks = tasks, resamplings = resamplings,
+      measures = measures, keep.pred = keep.pred, models = models, show.info = show.info
+    ),
     level = plevel
   )
   results.by.task = split(results, unlist(grid$task))
@@ -108,7 +110,8 @@ benchmarkParallel = function(task, learner, learners, tasks, resamplings, measur
   lrn = learners[[learner]]
   extract.this = getExtractor(lrn)
   r = resample(lrn, tasks[[task]], resamplings[[task]],
-    measures = measures, models = models, extract = extract.this, keep.pred = keep.pred, show.info = show.info)
+    measures = measures, models = models, extract = extract.this, keep.pred = keep.pred, show.info = show.info
+  )
   # store used learner in result
   r$learner = lrn
   return(r)

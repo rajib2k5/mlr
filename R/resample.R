@@ -66,7 +66,7 @@
 #' print(r$aggr)
 #' print(r$measures.test)
 #' print(r$pred)
-#'
+#' 
 #' # include the training set performance as well
 #' rdesc = makeResampleDesc("CV", iters = 2, predict = "both")
 #' r = resample(makeLearner("classif.qda"), task, rdesc,

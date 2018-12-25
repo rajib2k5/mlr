@@ -50,10 +50,10 @@
 #' ctrl = makeTuneControlRandom(maxit = 10L)
 #' res = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl)
 #' print(res)
-#'
+#' 
 #' df = as.data.frame(res$opt.path)
 #' print(head(df[, -ncol(df)]))
-#'
+#' 
 #' # more unique and reliable way to construct the param set
 #' ps = makeModelMultiplexerParamSet(lrn,
 #'   classif.ksvm = makeParamSet(
@@ -63,7 +63,7 @@
 #'     makeIntegerParam("ntree", lower = 1L, upper = 500L)
 #'   )
 #' )
-#'
+#' 
 #' # this is how you would construct the param set manually, works too
 #' ps = makeParamSet(
 #'   makeDiscreteParam("selected.learner", values = extractSubList(bls, "id")),
@@ -72,7 +72,7 @@
 #'   makeIntegerParam("classif.randomForest.ntree", lower = 1L, upper = 500L,
 #'     requires = quote(selected.learner == "classif.randomForst"))
 #' )
-#'
+#' 
 #' # all three ps-objects are exactly the same internally.
 #' }
 makeModelMultiplexer = function(base.learners) {

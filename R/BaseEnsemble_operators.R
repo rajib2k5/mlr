@@ -34,7 +34,8 @@ setHyperPars2.BaseEnsemble = function(learner, par.vals) {
       # param of ensapsulated learner, remove prefix, set it in the bl list
       z = matchBaseEnsembleLearner(learner, pn)
       learner$base.learners[[z$ind]] = setHyperPars2(learner$base.learners[[z$ind]],
-        par.vals = setNames(par.vals[i], z$par.id))
+        par.vals = setNames(par.vals[i], z$par.id)
+      )
     } else {
       # extra param of ensemble learner, just set it normally
       learner = setHyperPars2.Learner(learner, par.vals = par.vals[i])
@@ -51,8 +52,10 @@ removeHyperPars.BaseEnsemble = function(learner, ids) {
       # param of ensapsulated learner, remove prefix, set it in the bl list
       z = matchBaseEnsembleLearner(learner, id)
       # FIXME: won't work properly when base.learners are BaseWrappers, should we support this?
-      learner$base.learners[[z$ind]] = removeHyperPars(learner$base.learners[[z$ind]],
-        z$par.id)
+      learner$base.learners[[z$ind]] = removeHyperPars(
+        learner$base.learners[[z$ind]],
+        z$par.id
+      )
     } else {
       # extra param of ensemble learner, just remove it normally
       learner = removeHyperPars.Learner(learner, id)

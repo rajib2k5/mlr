@@ -19,10 +19,10 @@ as.data.frame.Prediction = function(x, row.names = NULL, optional = FALSE, ...) 
 #' mod = train(lrn, task)
 #' # predict probabilities
 #' pred = predict(mod, newdata = iris)
-#'
+#' 
 #' # Get probabilities for all classes
 #' head(getPredictionProbabilities(pred))
-#'
+#' 
 #' # Get probabilities for a subset of classes
 #' head(getPredictionProbabilities(pred, c("setosa", "virginica")))
 getPredictionProbabilities = function(pred, cl) {

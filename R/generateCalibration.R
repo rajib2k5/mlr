@@ -155,13 +155,13 @@ generateCalibrationData.list = function(obj, breaks = "Sturges", groups = NULL, 
 #' @examples
 #' \dontrun{
 #' lrns = list(makeLearner("classif.rpart", predict.type = "prob"),
-#'             makeLearner("classif.nnet", predict.type = "prob"))
+#'   makeLearner("classif.nnet", predict.type = "prob"))
 #' fit = lapply(lrns, train, task = iris.task)
 #' pred = lapply(fit, predict, task = iris.task)
 #' names(pred) = c("rpart", "nnet")
 #' out = generateCalibrationData(pred, groups = 3)
 #' plotCalibration(out)
-#'
+#' 
 #' fit = lapply(lrns, train, task = sonar.task)
 #' pred = lapply(fit, predict, task = sonar.task)
 #' names(pred) = c("rpart", "lda")

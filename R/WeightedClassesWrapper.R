@@ -47,12 +47,12 @@
 #' lrn = makeWeightedClassesWrapper("classif.ksvm", wcw.weight = 0.01)
 #' res = holdout(lrn, sonar.task)
 #' print(calculateConfusionMatrix(res$pred))
-#'
+#' 
 #' # using the observation weights of logreg
 #' lrn = makeWeightedClassesWrapper("classif.logreg", wcw.weight = 0.01)
 #' res = holdout(lrn, sonar.task)
 #' print(calculateConfusionMatrix(res$pred))
-#'
+#' 
 #' # tuning the imbalancy param and the SVM param in one go
 #' lrn = makeWeightedClassesWrapper("classif.ksvm", wcw.param = "class.weights")
 #' ps = makeParamSet(

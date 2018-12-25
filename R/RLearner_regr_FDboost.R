@@ -94,7 +94,7 @@ trainLearner.regr.FDboost = function(.learner, .task, .subset, .weights = NULL, 
 
   # Create the formula and train the model
   form = as.formula(sprintf("%s ~ %s", tn, collapse(unlist(formula.terms), "+")))
-  FDboost::FDboost(formula = form, timeformula = ~bols(1), data = mat.list, control = ctrl, family = family)
+  FDboost::FDboost(formula = form, timeformula = ~ bols(1), data = mat.list, control = ctrl, family = family)
 }
 
 #' @export

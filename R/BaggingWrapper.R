@@ -71,8 +71,10 @@ makeBaggingWrapper = function(learner, bw.iters = 10L, bw.replace = TRUE, bw.siz
     makeNumericLearnerParam(id = "bw.size", lower = 0, upper = 1),
     makeNumericLearnerParam(id = "bw.feats", lower = 0, upper = 1, default = 2 / 3)
   )
-  makeHomogeneousEnsemble(id, learner$type, learner, packs, par.set = ps, par.vals = pv,
-    learner.subclass = "BaggingWrapper", model.subclass = "BaggingModel")
+  makeHomogeneousEnsemble(id, learner$type, learner, packs,
+    par.set = ps, par.vals = pv,
+    learner.subclass = "BaggingWrapper", model.subclass = "BaggingModel"
+  )
 }
 
 #' @export
@@ -96,8 +98,10 @@ trainLearner.BaggingWrapper = function(.learner, .task, .subset = NULL, .weights
   # number of features to sample
   k = max(round(bw.feats * getTaskNFeats(.task)), 1)
 
-  args = list(n = n, m = m, k = k, bw.replace = bw.replace,
-    task = .task, learner = .learner, weights = .weights)
+  args = list(
+    n = n, m = m, k = k, bw.replace = bw.replace,
+    task = .task, learner = .learner, weights = .weights
+  )
   parallelLibrary("mlr", master = FALSE, level = "mlr.ensemble", show.info = FALSE)
   exportMlrOptions(level = "mlr.ensemble")
   models = parallelMap(doBaggingTrainIteration, i = seq_len(bw.iters), more.args = args, level = "mlr.ensemble")

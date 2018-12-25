@@ -37,25 +37,26 @@
 #'  diagnostic info, a flag for whether nested cv was used, a flag for whether
 #'  partial dependence should be generated, and the optimization algorithm used.
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' # 3-fold cross validation
 #' ps = makeParamSet(makeDiscreteParam("C", values = 2^(-4:4)))
 #' ctrl = makeTuneControlGrid()
 #' rdesc = makeResampleDesc("CV", iters = 3L)
 #' res = tuneParams("classif.ksvm", task = pid.task, resampling = rdesc,
-#' par.set = ps, control = ctrl)
+#'   par.set = ps, control = ctrl)
 #' data = generateHyperParsEffectData(res)
 #' plt = plotHyperParsEffect(data, x = "C", y = "mmce.test.mean")
 #' plt + ylab("Misclassification Error")
-#'
+#' 
 #' # nested cross validation
 #' ps = makeParamSet(makeDiscreteParam("C", values = 2^(-4:4)))
 #' ctrl = makeTuneControlGrid()
 #' rdesc = makeResampleDesc("CV", iters = 3L)
 #' lrn = makeTuneWrapper("classif.ksvm", control = ctrl,
-#'                       resampling = rdesc, par.set = ps)
+#'   resampling = rdesc, par.set = ps)
 #' res = resample(lrn, task = pid.task, resampling = cv2,
-#'                extract = getTuneResult)
+#'   extract = getTuneResult)
 #' data = generateHyperParsEffectData(res)
 #' plotHyperParsEffect(data, x = "C", y = "mmce.test.mean", plot.type = "line")
 #' }

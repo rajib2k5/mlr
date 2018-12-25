@@ -31,7 +31,7 @@
 #' p = predict(model, newdata = iris, subset = test.set)
 #' print(p)
 #' predict(model, task = iris.task, subset = test.set)
-#'
+#' 
 #' # predict now probabiliies instead of class labels
 #' lrn = makeLearner("classif.lda", predict.type = "prob")
 #' model = train(lrn, iris.task, subset = train.set)

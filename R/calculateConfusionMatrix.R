@@ -45,11 +45,10 @@
 #' print(calculateConfusionMatrix(pred))
 #' print(calculateConfusionMatrix(pred, sums = TRUE))
 #' print(calculateConfusionMatrix(pred, relative = TRUE))
-#'
+#' 
 #' # now after cross-validation
 #' r = crossval("classif.lda", iris.task, iters = 2L)
 #' print(calculateConfusionMatrix(r$pred))
-
 calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = "both") {
   checkPrediction(pred, task.type = "classif", check.truth = TRUE, no.na = TRUE)
   assertFlag(relative)

@@ -237,11 +237,11 @@ plotThreshVsPerf = function(obj, measures = obj$measures,
 #' pred = predict(fit, task = sonar.task)
 #' roc = generateThreshVsPerfData(pred, list(fpr, tpr))
 #' plotROCCurves(roc)
-#'
+#' 
 #' r = bootstrapB632plus(lrn, sonar.task, iters = 3)
 #' roc_r = generateThreshVsPerfData(r, list(fpr, tpr), aggregate = FALSE)
 #' plotROCCurves(roc_r)
-#'
+#' 
 #' r2 = crossval(lrn, sonar.task, iters = 3)
 #' roc_l = generateThreshVsPerfData(list(boot = r, cv = r2), list(fpr, tpr), aggregate = FALSE)
 #' plotROCCurves(roc_l)

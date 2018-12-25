@@ -116,7 +116,7 @@ test_that("generateThreshVsPerfData", {
   mcm = matrix(sample(0:3, size = (length(classes))^2, TRUE), ncol = length(classes))
   rownames(mcm) = colnames(mcm) = classes
   costs = makeCostMeasure(id = "asym.costs", name = "Asymmetric costs",
-                          minimize = TRUE, costs = mcm, combine = mean)
+    minimize = TRUE, costs = mcm, combine = mean)
   pvs.custom = generateThreshVsPerfData(pred, costs)
   plotThreshVsPerf(pvs.custom)
   ggplot2::ggsave(path)
@@ -129,4 +129,5 @@ test_that("generateThreshVsPerfData", {
   testFacetting(q, nrow = 2L)
   q = plotThreshVsPerf(pvs, facet.wrap.ncol = 2L)
   testFacetting(q, ncol = 2L)
-})
+}
+)

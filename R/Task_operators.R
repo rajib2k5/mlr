@@ -272,7 +272,7 @@ getTaskTargets.CostSensTask = function(task, recode.target = "no") {
 #' @examples
 #' library("mlbench")
 #' data(BreastCancer)
-#'
+#' 
 #' df = BreastCancer
 #' df$Id = NULL
 #' task = makeClassifTask(id = "BreastCancer", data = df, target = "Class", positive = "malignant")

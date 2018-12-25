@@ -47,7 +47,8 @@ getPrediction = function(object, newdata, ...) {
       getPredictionResponse(pred)
     } else {
       getPredictionProbabilities(pred)
-    } )
+    }
+  )
 
   if (object$learner$predict.type == "se") {
     cbind("preds" = point, "se" = getPredictionSE(pred))

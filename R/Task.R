@@ -86,7 +86,7 @@
 #'   library(mlbench)
 #'   data(BostonHousing)
 #'   data(Ionosphere)
-#'
+#' 
 #'   makeClassifTask(data = iris, target = "Species")
 #'   makeRegrTask(data = BostonHousing, target = "medv")
 #'   # an example of a classification task with more than those standard arguments:

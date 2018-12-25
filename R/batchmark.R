@@ -73,8 +73,10 @@ getAlgoFun = function(lrn, measures, models) {
   force(models)
   function(job, data, instance) {
     extract.this = getExtractor(lrn)
-    calculateResampleIterationResult(learner = lrn, task = data$task, train.i = instance$train, test.i = instance$test,
-      measures = measures, weights = instance$weights, rdesc = instance$rdesc, model = models, extract = extract.this, show.info = FALSE)
+    calculateResampleIterationResult(
+      learner = lrn, task = data$task, train.i = instance$train, test.i = instance$test,
+      measures = measures, weights = instance$weights, rdesc = instance$rdesc, model = models, extract = extract.this, show.info = FALSE
+    )
   }
 }
 
@@ -125,15 +127,19 @@ reduceBatchmarkResults = function(ids = NULL, keep.pred = TRUE, show.info = getM
       models = !is.null(res[[1L]]$model)
       lrn = data$learner[[algo]]
       extract.this = getExtractor(lrn)
-      rs = mergeResampleResult(learner.id = algo, task = data$task, iter.results = res, measures = data$measures,
-        rin = data$rin, keep.pred = keep.pred, models = models, show.info = show.info, runtime = NA, extract = extract.this)
+      rs = mergeResampleResult(
+        learner.id = algo, task = data$task, iter.results = res, measures = data$measures,
+        rin = data$rin, keep.pred = keep.pred, models = models, show.info = show.info, runtime = NA, extract = extract.this
+      )
       rs$learner = lrn
       result[[prob]][[algo]] = addClasses(rs, "ResampleResult")
     }
   }
 
-  makeS3Obj(classes = "BenchmarkResult",
+  makeS3Obj(
+    classes = "BenchmarkResult",
     results = result,
     measures = data$measures,
-    learners = data$learner[as.character(tab[, unique(algorithm)])])
+    learners = data$learner[as.character(tab[, unique(algorithm)])]
+  )
 }

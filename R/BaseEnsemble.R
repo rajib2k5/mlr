@@ -59,7 +59,8 @@ makeBaseEnsemble = function(id, base.learners, bls.type = NULL,
     par.set = par.set.all,
     par.vals = par.vals,
     properties = Reduce(intersect, lapply(base.learners, getLearnerProperties)),
-    predict.type = "response")
+    predict.type = "response"
+  )
 
   lrn$base.learners = setNames(base.learners, ids)
   lrn$par.set.bls = par.set.bls

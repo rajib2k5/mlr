@@ -18,7 +18,7 @@
 #' ps = makeParamSet(
 #'   makeDiscreteParam("cp", values = c(0.05, 0.1)),
 #'   makeDiscreteParam("minsplit", values = c(10, 20))
-#'  )
+#' )
 #' ctrl = makeTuneControlGrid()
 #' inner = makeResampleDesc("Holdout")
 #' outer = makeResampleDesc("CV", iters = 2)
@@ -28,7 +28,6 @@
 #' r = resample(lrn, task, outer, extract = getTuneResult)
 #' # get tuning indices
 #' getResamplingIndices(r, inner = TRUE)
-#'
 #' @export
 getResamplingIndices = function(object, inner = FALSE) {
   assertClass(object, "ResampleResult")

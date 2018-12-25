@@ -19,4 +19,5 @@ test_that("costs", {
   expect_equal(ms$id, "foo")
   r = resample(lrn, rdesc, task = task, measures = list(fp, ms))
   expect_equal(r$aggr[[1]], r$aggr[[2]])
-})
+}
+)
