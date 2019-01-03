@@ -36,12 +36,12 @@
 #' lrn = makeLearner("classif.ksvm")
 #' rdesc = makeResampleDesc("Holdout")
 #' ps = makeParamSet(
-#'   makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-#'   makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
+#' makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
+#' makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
 #' )
 #' ctrl = makeTuneMultiCritControlNSGA2(popsize = 4L, generations = 1L)
 #' res = tuneParamsMultiCrit(lrn, sonar.task, rdesc, par.set = ps,
-#'   measures = list(tpr, fpr), control = ctrl)
+#' measures = list(tpr, fpr), control = ctrl)
 #' plotTuneMultiCritResult(res, path = TRUE)
 #' }
 tuneParamsMultiCrit = function(learner, task, resampling, measures, par.set, control, show.info = getMlrOption("show.info"), resample.fun = resample) {

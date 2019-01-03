@@ -70,7 +70,7 @@
 #' # include the training set performance as well
 #' rdesc = makeResampleDesc("CV", iters = 2, predict = "both")
 #' r = resample(makeLearner("classif.qda"), task, rdesc,
-#'   measures = list(mmce, setAggregation(mmce, train.mean)))
+#' measures = list(mmce, setAggregation(mmce, train.mean)))
 #' print(r$aggr)
 resample = function(learner, task, resampling, measures, weights = NULL, models = FALSE,
   extract, keep.pred = TRUE, ..., show.info = getMlrOption("show.info")) {

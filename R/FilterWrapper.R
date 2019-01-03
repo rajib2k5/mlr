@@ -42,7 +42,7 @@
 #' print(getFilteredFeatures(mod))
 #' # now nested resampling, where we extract the features that the filter method selected
 #' r = resample(lrn, task, outer, extract = function(model) {
-#'   getFilteredFeatures(model)
+#' getFilteredFeatures(model)
 #' }
 #' )
 #' print(r$extract)

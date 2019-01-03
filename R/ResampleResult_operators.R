@@ -99,7 +99,7 @@ getRRPredictionList = function(res, ...) {
     )
     # add time info afterwards
     for (i in seq_along(p.split))
-      p.split[[i]]$time = time[i]
+ p.split[[i]]$time = time[i]
     return(p.split)
   }
   )

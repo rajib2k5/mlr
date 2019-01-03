@@ -50,7 +50,7 @@ generateThreshVsPerfData.BenchmarkResult = function(obj, measures, gridsize = 10
   obj = getBMRPredictions(obj, task.ids = task.id, as.df = FALSE)[[1L]]
 
   for (x in obj)
-    checkPrediction(x, task.type = "classif", binary = TRUE, predict.type = "prob")
+ checkPrediction(x, task.type = "classif", binary = TRUE, predict.type = "prob")
   generateThreshVsPerfData.list(obj, measures, gridsize, aggregate, task.id)
 }
 #' @export
