@@ -97,7 +97,7 @@
 #' fit = train(lrn, bh.task)
 #' pd = generatePartialDependenceData(fit, bh.task, "lstat")
 #' plotPartialDependence(pd, data = getTaskData(bh.task))
-#'
+#' 
 #' lrn = makeLearner("classif.rpart", predict.type = "prob")
 #' fit = train(lrn, iris.task)
 #' pd = generatePartialDependenceData(fit, iris.task, "Petal.Width")
@@ -272,7 +272,8 @@ generatePartialDependenceData = function(obj, input, features = NULL,
           out[, "Class"] = x[, id]
           setcolorder(out, c("Class", "Probability", features))
         } else {
-          out[, c("Class", "Function") = lapply(1:2, function(i) x[, i])]
+          names = c("Class", "Function")
+          out[, names = lapply(1:2, function(i) x[, i])]
           out[, Function = stri_replace_all_regex(Function, "^preds\\.", "")]
           setcolorder(out, c("Class", "Function", "Probability", features))
         }
@@ -286,7 +287,8 @@ generatePartialDependenceData = function(obj, input, features = NULL,
   # for se, compute upper and lower bounds
   if (obj$learner$predict.type == "se") {
     x = outer(out$se, bounds) + out[[target]]
-    out[, c("lower", "upper") = lapply(1:2, function(i) x[, i])]
+    names = c("lower", "upper")
+    out[, names = lapply(1:2, function(i) x[, i])]
     out[, se = NULL]
     target = c("lower", target, "upper")
     setcolorder(out, c(target, features))
@@ -560,7 +562,7 @@ plotPartialDependence = function(obj, geom = "line", facet = NULL, facet.wrap.nr
     } else {
       plt = plt + facet_wrap(as.formula(stri_paste(facet[2], "~", facet[1])), scales = scales,
         nrow = facet.wrap.nrow, ncol = facet.wrap.ncol)
-    }  # facet ordering is reversed deliberately to handle len = 1 case!
+    } # facet ordering is reversed deliberately to handle len = 1 case!
   }
 
   # data overplotting

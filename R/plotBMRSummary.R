@@ -42,7 +42,9 @@ plotBMRSummary = function(bmr, measure = NULL, trafo = "none", order.tsks = NULL
   # trafo to ranks manually here
   if (trafo == "rank") {
     setDT(df)
-    df[, get("meas.name") = rank(.SD[[meas.name]], ties.method = "average"), by = "task.id"] # nolint FIXME: find out what `:=` looks like in the AST and adjust the linter
+    name = get("meas.name")
+    rank = rank(.SD[[meas.name]], ties.method = "average")
+    df[, name = rank, by = "task.id"]
     setDF(df)
     xlab.string = stri_paste("rank of", xlab.string, sep = " ")
   }
