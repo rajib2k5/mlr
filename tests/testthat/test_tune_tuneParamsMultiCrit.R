@@ -67,8 +67,7 @@ test_that("tuneParamsMultiCrit", {
   res = tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl)
   mycheck(res, 4L * length(ps$pars) + 1L)
-}
-)
+})
 
 
 test_that("tuneParamsMultiCrit works with low number of evals and dependencies", {
@@ -85,8 +84,7 @@ test_that("tuneParamsMultiCrit works with low number of evals and dependencies",
   rdesc = makeResampleDesc("Holdout")
   res = tuneParamsMultiCrit("classif.ksvm", sonar.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl)
-}
-)
+})
 
 # FIXME: I am not sure how we can check wich value is imputed for theoptimizer?
 test_that("y imputing works", {
@@ -104,8 +102,7 @@ test_that("y imputing works", {
     measures = list(tpr, fpr), control = ctrl)
 
   configureMlr(on.learner.error = "stop")
-}
-)
+})
 
 test_that("tuneParamsMultiCrit with budget", {
   lrn = makeLearner("classif.rpart")
@@ -156,8 +153,7 @@ test_that("tuneParamsMultiCrit with budget", {
   ctrl = makeTuneMultiCritControlNSGA2(popsize = 4L, budget = 12L)
   expect_equal(ctrl$extra.args$generations, 2L)
   mycheck(ctrl, 12L)
-}
-)
+})
 
 test_that("plotTuneMultiCritResult works with pretty.names", {
   lrn = makeLearner("classif.rpart")
@@ -169,8 +165,7 @@ test_that("plotTuneMultiCritResult works with pretty.names", {
     list(mmce, acc), par.set = ps, control = ctrl.grid)
   plotTuneMultiCritResult(opt.multi.crit)
   plotTuneMultiCritResult(opt.multi.crit, pretty.names = FALSE)
-}
-)
+})
 
 test_that("tuneParamsMultiCrit with resample.fun", {
   lrn = makeLearner("classif.rpart")
@@ -202,8 +197,7 @@ test_that("tuneParamsMultiCrit with resample.fun", {
   res = tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, par.set = ps,
     measures = list(tpr, fpr), control = ctrl, resample.fun = constant05Resample)
   expect_true(all(getOptPathY(res$opt.path) == 0.5))
-}
-)
+})
 
 test_that("check n.objectives for MBO multi crit", {
   lrn = makeLearner("classif.rpart")
@@ -224,5 +218,4 @@ test_that("check n.objectives for MBO multi crit", {
   expect_error(tuneParamsMultiCrit(lrn, binaryclass.task, rdesc, measures = list(mmce, tpr, fpr),
     par.set = ps, control = ctrl),
   ".* Must have length 2, but has length 3.")
-}
-)
+})

@@ -21,5 +21,4 @@ test_that("cluster_FarthestFirst", {
 
   testSimpleParsets("cluster.FarthestFirst", noclass.df, character(0L), noclass.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

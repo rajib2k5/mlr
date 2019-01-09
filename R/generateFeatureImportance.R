@@ -77,7 +77,7 @@
 #' lrn = makeLearner("classif.rpart", predict.type = "prob")
 #' fit = train(lrn, iris.task)
 #' imp = generateFeatureImportanceData(iris.task, "permutation.importance",
-#' lrn, "Petal.Width", nmc = 10L, local = TRUE)
+#'   lrn, "Petal.Width", nmc = 10L, local = TRUE)
 #' @references Jerome Friedman; Greedy Function Approximation: A Gradient Boosting Machine, Annals of Statistics, Vol. 29, No. 5 (Oct., 2001), pp. 1189-1232.
 #' @export
 generateFeatureImportanceData = function(task, method = "permutation.importance",
@@ -141,8 +141,7 @@ doPermutationImportance = function(task, learner, features, interaction, measure
     perf = vnapply(1:getTaskSize(task), function(i) {
       pred$data = pred$data[i, ]
       performance(pred, measure)
-    }
-    )
+    })
     perf = as.numeric(perf)
   } else {
     perf = performance(pred, measure)
@@ -200,8 +199,7 @@ doPermutationImportance = function(task, learner, features, interaction, measure
   } else {
     out = lapply(features, function(x) {
       parallelMap(doPermutationImportanceIteration, i = seq_len(nmc), more.args = c(args, x = x))
-    }
-    )
+    })
     out = lapply(out, function(x) apply(do.call("rbind", x), 2, aggregation))
     out = t(do.call("rbind", out))
     out = as.data.frame(out)

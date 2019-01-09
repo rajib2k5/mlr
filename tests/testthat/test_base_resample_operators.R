@@ -31,8 +31,7 @@ test_that("resample getter work", {
   expect_equal(r1$measures.test$mmce, unname(vnapply(getRRPredictionList(r1)$test, performance, mmce)))
   expect_equal(r2$measures.train$mmce, unname(vnapply(getRRPredictionList(r2)$train, performance, mmce)))
   expect_equal(r2$measures.test$mmce, unname(vnapply(getRRPredictionList(r2)$test, performance, mmce)))
-}
-)
+})
 
 test_that("getRRPredictionList with se predict.type", {
   rinst = makeResampleInstance(hout, regr.task)
@@ -53,5 +52,4 @@ test_that("getRRPredictionList with se predict.type", {
   expect_equal(pl$train[[1]]$data, ptrain$data)
 
   expect_equal(pl$test[[1]]$data, ptest$data)
-}
-)
+})

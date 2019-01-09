@@ -18,8 +18,7 @@ test_that("regr_glm", {
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(stats::glm, pars)
-    }
-    )
+    })
     set.seed(getOption("mlr.debug.seed"))
     p = predict(m, newdata = regr.test, type = "response")
     old.predicts.list[[i]] = p
@@ -33,5 +32,4 @@ test_that("regr_glm", {
 
   testSimpleParsets("regr.glm", regr.df, regr.target,
     regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

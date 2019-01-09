@@ -213,8 +213,7 @@ testCV = function(t.name, df, target, folds = 2, parset = list(), tune.train, tu
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(tune.train, pars)
-    }
-    )
+    })
     return(m)
   }
 
@@ -316,7 +315,6 @@ constant05Resample = function(...) {
 quiet = function(expr) {
   capture.output({
     ret = expr
-  }
-  )
+  })
   ret
 }

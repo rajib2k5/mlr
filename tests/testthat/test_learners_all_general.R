@@ -17,8 +17,7 @@ test_that("learners_all_general listLearners", {
 
   x6 = mylist("classif", properties = c("multiclass", "factors", "prob"))
   expect_true(nrow(x6) > 10 && all(x6$id %in% x2$id))
-}
-)
+})
 
 test_that("learners_all_general listLearners doesn't load packages", {
   npacks.before = length(search())
@@ -26,8 +25,7 @@ test_that("learners_all_general listLearners doesn't load packages", {
   npacks.after = length(search())
 
   expect_equal(npacks.before, npacks.after)
-}
-)
+})
 
 test_that("listLearners for task", {
   x1 = mylist(binaryclass.task)
@@ -39,11 +37,9 @@ test_that("listLearners for task", {
   expect_true(length(intersect(x1$id, x3$id)) == 0)
   expect_true(length(intersect(x2$id, x3$id)) == 0)
   expect_true(all(x2$id %in% x1$id))
-}
-)
+})
 
 test_that("fuzzy matching works for mistyped learners", {
   expect_error(makeLearner("classi.randomFore", config = list(on.par.without.desc = "quiet"),
     expected = "classif.randomForest"))
-}
-)
+})

@@ -52,8 +52,7 @@ plotResiduals.BenchmarkResult = function(obj, type = "scatterplot", loess.smooth
   rug = TRUE, pretty.names = TRUE) {
   task.type = getBMRObjects(obj, as.df = TRUE, fun = function(X) {
     getRRTaskDesc(X)$type
-  }
-  )
+  })
   task.type = unique(task.type$p)
 
   if (task.type %nin% c("regr", "classif")) {

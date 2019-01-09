@@ -29,8 +29,7 @@ test_that("regr_glmboost", {
     old.predicts.list[[i]] = as.vector(predict(m, newdata = regr.test))
   }
   testSimpleParsets("regr.glmboost", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list2)
-}
-)
+})
 
 
 test_that("regr_glmboost works with families for count data", {
@@ -60,5 +59,4 @@ test_that("regr_glmboost works with families for count data", {
     old.predicts.list[[i]] = as.vector(predict(m, newdata = new.regr.test))
   }
   testSimpleParsets("regr.glmboost", new.regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list2)
-}
-)
+})

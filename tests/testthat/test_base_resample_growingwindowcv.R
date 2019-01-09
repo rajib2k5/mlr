@@ -13,8 +13,7 @@ test_that("growing window instance works", {
     expect_true(max(i2) <= 25)
     expect_true(max(i1) < min(i2))
   }
-}
-)
+})
 
 test_that("growing instance with values > 1 works", {
   rin = makeResampleInstance(desc = makeResampleDesc(method = "GrowingWindowCV", horizon = 2,
@@ -29,8 +28,7 @@ test_that("growing instance with values > 1 works", {
     expect_true(max(i2) <= 25)
     expect_true(max(i1) < min(i2))
   }
-}
-)
+})
 
 test_that("growing window instance with values < 1 works", {
   rin = makeResampleInstance(desc = makeResampleDesc(method = "GrowingWindowCV", horizon = .1,
@@ -45,12 +43,10 @@ test_that("growing window instance with values < 1 works", {
     expect_true(max(i2) <= 25)
     expect_true(max(i1) < min(i2))
   }
-}
-)
+})
 
 test_that("growing window instance throws warning for improper alignment", {
   expect_warning(makeResampleInstance(makeResampleDesc("GrowingWindowCV",
     horizon = 2, initial.window = 8,
     skip = 2), size = 25))
-}
-)
+})

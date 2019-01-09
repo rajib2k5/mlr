@@ -22,8 +22,7 @@ test_that("NoFeaturesModel", {
   expect_true(all(p$data$response == mean(p$data$response)))
   rf = resample(lrn, task, res)$pred
   expect_equal(length(unique(rf$data$response)), 2)
-}
-)
+})
 
 test_that("NoFeaturesModel works with FilterWrapper", {
   lrn = makeLearner("classif.rpart")
@@ -31,5 +30,4 @@ test_that("NoFeaturesModel works with FilterWrapper", {
   m = train(lrn, multiclass.task)
   p = predict(m, multiclass.task)
   expect_true(!is.na(performance(p)))
-}
-)
+})

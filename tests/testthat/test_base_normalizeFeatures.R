@@ -25,5 +25,4 @@ test_that("normalizeFeatures", {
   expect_error(normalizeFeatures(df, cols = "target"), err.message, fixed = TRUE)
 
   expect_error(normalizeFeatures(df, cols = "x100"), err.message, fixed = TRUE)
-}
-)
+})

@@ -40,5 +40,4 @@ test_that("classif_bartMachine", {
     expect_true(length(old.predicts.list[[i]]) == nrow(binaryclass.test))
     expect_true(length(old.probs.list[[i]]) == nrow(binaryclass.test))
   }
-}
-)
+})

@@ -14,8 +14,7 @@ getHyperPars.BaseEnsemble = function(learner, for.fun = c("train", "predict", "b
       names(xs) = stri_paste(lrn$id, ".", names(xs))
     }
     return(xs)
-  }
-  )
+  })
   # if we dont do this, R prefixes the list names again.
   # I rather want to control this explicitly, who know about the special cases...
   names(pvs) = NULL

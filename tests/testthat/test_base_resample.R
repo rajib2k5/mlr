@@ -53,8 +53,7 @@ test_that("resample", {
 
   expect_error(resample("classif.rpart", multiclass.task, makeResampleDesc("Holdout"),
     measures = list()), "length >= 1")
-}
-)
+})
 
 test_that("resampling, predicting train set works", {
   rdesc = makeResampleDesc("CV", iters = 2, predict = "train")
@@ -82,8 +81,7 @@ test_that("resampling, predicting train set works", {
   expect_false(is.null(r$pred$predict.type))
   expect_false(is.null(r$pred$threshold))
   expect_equal(getTaskDesc(multiclass.task), r$pred$task.desc)
-}
-)
+})
 
 
 test_that("ResampleInstance can bew created from string", {
@@ -96,14 +94,12 @@ test_that("ResampleInstance can bew created from string", {
   expect_is(rin$desc, "CVDesc")
   expect_equal(rin$size, 150)
   expect_equal(rin$desc$iters, 17)
-}
-)
+})
 
 test_that("resample checks constraints", {
   expect_error(makeResampleInstance("CV", iters = 20, size = 10), "more folds")
   expect_error(makeResampleInstance("RepCV", folds = 20, reps = 2L, size = 10), "more folds")
-}
-)
+})
 
 test_that("resample returns errors", {
   configureMlr(on.learner.error = "quiet")
@@ -127,8 +123,7 @@ test_that("resample returns errors", {
   expect_true(all(is.na(z$err.msgs$predict)))
 
   configureMlr(on.learner.error = "stop")
-}
-)
+})
 
 # issue #668
 test_that("resample has error messages when prediction fails", {
@@ -147,8 +142,7 @@ test_that("resample has error messages when prediction fails", {
 
   configureMlr(on.learner.error = on.learner.error.saved)
   configureMlr(on.learner.warning = on.learner.warning.saved)
-}
-)
+})
 
 
 test_that("resample is extended by an additional measure", {
@@ -182,8 +176,7 @@ test_that("resample is extended by an additional measure", {
   # keep.pred must be TRUE
   res = resample(lrn, binaryclass.task, cv3, mmce, keep.pred = FALSE)
   expect_error(addRRMeasure(res, auc), "keep.pred")
-}
-)
+})
 
 test_that("resample printer respects show.info", {
   show.info.saved = getMlrOptions()$show.info
@@ -196,8 +189,7 @@ test_that("resample printer respects show.info", {
   expect_silent(resample(lrn, bh.task, cv10, list(mape, medae, mse)))
 
   configureMlr(show.info = show.info.saved)
-}
-)
+})
 
 test_that("resample drops unseen factors in predict data set", {
   data = data.frame(a = c("a", "b", "a", "b", "a", "c"),
@@ -217,5 +209,4 @@ test_that("resample drops unseen factors in predict data set", {
   model = train(lrn, subsetTask(task, 1:4))
   predict(model, subsetTask(task, 5:6))
   resample(lrn, task, resinst)
-}
-)
+})

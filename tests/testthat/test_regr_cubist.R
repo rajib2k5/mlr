@@ -29,5 +29,4 @@ test_that("regr_cubist", {
 
   testSimpleParsets("regr.cubist", regr.df, regr.target, regr.train.inds,
     old.predicts.list, parset.list2)
-}
-)
+})

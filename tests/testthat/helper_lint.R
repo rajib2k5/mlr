@@ -61,8 +61,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
         column_number = parsed$col1, type = "style", message = "Use =, not <-, for assignment.",
         line = source_file$lines[as.character(parsed$line1)],
         linter = "assignment_linter")
-    }
-    )
+    })
   }
 
   # prohibit ->
@@ -73,8 +72,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
         column_number = parsed$col1, type = "style", message = "Use =, not ->, for assignment.",
         line = source_file$lines[as.character(parsed$line1)],
         linter = "assignment_linter")
-    }
-    )
+    })
   }
 
   `%!=%` = lintr:::`%!=%`
@@ -104,8 +102,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
             line = line, linter = "spaces.left.parentheses.linter")
         }
       }
-    }
-    )
+    })
   }
 
   function.left.parentheses.linter = function(source_file) {
@@ -157,8 +154,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
             )
           }
         }
-      }
-    )
+      })
   }
 
   infix.spaces.linter = function(source_file) {
@@ -194,8 +190,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
               linter = "infix.spaces.linter")
           }
         }
-      }
-    )
+      })
   }
 
 
@@ -253,8 +248,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
       lintr:::object_lint(source_file, token, sprintf("Variable or function name should be %s.",
         style), "object_name_linter")
     }
-  }
-  )
+  })
 
 
   # note that this must be a *named* list (bug in lintr)

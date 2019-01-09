@@ -14,8 +14,7 @@ test_that("downsample", {
       )
     )
   }
-}
-)
+})
 
 test_that("downsample wrapper", {
   # test it with classif
@@ -29,8 +28,7 @@ test_that("downsample wrapper", {
   lrn = makeDownsampleWrapper("regr.rpart", dw.perc = 0.5)
   r = resample(lrn, regr.task, rdesc)
   expect_true(!is.na(r$aggr))
-}
-)
+})
 
 test_that("downsample wrapper works with xgboost, we had issue #492", {
   skip_if_not_installed("xgboost") # xgboost broken on CRAN, they cannot run our tests
@@ -39,8 +37,7 @@ test_that("downsample wrapper works with xgboost, we had issue #492", {
   expect_output(print(lrn), "down")
   r = resample(lrn, binaryclass.task, rdesc)
   expect_true(!is.na(r$aggr))
-}
-)
+})
 
 test_that("downsample wrapper works with weights, we had issue #838", {
   n = nrow(regr.df)
@@ -65,8 +62,7 @@ test_that("downsample wrapper works with weights, we had issue #838", {
   u = getLearnerModel(m, more.unwrap = TRUE)$weights
   expect_equal(length(u), 5)
   expect_subset(u, 1:10)
-}
-)
+})
 
 test_that("training performance works as expected (#1357)", {
   num = makeMeasure(id = "num", minimize = FALSE,
@@ -74,12 +70,10 @@ test_that("training performance works as expected (#1357)", {
     name = "Number",
     fun = function(task, model, pred, feats, extra.args) {
       length(pred$data$response)
-    }
-  )
+    })
 
   rdesc = makeResampleDesc("Holdout", predict = "both")
   lrn = makeDownsampleWrapper("classif.rpart", dw.perc = 0.1)
   r = resample(lrn, multiclass.task, rdesc, measures = list(setAggregation(num, train.mean)))
   expect_lte(r$measures.train$num, getTaskSize(multiclass.task) * 0.1)
-}
-)
+})

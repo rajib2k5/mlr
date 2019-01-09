@@ -12,8 +12,7 @@ test_that("fixed instance works", {
     expect_true(max(i2) <= 25)
     expect_true(max(i1) < min(i2))
   }
-}
-)
+})
 
 test_that("fixed instance works with value < 1", {
   rin = makeResampleInstance(makeResampleDesc("FixedWindowCV", horizon = .1,
@@ -28,8 +27,7 @@ test_that("fixed instance works with value < 1", {
     expect_true(max(i2) <= 25)
     expect_true(max(i1) < min(i2))
   }
-}
-)
+})
 
 test_that("fixed instance works with values > 1", {
   rin = makeResampleInstance(makeResampleDesc("FixedWindowCV", horizon = 2,
@@ -44,12 +42,10 @@ test_that("fixed instance works with values > 1", {
     expect_true(max(i2) <= 25)
     expect_true(max(i1) < min(i2))
   }
-}
-)
+})
 
 test_that("fixed instance throws warning for improper alignment", {
   expect_warning(makeResampleInstance(makeResampleDesc("FixedWindowCV",
     horizon = 2, initial.window = 8,
     skip = 2), size = 25))
-}
-)
+})

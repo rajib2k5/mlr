@@ -70,7 +70,7 @@
 #' # include the training set performance as well
 #' rdesc = makeResampleDesc("CV", iters = 2, predict = "both")
 #' r = resample(makeLearner("classif.qda"), task, rdesc,
-#' measures = list(mmce, setAggregation(mmce, train.mean)))
+#'   measures = list(mmce, setAggregation(mmce, train.mean)))
 #' print(r$aggr)
 resample = function(learner, task, resampling, measures, weights = NULL, models = FALSE,
   extract, keep.pred = TRUE, ..., show.info = getMlrOption("show.info")) {
@@ -262,8 +262,7 @@ mergeResampleResult = function(learner.id, task, iter.results, measures, rin, mo
   aggr = vnapply(seq_along(measures), function(i) {
     m = measures[[i]]
     m$aggr$fun(task, ms.test[, i], ms.train[, i], m, rin$group, pred)
-  }
-  )
+  })
   names(aggr) = vcapply(measures, measureAggrName)
 
   # name ms.* rows and cols

@@ -44,5 +44,4 @@ test_that("classif_mda", {
     parset.list = parset.list2)
   testCV("classif.mda", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp,
     parset = list(start.method = "lvq", subclasses = 17))
-}
-)
+})

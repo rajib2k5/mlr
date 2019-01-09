@@ -33,8 +33,7 @@ test_that("tuneCMAES", {
   )
   expect_error(tuneParams(makeLearner("classif.rpart"), multiclass.task, res,
     par.set = ps3, control = ctrl1))
-}
-)
+})
 
 test_that("tuneCMAES with budget", {
   res = makeResampleDesc("CV", iters = 2)
@@ -54,5 +53,4 @@ test_that("tuneCMAES with budget", {
   tr1 = tuneParams(makeLearner("classif.rpart"), multiclass.task, res,
     par.set = ps1, control = ctrl1)
   expect_identical(getOptPathLength(tr1$opt.path), ctrl1$budget)
-}
-)
+})

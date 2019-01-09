@@ -13,8 +13,7 @@ test_that("makeFunctionalData works", {
   expect_equal(lapply(fdf, class)[[5]], "matrix")
   expect_equal(dim(fdf), c(10, 5))
   expect_class(fdf, "data.frame")
-}
-)
+})
 
 test_that("FDA properties work", {
   df = data.frame(matrix(rnorm(100), nrow = 10), "target" = sample(letters[1:2], 10, replace = TRUE))
@@ -32,8 +31,7 @@ test_that("FDA properties work", {
   # FIXME Undoc below with fda.usc update
   # expect_silent(train(lrn, subsetTask(tsk, features = 2)))
   # expect_silent(train(lrn, subsetTask(tsk, features = 3)))
-}
-)
+})
 
 
 test_that("makeFunctionalData subsetting works", {
@@ -59,8 +57,7 @@ test_that("makeFunctionalData subsetting works", {
   expect_equal(lapply(fdf3, class)[[3]], "matrix")
   expect_equal(dim(fdf3), c(10, 3))
   expect_class(fdf3, "data.frame")
-}
-)
+})
 
 test_that("makeFunctionalData works for different inputs", {
   df = data.frame(matrix(rnorm(50), nrow = 5))
@@ -105,8 +102,7 @@ test_that("makeFunctionalData works for different inputs", {
   expect_equal(lapply(fdf, class)[[2]], "matrix")
   expect_equal(dim(fdf), c(5, 2))
   expect_class(fdf, "data.frame")
-}
-)
+})
 
 
 test_that("getFunctionalFeatures works for different inputs", {
@@ -133,8 +129,7 @@ test_that("getFunctionalFeatures works for different inputs", {
   fdf = getFunctionalFeatures(fuelsubset.task, subset = 1:100, features = 1:2)
   expect_class(fdf[[1]], "matrix")
   expect_data_frame(fdf, ncols = 1L, nrows = 100L)
-}
-)
+})
 
 
 
@@ -200,8 +195,7 @@ test_that("makeFunctionalData Tasks work", {
   expect_equal(subs.clust2$task.desc$n.feat["numerics"], c("numerics" = 1L))
   expect_equal(subs.clust2$task.desc$n.feat["ordered"], c("ordered" = 0L))
   expect_equal(subs.clust2$task.desc$size, 5L)
-}
-)
+})
 
 
 test_that("getTaskData for functionals", {
@@ -229,8 +223,7 @@ test_that("getTaskData for functionals", {
 
   expect_message({
     tdata4 = getTaskData(clt, functionals.as = "dfcols", target.extra = TRUE)
-  }
-  )
+  })
   expect_true(!("matrix" %in% lapply(tdata4$data, class)))
   expect_equal(tdata4$target, as.factor(letters[1:5]))
 
@@ -243,8 +236,7 @@ test_that("getTaskData for functionals", {
   expect_true(!("matrix" %in% lapply(tdatacl1, class)))
   tdatacl2 = getTaskData(clustt, functionals.as = "matrix")
   expect_true("matrix" %in% unlist(lapply(tdatacl2, class)))
-}
-)
+})
 
 test_that("changeData for functionals", {
   df = data.frame(matrix(rnorm(50), nrow = 5))
@@ -264,8 +256,7 @@ test_that("changeData for functionals", {
   expect_equal(subs.clt$task.desc$n.feat["numerics"], c("numerics" = 1L))
   expect_equal(subs.clt$task.desc$n.feat["ordered"], c("ordered" = 0L))
   expect_equal(subs.clt$task.desc$size, 3L)
-}
-)
+})
 
 test_that("makeFunctionalData produces valid error messages", {
   df = data.frame("x" = 1:3, "y" = 2:4, "z" = letters[1:3])
@@ -310,8 +301,7 @@ test_that("makeFunctionalData produces valid error messages", {
 
   expect_error(makeFunctionalData(data.frame(matrix(letters[1:9], nrow = 3)),
     fd.features = list("fd1" = 1:3)), "fd.features contains non-integer")
-}
-)
+})
 
 
 test_that("hasFunctionals works", {
@@ -322,23 +312,20 @@ test_that("hasFunctionals works", {
   expect_true(hasFunctionalFeatures(fda.binary.gp.task))
   expect_true(hasFunctionalFeatures(fda.binary.gp.task$task.desc))
   expect_true(hasFunctionalFeatures(getTaskData(fda.binary.gp.task, functionals.as = "matrix")))
-}
-)
+})
 
 test_that("getTaskData for functional tasks", {
   expect_true(hasFunctionalFeatures(getTaskData(fda.binary.gp.task, functionals.as = "matrix")))
   expect_message({
     df = getTaskData(fda.binary.gp.task, subset = 1:50, functionals.as = "dfcols")
-  }
-  )
+  })
   expect_false(hasFunctionalFeatures(df))
 
   # Subset rows
   expect_true(hasFunctionalFeatures(getTaskData(fda.binary.gp.task, subset = 1:50, functionals.as = "matrix")))
   expect_message({
     df = getTaskData(fda.binary.gp.task, subset = 1:50, functionals.as = "dfcols")
-  }
-  )
+  })
   expect_false(hasFunctionalFeatures(df))
 
   # We can not really subset cols for this task.
@@ -347,13 +334,11 @@ test_that("getTaskData for functional tasks", {
   expect_true(hasFunctionalFeatures(getTaskData(fda.regr.fs.task, features = 3, functionals.as = "matrix")))
   expect_silent({
     df = getTaskData(fda.regr.fs.task, features = 1, functionals.as = "dfcols")
-  }
-  )
+  })
   expect_false(hasFunctionalFeatures(df))
   expect_message({
     df = getTaskData(fda.regr.fs.task, features = c(2, 3), functionals.as = "dfcols")
-  }
-  )
+  })
   expect_false(hasFunctionalFeatures(df))
 
 
@@ -363,17 +348,14 @@ test_that("getTaskData for functional tasks", {
   expect_false(hasFunctionalFeatures(getTaskData(iris.task, functionals.as = "matrix")))
   expect_silent({
     df = getTaskData(iris.task, subset = 1:50, functionals.as = "matrix")
-  }
-  )
+  })
   expect_false(hasFunctionalFeatures(df))
   expect_false(hasFunctionalFeatures(getTaskData(iris.task, functionals.as = "dfcols")))
   expect_silent({
     df = getTaskData(iris.task, subset = 1:50, functionals.as = "dfcols")
-  }
-  )
+  })
   expect_false(hasFunctionalFeatures(df))
-}
-)
+})
 
 
 test_that("benchmarking on fda tasks works", {
@@ -396,8 +378,7 @@ test_that("benchmarking on fda tasks works", {
   expect_equal(names(bmr2$results$fs.fdf), c("regr.FDboost", "regr.rpart", "regr.featureless"))
   expect_numeric(as.data.frame(bmr2)$mse, lower = 0L, upper = Inf)
   expect_error(train(makeLearner("classif.fdausc.knn"), iris.task), "numeric inputs")
-}
-)
+})
 
 test_that("makeFunctionalData for matricies contained in data.frame", {
   df = getTaskData(fuelsubset.task, functionals.as = "matrix")
@@ -410,8 +391,7 @@ test_that("makeFunctionalData for matricies contained in data.frame", {
   fdf = makeFunctionalData(df, fd.features = list("fd2" = 1:10))
   expect_data_frame(fdf, nrows = 10L, ncols = 2L)
   expect_true(all(colnames(fdf) == c("fd1", "fd2")))
-}
-)
+})
 
 test_that("Self-created data.frame's", {
   df = data.frame(matrix(rnorm(100), ncol = 10L))
@@ -428,5 +408,4 @@ test_that("Self-created data.frame's", {
   df2 = data.frame(matrix(rnorm(100), ncol = 10L))
   df2$fd1 = matrix(as.factor(rep("a", 100L)), ncol = 10L)
   expect_error(makeRegrTask(data = df2, target = "X1"), regexp = "Unsupported feature type")
-}
-)
+})

@@ -19,8 +19,7 @@ test_that("learnerArgsToControl with list returns the input", {
   # test for dots
   test3 = checkLearnerArgsToControl(arg1, arg2, arg3 = 1000)
   expect_equal(list(arg3 = 1000), test3)
-}
-)
+})
 
 
 test_that("learnerArgsToControl works with a control object", {
@@ -40,5 +39,4 @@ test_that("learnerArgsToControl works with a control object", {
   glmnet::glmnet.control(factory = TRUE)
   test2 = checkLearnerArgsToControlWithControl(fdev, devmax, mnlam = 3)
   expect_equal(test2, glmnet::glmnet.control(fdev = fdev, devmax = devmax, mnlam = 3))
-}
-)
+})

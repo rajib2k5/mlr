@@ -27,5 +27,4 @@ test_that("getHyperPars", {
   expect_output(print(lrn), "missing=NA")
   lrn = makeLearner("regr.xgboost", missing = NA)
   expect_output(print(lrn), "missing=NA")
-}
-)
+})

@@ -35,5 +35,4 @@ test_that("classif_JRip", {
   tp = function(model, newdata) predict(model, newdata, type = "class")
 
   testCVParsets("classif.JRip", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

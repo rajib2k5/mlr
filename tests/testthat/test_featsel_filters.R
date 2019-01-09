@@ -60,5 +60,4 @@ test_that("filterFeatures", {
   expect_class(fv, classes = "FilterValues")
   expect_numeric(fv$data$auc, any.missing = FALSE, all.missing = FALSE, len = getTaskNFeats(toy.task))
   expect_equal(fv$data$auc, c(0.25, 0.25, 0.5, 0.5, 0.125))
-}
-)
+})

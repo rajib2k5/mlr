@@ -107,16 +107,14 @@ getBMRObjects = function(bmr, task.ids = NULL, learner.ids = NULL, fun, as.df = 
         }
       }
       return(p)
-    }
-    )
+    })
     if (as.df) {
       xs = setDF(rbindlist(xs, fill = TRUE))
     } else {
       xs = setNames(xs, learner.ids)
     }
     return(xs)
-  }
-  )
+  })
   if (as.df) {
     res = setDF(rbindlist(res, fill = TRUE))
   } else {

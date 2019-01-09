@@ -56,8 +56,7 @@ test_that("calculateConfusionMatrix", {
   task = makeClassifTask(data = data, target = "Species")
   r = holdout(lrn, task, measures = ber)
   expect_error(calculateConfusionMatrix(r$pred), "FailureModel")
-}
-)
+})
 
 test_that("calculateConfusionMatrix elements are consistent with implemented measures", {
   # check values itself
@@ -106,8 +105,7 @@ test_that("calculateConfusionMatrix elements are consistent with implemented mea
   expect_equal(cm$relative.col[1, 2], cm$result[1, 2] / sum(cm$result[1:2, 2]))
   expect_equal(cm$relative.col[2, 1], cm$result[2, 1] / sum(cm$result[1:2, 1]))
   expect_equal(cm$relative.col[2, 2], cm$result[2, 2] / sum(cm$result[1:2, 2]))
-}
-)
+})
 
 test_that("calculateConfusionMatrix with different factor levels (#2030)", {
   lrn = makeLearner("classif.rpart")
@@ -119,8 +117,7 @@ test_that("calculateConfusionMatrix with different factor levels (#2030)", {
   cm = calculateConfusionMatrix(p)
   expect_equal(cm$result[1, 4], 0)
   expect_equal(cm$result[4, 4], 5)
-}
-)
+})
 
 
 test_that("calculateConfusionMatrix set argument works", {
@@ -139,8 +136,7 @@ test_that("calculateConfusionMatrix set argument works", {
   train.obs = table(pred2$data$set)["train"]
   expect_equivalent(sum(calculateConfusionMatrix(pred2, set = "train")$result[1:3, 1:3]), train.obs)
   expect_equivalent(sum(calculateConfusionMatrix(pred2, set = "test")$result[1:3, 1:3]), test.obs)
-}
-)
+})
 
 test_that("calculateConfusionMatrix raises error when set argument is 'wrong'", {
   # if a resampled prediction was computed with predict = "train" and is passed
@@ -151,13 +147,11 @@ test_that("calculateConfusionMatrix raises error when set argument is 'wrong'", 
   pred.test = resample("classif.rpart", iris.task, rdesc.test)$pred
 
   expect_error(calculateConfusionMatrix(pred.test, set = "train"))
-}
-)
+})
 
 test_that("calculateConfusionMatrix returns all-zero matrix when prediction object is empty", {
   mod = train("classif.lda", iris.task)
   pred = predict(mod, iris.task)
   pred$data = pred$data[FALSE, ]
   expect_true(all(calculateConfusionMatrix(pred)$result == 0))
-}
-)
+})

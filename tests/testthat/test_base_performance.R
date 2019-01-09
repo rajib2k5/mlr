@@ -25,8 +25,7 @@ test_that("performance", {
       e2 = mean(t2 != pred$data$response)
       expect_equal(e1, e2)
       0
-    }
-  )
+    })
   r = resample(lrn, task = binaryclass.task, resampling = res, measures = mymeasure)
   expect_true(r$aggr >= 0)
 
@@ -44,13 +43,11 @@ test_that("performance", {
     properties = c("classif", "predtype.response"),
     fun = function(task, group, pred, feats, extra.args) {
       mean(pred$data$truth != pred$data$response)
-    }
-  )
+    })
   rdesc = makeResampleDesc("Holdout")
   r = resample(lrn, binaryclass.task, rdesc, measures = list(mmce, mymeasure))
   expect_equal(as.numeric(r$aggr["mmce.test.mean"]), as.numeric(r$aggr["mym.train.mean"]))
-}
-)
+})
 
 test_that("performance is NA if 'on.measure.not.applicable' is not 'stop'", {
   default = getMlrOption("on.measure.not.applicable")
@@ -71,8 +68,7 @@ test_that("performance is NA if 'on.measure.not.applicable' is not 'stop'", {
       # does this also work with benchmark?
       expect_warning({
         b = benchmark(lrn, binaryclass.task, measures = list(acc, auc))
-      }
-      )
+      })
       expect_true(any(is.na(as.data.frame(b)$auc)))
       expect_false(any(is.na(as.data.frame(b)$acc)))
     } else {
@@ -82,8 +78,7 @@ test_that("performance is NA if 'on.measure.not.applicable' is not 'stop'", {
     }
   }
   configureMlr(on.measure.not.applicable = default)
-}
-)
+})
 
 test_that("performance checks for missing truth col", {
   lrn = makeLearner("classif.rpart", predict.type = "prob")
@@ -92,14 +87,12 @@ test_that("performance checks for missing truth col", {
   pred = predict(m, newdata = test.x)
 
   expect_error(performance(pred, measure = mmce), "need to have a 'truth' col")
-}
-)
+})
 
 test_that("performance checks for req prob type", {
   lrn = makeLearner("classif.rpart")
   expect_error(holdout(lrn, binaryclass.task, measures = auc), "predict type to be: 'prob'")
-}
-)
+})
 
 test_that("performance works with ResamplePrediction", {
   lrn = makeLearner("classif.lda", predict.type = "prob")
@@ -114,5 +107,4 @@ test_that("performance works with ResamplePrediction", {
   # FIXME: names for measures are different for aggregated measures, which we currently don't do because it breaks other stuff
   rf$aggr = setNames(rf$aggr, names(perf))
   expect_equal(rf$aggr, perf)
-}
-)
+})

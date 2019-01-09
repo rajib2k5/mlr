@@ -37,11 +37,9 @@ test_that("classif_dbnDNN", {
       p = deepnet::nn.predict(m, data.matrix(binaryclass.test[, -ncol(binaryclass.test)]))
       colnames(p) = binaryclass.class.levs
       old.predicts.list[[i]] = as.factor(colnames(p)[max.col(p)])
-    }
-    )
+    })
   }
 
   testSimpleParsets("classif.dbnDNN", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.predicts.list, parset.list2)
-}
-)
+})

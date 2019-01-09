@@ -21,8 +21,7 @@ test_that("Nested SpRepCV works without errors", {
     resampling = outer, show.info = TRUE, measures = list(auc))
 
   expect_vector(out$measures.test$auc, any.missing = FALSE, len = 4)
-}
-)
+})
 
 test_that("SpRepCV works without errors", {
   data(spatial.task, package = "mlr", envir = environment())
@@ -35,5 +34,4 @@ test_that("SpRepCV works without errors", {
     resampling = resampling, measures = list(auc))
 
   expect_vector(out$measures.test$auc, any.missing = FALSE, len = 4)
-}
-)
+})

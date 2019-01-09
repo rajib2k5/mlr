@@ -25,8 +25,7 @@ test_that("filterFeatures_praznik", {
     res = resample(learner = lrn, task = binaryclass.task, resampling = hout, measures = list(mmce, timetrain), extract = getFilteredFeatures, show.info = FALSE)
     expect_length(res$extract[[1L]], 3L)
   }
-}
-)
+})
 
 test_that("FilterWrapper with praznik mutual information, resample", {
   candidates = as.character(listFilterMethods()$id)
@@ -46,10 +45,8 @@ test_that("FilterWrapper with praznik mutual information, resample", {
     r = resample(lrn2, binaryclass.task, res)
     expect_true(!any(is.na(r$aggr)))
     expect_subset(r$extract[[1]][[1]], getTaskFeatureNames(binaryclass.task))
-  }
-  )
-}
-)
+  })
+})
 
 test_that("FilterWrapper with praznik mutual information, resample", {
   # wrapped learner with praznik on binaryclass.task
@@ -59,5 +56,4 @@ test_that("FilterWrapper with praznik mutual information, resample", {
   expect_data_frame(feat.imp, types = rep("numeric", getTaskNFeats(binaryclass.task)),
     any.missing = FALSE, nrows = 1, ncols = getTaskNFeats(binaryclass.task))
   expect_equal(colnames(feat.imp), mod$features)
-}
-)
+})

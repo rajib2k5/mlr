@@ -32,5 +32,4 @@ test_that("classif_liquidSVM", {
 
   testSimpleParsets("classif.liquidSVM", multiclass.df, multiclass.target,
     multiclass.train.inds, old.predicts.list, parset.list[1])
-}
-)
+})

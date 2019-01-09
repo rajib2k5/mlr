@@ -122,8 +122,7 @@ predictLearner.BaggingWrapper = function(.learner, .model, .newdata, .subset = N
   p = asMatrixCols(lapply(models, function(m) {
     nd = .newdata[, m$features, drop = FALSE]
     g(predict(m, newdata = nd, subset = .subset, ...)$data$response)
-  }
-  ))
+  }))
   if (.learner$predict.type == "response") {
     if (.learner$type == "classif") {
       as.factor(apply(p, 1L, computeMode))
@@ -136,8 +135,7 @@ predictLearner.BaggingWrapper = function(.learner, .model, .newdata, .subset = N
       p = apply(p, 1L, function(x) {
         x = factor(x, levels = levs) # we need all level for the table and we need them in consistent order!
         as.numeric(prop.table(table(x)))
-      }
-      )
+      })
       setColNames(t(p), levs)
     } else {
       cbind(rowMeans(p), apply(p, 1L, sd))

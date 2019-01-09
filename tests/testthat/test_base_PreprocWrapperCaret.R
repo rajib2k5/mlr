@@ -23,15 +23,13 @@ test_that("basic PreprocWrapperCaret works", {
   mod$call = NULL
   ctrl$call = NULL
   expect_equal(mod, ctrl)
-}
-)
+})
 
 test_that("PreprocWrapperCaret supports missing values", {
   lrn1 = makeLearner("classif.svm")
   lrn2 = makePreprocWrapperCaret(lrn1, ppc.knnImpute = TRUE)
   expect_true(hasLearnerProperties(lrn2, props = "missings"))
-}
-)
+})
 
 test_that("PreprocessWrapperCaret supports nzv,zv and corr method with different methodparams as default", {
   lrn1 = makeLearner("classif.rpart")
@@ -47,8 +45,7 @@ test_that("PreprocessWrapperCaret supports nzv,zv and corr method with different
   mod2$call = NULL
   ctrl4$call = NULL
   expect_equal(mod2, ctrl4)
-}
-)
+})
 
 test_that("PreprocessWrapperCaret creates the same output as preProcess for methods nzv, zv", {
   lrn1 = makeLearner("classif.rpart")
@@ -63,5 +60,4 @@ test_that("PreprocessWrapperCaret creates the same output as preProcess for meth
     ppc.nzv = TRUE, ppc.zv = TRUE, ppc.freqCut = 100 / 5, ppc.uniqeCut = 9.5)
   out.transformed.mlr = lrn4$train(data = df, target = "Species", args = lrn4$par.vals)$data
   expect_equal(out2, out.transformed.mlr)
-}
-)
+})

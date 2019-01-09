@@ -25,5 +25,4 @@ test_that("resample convenience functions", {
   mycheck(r)
   r = bootstrapB632plus("classif.rpart", multiclass.task, iters = 1L)
   mycheck(r)
-}
-)
+})

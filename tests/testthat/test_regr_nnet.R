@@ -11,8 +11,7 @@ test_that("regr_nnet", {
     set.seed(getOption("mlr.debug.seed"))
     p = predict(m, newdata = regr.test)[, 1L]
     print(p)
-  }
-  )
+  })
   testSimple("regr.nnet", regr.df, regr.target, regr.train.inds, p,
     parset = list())
 
@@ -24,8 +23,7 @@ test_that("regr_nnet", {
     set.seed(getOption("mlr.debug.seed"))
     p = predict(m, newdata = regr.test)[, 1L]
     print(p)
-  }
-  )
+  })
   testSimple("regr.nnet", regr.df, regr.target, regr.train.inds, p,
     parset = list(size = 7L))
 
@@ -36,5 +34,4 @@ test_that("regr_nnet", {
 
   # testCV("regr.nnet", regr.df, regr.target, tune.train = tt, tune.predict = tp,
   # parset = list(size = 3L, maxit = 50L))
-}
-)
+})

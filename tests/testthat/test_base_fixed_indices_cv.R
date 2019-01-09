@@ -15,8 +15,7 @@ test_that("fixed in single resampling", {
   expect_length(unique(unlist(p$instance$test.inds, use.names = FALSE)), 150)
   # check if correct indices are together (one fold is enough)
   expect_equal(p$instance$test.inds[[1]], c(23, 53, 83, 113, 143))
-}
-)
+})
 
 test_that("fixed in nested resampling", {
   df = multiclass.df
@@ -56,5 +55,4 @@ test_that("fixed in nested resampling", {
   p = resample(tune_wrapper, ct, outer, show.info = FALSE,
     extract = getTuneResult)
   expect_length(getResamplingIndices(p, inner = TRUE)[[1]][[1]], 6)
-}
-)
+})

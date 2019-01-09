@@ -10,8 +10,7 @@ test_that("Learner_properties", {
 
   lrn.wrap = makeImputeWrapper(lrn)
   expect_equal(getLearnerProperties(lrn.wrap), c(lrn.prop, "missings"))
-}
-)
+})
 
 test_that("listLearnerProperties", {
   regr = c("numerics", "factors", "ordered", "missings", "weights", "se",
@@ -27,5 +26,4 @@ test_that("listLearnerProperties", {
   cluster = c("numerics", "factors", "ordered", "missings", "weights", "prob",
     "functionals", "single.functional")
   expect_equal(listLearnerProperties("cluster"), cluster)
-}
-)
+})

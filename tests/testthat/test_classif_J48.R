@@ -35,5 +35,4 @@ test_that("classif_j48", {
   tp = function(model, newdata) predict(model, newdata, type = "class")
 
   testCVParsets("classif.J48", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

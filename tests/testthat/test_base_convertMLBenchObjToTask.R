@@ -22,5 +22,4 @@ test_that("convertMLbenchObjToTask", {
     expect_is(task, "Task")
     expect_equal(getTaskId(task), d)
   }
-}
-)
+})

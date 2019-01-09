@@ -58,5 +58,4 @@ test_that("learners work: regr ", {
   # regr with only one feature
   # min.task = makeRegrTask("oneCol", data.frame(x = 1:10, y = 1:10), target = "y")
   # lapply(lrns, testBasicLearnerProperties, task = min.task)
-}
-)
+})

@@ -64,8 +64,7 @@ predictHomogeneousEnsemble = function(.learner, .model, .newdata, .subset = NULL
       p = as.character(p)
     }
     return(p)
-  }
-  )
+  })
   do.call(cbind, preds)
 }
 

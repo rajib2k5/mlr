@@ -36,5 +36,4 @@ test_that("regr_cvglmnet", {
   }
   testSimpleParsets("regr.cvglmnet", regr.df, regr.target,
     regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

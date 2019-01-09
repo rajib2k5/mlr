@@ -53,5 +53,4 @@ test_that("classif_svm", {
   model = train(lrn, multiclass.task)
   preds = predict(model, multiclass.task)
   expect_lt(performance(preds), 0.3)
-}
-)
+})

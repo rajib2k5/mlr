@@ -19,13 +19,11 @@ test_that("surv_gbm", {
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(gbm::gbm, pars)
-    }
-    )
+    })
     set.seed(getOption("mlr.debug.seed"))
     p = gbm::predict.gbm(m, newdata = surv.test, n.trees = m$n.trees)
     old.predicts.list[[i]] = p
   }
 
   testSimpleParsets("surv.gbm", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-}
-)
+})

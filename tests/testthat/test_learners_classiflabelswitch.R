@@ -68,8 +68,7 @@ test_that("no labels are switched", {
       err = tmp$aggr[[1L]]
       expect_true(!is.na(err) & err <= 1 / 3, info = paste(getTaskDesc(task)$id, id, err, sep = ", "))
       err
-    }
-    )
+    })
   }
   # FIXME: only check prob for now for timimg reasons
   for (predtype in "prob") {
@@ -80,5 +79,4 @@ test_that("no labels are switched", {
     checkErrsForTask(mytask3, predtype)
     checkErrsForTask(mytask4, predtype)
   }
-}
-)
+})

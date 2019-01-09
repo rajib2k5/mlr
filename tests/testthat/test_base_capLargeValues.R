@@ -24,8 +24,7 @@ test_that("capLargeValues.data.frame", {
   expect_equal(d2, data.frame(x = c(-10, 1, 9)))
   d2 = capLargeValues(d1, threshold = 9, what = "neg")
   expect_equal(d2, data.frame(x = c(-9, 1, 10)))
-}
-)
+})
 
 test_that("capLargeValues.Task", {
   d1 = data.frame(x = 1:10, y = 2:11, z = -11:-20, tar = 1:10)
@@ -35,5 +34,4 @@ test_that("capLargeValues.Task", {
   d2 = data.frame(x = 1:10, y = c(2:10, 10), z = rep(-10, 10),
     tar = 1:10)
   expect_equal(capped.d1, d2)
-}
-)
+})

@@ -32,17 +32,17 @@
 #' @export
 #' @examples
 #' if (requireNamespace("caret") && requireNamespace("mlbench")) {
-#' library(caret)
-#' classifTask = makeClassifTask(data = iris, target = "Species")
+#'   library(caret)
+#'   classifTask = makeClassifTask(data = iris, target = "Species")
 #' 
-#' # (1) classification (random forest) with discretized parameters
-#' getCaretParamSet("rf", length = 9L, task = classifTask, discretize = TRUE)
+#'   # (1) classification (random forest) with discretized parameters
+#'   getCaretParamSet("rf", length = 9L, task = classifTask, discretize = TRUE)
 #' 
-#' # (2) regression (gradient boosting machine) without discretized parameters
-#' library(mlbench)
-#' data(BostonHousing)
-#' regrTask = makeRegrTask(data = BostonHousing, target = "medv")
-#' getCaretParamSet("gbm", length = 9L, task = regrTask, discretize = FALSE)
+#'   # (2) regression (gradient boosting machine) without discretized parameters
+#'   library(mlbench)
+#'   data(BostonHousing)
+#'   regrTask = makeRegrTask(data = BostonHousing, target = "medv")
+#'   getCaretParamSet("gbm", length = 9L, task = regrTask, discretize = FALSE)
 #' }
 getCaretParamSet = function(learner, length = 3L, task, discretize = TRUE) {
   td = getTaskData(task, target.extra = TRUE)
@@ -71,16 +71,14 @@ getCaretParamSet = function(learner, length = 3L, task, discretize = TRUE) {
       numeric = makeNumericParam(id = i, lower = min(par.vals), upper = max(par.vals)),
       integer = makeIntegerParam(id = i, lower = min(par.vals), upper = max(par.vals))
     )
-  }
-  )
+  })
   names(params) = colnames(caret.grid)
 
   # are the parameters configurable or are the values unique?
   is.tunable = vlapply(params, function(x) {
     (!is.null(x$values) && length(x$values) > 1) |
       (!is.null(x$lower) && !is.null(x$upper) && (x$upper > x$lower))
-  }
-  )
+  })
 
   # define par.vals (if existing)
   if (all(is.tunable)) {
@@ -91,8 +89,7 @@ getCaretParamSet = function(learner, length = 3L, task, discretize = TRUE) {
         x = as.character(x)
       }
       return(x[1L])
-    }
-    )
+    })
     # convert integerish variables into integer
     par.vals[vlapply(par.vals, testIntegerish)] =
       lapply(par.vals[vlapply(par.vals, testIntegerish)], as.integer)

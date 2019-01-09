@@ -28,12 +28,10 @@ test_that("regr_xgboost", {
   # set.seed(getOption("mlr.debug.seed"))
   testSimpleParsets("regr.xgboost", regr.num.df, regr.num.target, regr.num.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})
 
 test_that("xgboost works with different 'missing' arg vals", {
   lrn = makeLearner("regr.xgboost", missing = NA_real_)
   lrn = makeLearner("regr.xgboost", missing = NA)
   lrn = makeLearner("regr.xgboost", missing = NULL)
-}
-)
+})

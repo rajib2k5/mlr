@@ -21,5 +21,4 @@ test_that("regr_laGP", {
     old.predicts.list[[i]] = do.call(laGP::aGP, pars)$mean
   }
   testSimpleParsets("regr.laGP", dd, regr.num.target, 1:51, old.predicts.list, parset.list)
-}
-)
+})

@@ -36,5 +36,4 @@ test_that("regr_LiblineaRL2L2SVR", {
 
   testSimpleParsets("regr.LiblineaRL2L2SVR", regr.num.df, regr.num.target,
     regr.num.train.inds, old.predicts.list, parset.list2)
-}
-)
+})

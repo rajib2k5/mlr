@@ -155,8 +155,7 @@ codeListToTable = function(html) {
     parname = XML::xmlValue(lichi[[1]])
     pardesc = stri_join_list(lapply(lichi[-1], XML::xmlValue), collapse = " ")
     stri_trim(c(parname, pardesc), pattern = c("[a-zA-Z0-9_.]", "\\P{Wspace}"))
-  }
-  )
+  })
   as.data.frame(do.call(rbind, lislis), stringsAsFactors = FALSE)
 }
 
@@ -201,8 +200,7 @@ makeParamHelpList = function(funs, pkgs, par.set) {
       if (identical(ncol(tbl), 2L)) {
         tbl
       }
-    }
-    ))
+    }))
     # we also try to extract generally all lists that begin with a code string.
     # this gets appended to the front, so that the (more trustworthy) html table
     # extract will overwrite the <li>-extract if a param occurs in both.

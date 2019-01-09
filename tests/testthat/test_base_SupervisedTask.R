@@ -42,8 +42,7 @@ test_that("SupervisedTask", {
   expect_true(getTaskDesc(ct1)$has.blocking)
   ct2 = subsetTask(ct1)
   expect_true(getTaskDesc(ct2)$has.blocking)
-}
-)
+})
 
 test_that("SupervisedTask dropping of levels works", {
   d = iris
@@ -64,8 +63,7 @@ test_that("SupervisedTask dropping of levels works", {
     "Empty factor levels")
 
   expect_warning(makeMultilabelTask("multilabel", multilabel.df[1:10, ], target = c("y1", "y2"), fixup.data = "quiet"), NA)
-}
-)
+})
 
 test_that("SupervisedTask does not drop positive class", {
   data = iris[1:100, ]
@@ -74,8 +72,7 @@ test_that("SupervisedTask does not drop positive class", {
   }, "empty factor levels")
   td = getTaskDesc(task)
   expect_true(setequal(c(td$positive, td$negative), unique(data$Species)))
-}
-)
+})
 
 test_that("Task $type and $task.desc$type agree", {
   check = list(
@@ -88,5 +85,4 @@ test_that("Task $type and $task.desc$type agree", {
     expect_identical(type, check[[type]]$type)
     expect_identical(type, getTaskDesc(check[[type]])$type)
   }
-}
-)
+})

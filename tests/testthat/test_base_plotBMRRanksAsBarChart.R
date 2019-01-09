@@ -44,5 +44,4 @@ test_that("plotBMRRanksAsBarChart", {
   res = benchmark(lrns, tasks)
   expect_error(plotBMRSummary(res),
     "names are not unique")
-}
-)
+})

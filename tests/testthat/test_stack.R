@@ -51,8 +51,7 @@ test_that("Stacking works", {
       }
     }
   }
-}
-)
+})
 
 test_that("Stacking works with wrapped learners (#687)", {
   base = "classif.rpart"
@@ -60,8 +59,7 @@ test_that("Stacking works with wrapped learners (#687)", {
   lrns = lapply(lrns, setPredictType, "prob")
   lrns[[1]] = makeFilterWrapper(lrns[[1]], fw.abs = 2)
   m = makeStackedLearner(base.learners = lrns, predict.type = "prob", method = "hill.climb")
-}
-)
+})
 
 test_that("Parameters for hill climb works", {
   tsk = binaryclass.task
@@ -87,8 +85,7 @@ test_that("Parameters for hill climb works", {
   res = predict(tmp, tsk)
 
   expect_equal(sum(tmp$learner.model$weights), 1)
-}
-)
+})
 
 test_that("Parameters for compress model", {
   tsk = binaryclass.task
@@ -109,5 +106,4 @@ test_that("Parameters for compress model", {
     parset = list(k = 5, prob = 0.3))
   tmp = train(m, tsk)
   res = predict(tmp, tsk)
-}
-)
+})

@@ -44,8 +44,7 @@ trainLearner.regr.FDboost = function(.learner, .task, .subset, .weights = NULL, 
 
   suppressMessages({
     d = getTaskData(.task, functionals.as = "dfcols")
-  }
-  )
+  })
   m = getTaskData(.task, functionals.as = "matrix")
   tn = getTaskTargetNames(.task)
 

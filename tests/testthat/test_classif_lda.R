@@ -15,5 +15,4 @@ test_that("classif_lda", {
   tp = function(model, newdata) predict(model, newdata)$class
 
   testCV("classif.lda", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp)
-}
-)
+})

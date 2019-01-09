@@ -8,5 +8,4 @@ test_that("checkTaskLearner", {
   expect_error(train(makeLearner("regr.km"), regr.task), "factor inputs")
   expect_error(train(makeLearner("classif.gbm"), regr.task), "is for 'classif'")
   expect_error(train(makeLearner("regr.gbm"), multiclass.task), "is for 'regr'")
-}
-)
+})

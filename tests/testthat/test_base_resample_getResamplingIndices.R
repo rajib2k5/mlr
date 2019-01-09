@@ -23,8 +23,7 @@ test_that("getResamplingIndices works with getTuneResult", {
 
   # check if inner test.inds are retrieved correctly
   expect_length(unique(unlist(getResamplingIndices(r, inner = TRUE)[[1]]$test.inds)), 25)
-}
-)
+})
 
 test_that("getResamplingIndices works with getFeatSelResult", {
   outer = makeResampleDesc("CV", iters = 2L)
@@ -36,16 +35,14 @@ test_that("getResamplingIndices works with getFeatSelResult", {
 
   r = resample(lrn2, multiclass.task, outer, extract = function(model) {
     getFeatSelResult(model)
-  }
-  )
+  })
 
   # check outer indices
   expect_equal(length(getResamplingIndices(r)$train.inds[[1]]), 75)
 
   # check if inner test.inds are retrieved correctly
   expect_length(unique(unlist(getResamplingIndices(r, inner = TRUE)[[1]]$test.inds)), 25)
-}
-)
+})
 
 test_that("getResamplingIndices(inner = TRUE) correctly translates the inner inds to indices of the task", {
 
@@ -70,5 +67,4 @@ test_that("getResamplingIndices(inner = TRUE) correctly translates the inner ind
   inds = sort(inner_inds[[2]][["test.inds"]][[1]])
 
   expect_equal(length(inds[inds > 120]), 30)
-}
-)
+})

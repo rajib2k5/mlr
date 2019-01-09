@@ -26,5 +26,4 @@ test_that("surv_CoxBoost", {
   }
 
   testSimpleParsets("surv.CoxBoost", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-}
-)
+})

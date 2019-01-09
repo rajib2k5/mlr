@@ -24,5 +24,4 @@ test_that("mergeSmallFactorLevels", {
   task2 = mergeSmallFactorLevels(task, min.perc = 0.11)
   expect_equal(levels(getTaskData(task2)$f1), c("a", ".merged"))
   expect_equal(getTaskData(task2)$y, f1)
-}
-)
+})

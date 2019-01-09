@@ -168,5 +168,4 @@ test_that("generatePartialDependenceData", {
   # test that would have caught a bug that occurs when the jacobian is estimated
   pd.der.classif = generatePartialDependenceData(fcp, multiclass.task, "Petal.Width",
     derivative = TRUE, n = m)
-}
-)
+})

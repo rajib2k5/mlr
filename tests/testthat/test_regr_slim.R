@@ -26,12 +26,10 @@ test_that("regr_slim", {
     capture.output({
       m = do.call(flare::slim, pars)
       p = predict(m, newdata = as.matrix(regr.num.test[, ind]), lambda.idx = idx)[[1L]][, 1L]
-    }
-    )
+    })
     old.predicts.list[[i]] = p
   }
 
   testSimpleParsets("regr.slim", regr.num.df, regr.num.target, regr.num.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

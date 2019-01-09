@@ -15,8 +15,7 @@ test_that("FilterWrapper", {
   r = resample(lrn2, binaryclass.task, res)
   expect_true(!any(is.na(r$aggr)))
   expect_subset(r$extract[[1]][[1]], getTaskFeatureNames(binaryclass.task))
-}
-)
+})
 
 test_that("FilterWrapper univariate (issue #516)", {
   lrn1 = makeLearner("classif.rpart")
@@ -24,8 +23,7 @@ test_that("FilterWrapper univariate (issue #516)", {
   m = train(lrn2, binaryclass.task)
   expect_true(!inherits(m, "FailureModel"))
   expect_equal(m$features, getTaskFeatureNames(binaryclass.task))
-}
-)
+})
 
 test_that("Filterwrapper permutation.importance (issue #814)", {
   lrn1 = makeLearner("classif.rpart")
@@ -35,5 +33,4 @@ test_that("Filterwrapper permutation.importance (issue #814)", {
   r = resample(lrn2, binaryclass.task, res)
   expect_true(!any(is.na(r$aggr)))
   expect_subset(r$extract[[1]][[1]], getTaskFeatureNames(binaryclass.task))
-}
-)
+})

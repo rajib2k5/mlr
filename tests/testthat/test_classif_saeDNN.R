@@ -21,8 +21,7 @@ test_that("classif_saeDNN", {
     p = deepnet::nn.predict(m, data.matrix(binaryclass.test[, -ncol(binaryclass.test)]))
     colnames(p) = binaryclass.class.levs
     p = as.factor(colnames(p)[max.col(p)])
-  }
-  )
+  })
 
   set.seed(getOption("mlr.debug.seed"))
   testSimple("classif.saeDNN", binaryclass.df, binaryclass.target, binaryclass.train.inds, p,
@@ -46,11 +45,9 @@ test_that("classif_saeDNN", {
     p = deepnet::nn.predict(m, data.matrix(binaryclass.test[, -ncol(binaryclass.test)]))
     colnames(p) = binaryclass.class.levs
     p = as.factor(colnames(p)[max.col(p)])
-  }
-  )
+  })
 
   set.seed(getOption("mlr.debug.seed"))
   testSimple("classif.saeDNN", binaryclass.df, binaryclass.target, binaryclass.train.inds, p,
     parset = list(hidden = 7))
-}
-)
+})

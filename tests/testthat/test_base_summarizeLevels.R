@@ -13,5 +13,4 @@ test_that("summarizeLevels", {
   expect_equal(as.numeric(summarizeLevels(data2)[[1]]), rep(1, 6))
   expect_equal(as.numeric(summarizeLevels(data3)[[1]]), c(1000, 100000))
   expect_equal(as.numeric(summarizeLevels(data4)[[1]]), 1)
-}
-)
+})

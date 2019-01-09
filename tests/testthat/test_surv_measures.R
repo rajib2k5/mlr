@@ -24,8 +24,7 @@ test_that("survival measures do not do stupid things", {
       }
     }
   }
-}
-)
+})
 
 test_that("setting measure pars works", {
   mod = train("surv.rpart", wpbc.task)
@@ -42,8 +41,7 @@ test_that("setting measure pars works", {
   measures = list(setMeasurePars(iauc.uno, resolution = 10), iauc.uno)
   perf = performance(pred = pred, task = wpbc.task, model = mod, measures = measures)
   expect_string(all.equal(perf[1], perf[2]))
-}
-)
+})
 
 test_that("hand constructed tests", {
   n = 100
@@ -57,5 +55,4 @@ test_that("hand constructed tests", {
 
   perf = performance(pred = pred, model = mod, task = task, measures = list(cindex, cindex.uno, iauc.uno))
   expect_equal(unname(perf), c(1, 1, 0.99))
-}
-)
+})

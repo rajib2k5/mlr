@@ -17,8 +17,7 @@ test_that("getPredictionResponse", {
   expect_true(is.numeric(getPredictionResponse(regr.pred)))
   expect_true(is.numeric(getPredictionResponse(surv.pred)))
   expect_true(is.integer(getPredictionResponse(cluster.pred)))
-}
-)
+})
 
 test_that("getPredictionTruth", {
   expect_true(is.factor(getPredictionTruth(classif.pred)))
@@ -27,8 +26,7 @@ test_that("getPredictionTruth", {
   expect_true(is.numeric(getPredictionTruth(regr.pred)))
   expect_true(is.Surv(getPredictionTruth(surv.pred)))
   expect_error(getPredictionTruth(cluster.pred), "no truth")
-}
-)
+})
 
 test_that("getPredictionProbabilities", {
   expect_error(getPredictionProbabilities(classif.pred, "R"), "Probabilities")
@@ -40,5 +38,4 @@ test_that("getPredictionProbabilities", {
   lrn2 = makeMultilabelBinaryRelevanceWrapper(lrn)
   multilabel.pred2 = predict(train(lrn2, multilabel.task), multilabel.task)
   expect_true(is.numeric(getPredictionProbabilities(multilabel.pred2, "y2")))
-}
-)
+})

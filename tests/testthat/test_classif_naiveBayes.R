@@ -14,5 +14,4 @@ test_that("classif_naiveBayes", {
   tp = function(model, newdata) predict(model, newdata[, -multiclass.class.col])
 
   testCV("classif.naiveBayes", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp)
-}
-)
+})

@@ -73,7 +73,7 @@ generateCalibrationData.BenchmarkResult = function(obj, breaks = "Sturges", grou
   obj = getBMRPredictions(obj, task.ids = task.id, as.df = FALSE)[[1L]]
 
   for (x in obj)
- checkPrediction(x, task.type = "classif", predict.type = "prob")
+    checkPrediction(x, task.type = "classif", predict.type = "prob")
   generateCalibrationData.list(obj, breaks, groups, task.id)
 }
 #' @export
@@ -108,8 +108,7 @@ generateCalibrationData.list = function(obj, breaks = "Sturges", groups = NULL, 
       as.list(ifelse(s == 0, 0, diag(tab) / s))
     }
     list(data = df, proportion = df[, fun(.SD), by = "bin"])
-  }
-  )
+  })
   data = rbindlist(lapply(out, function(x) x$data), idcol = "Learner")
   proportion = rbindlist(lapply(out, function(x) x$proportion), idcol = "Learner")
   if (length(td$class.levels) == 2L) {
@@ -155,7 +154,7 @@ generateCalibrationData.list = function(obj, breaks = "Sturges", groups = NULL, 
 #' @examples
 #' \dontrun{
 #' lrns = list(makeLearner("classif.rpart", predict.type = "prob"),
-#' makeLearner("classif.nnet", predict.type = "prob"))
+#'   makeLearner("classif.nnet", predict.type = "prob"))
 #' fit = lapply(lrns, train, task = iris.task)
 #' pred = lapply(fit, predict, task = iris.task)
 #' names(pred) = c("rpart", "nnet")

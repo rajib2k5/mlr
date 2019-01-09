@@ -38,8 +38,7 @@ test_that("TuneWrapper", {
   expect_equal(lrn2$predict.type, "prob")
   r = resample(lrn2, binaryclass.task, makeResampleDesc("Holdout"), measures = mlr::auc)
   expect_true(!is.na(r$aggr[["auc.test.mean"]]))
-}
-)
+})
 
 # see bug in issue 205
 test_that("TuneWrapper passed predict hyper pars correctly to base learner", {
@@ -51,8 +50,7 @@ test_that("TuneWrapper passed predict hyper pars correctly to base learner", {
   # this resulted in an error as "s" was not passed to predict
   res = resample(tw, binaryclass.task, rdesc)
   expect_class(res, "ResampleResult")
-}
-)
+})
 
 test_that("TuneWrapper uses tune.threshold", {
   lrn = makeLearner("classif.lda", predict.type = "prob")
@@ -68,8 +66,7 @@ test_that("TuneWrapper uses tune.threshold", {
   expect_true(!all(p$threshold == 0.5))
   r = resample(lrn, binaryclass.task, resampling = rdesc)
   expect_true(!all(r$pred$threshold == 0.5))
-}
-)
+})
 
 
 test_that("TuneWrapper works with getTuneResult and getNestedTuneResults", {
@@ -97,8 +94,7 @@ test_that("TuneWrapper works with getTuneResult and getNestedTuneResults", {
   expect_true(all(c("iter", "C", "mmce.test.mean") %in% colnames(opdf)))
   expect_equal(nrow(opdf), 20)
   expect_equal(opdf$C, rep(2^seq(-2, 2, length.out = 10), 2))
-}
-)
+})
 
 
 test_that("TuneWrapper works with nested sampling and threshold tuning, cf. issue 242", {
@@ -112,8 +108,7 @@ test_that("TuneWrapper works with nested sampling and threshold tuning, cf. issu
     par.set = ps, control = ctrl, show.info = FALSE)
   r = resample(lrn2, iris.task, rdesc, measures = mmce)
   expect_identical(sort(names(r$pred$threshold)), c("setosa", "versicolor", "virginica"))
-}
-)
+})
 
 test_that("TuneWrapper with glmnet (#958)", {
   lrn = makeLearner("classif.glmnet", predict.type = "response")
@@ -123,5 +118,4 @@ test_that("TuneWrapper with glmnet (#958)", {
   mod = train(lrn2, multiclass.task)
   pred = predict(mod, multiclass.task)
   expect_error(pred, NA)
-}
-)
+})

@@ -22,5 +22,4 @@ test_that("classif_ranger", {
   }
 
   testProbParsets("classif.ranger", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.probs.list, parset.list)
-}
-)
+})

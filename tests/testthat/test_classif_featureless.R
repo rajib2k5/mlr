@@ -99,5 +99,4 @@ test_that("classif_featureless", {
     p = predict(mod, newdata = test)
     expect_equal(getPredictionProbabilities(p), rep(0.5, n))
   }
-}
-)
+})

@@ -15,7 +15,7 @@ makeMultilabelTask = function(id = deparse(substitute(data)), data, target, weig
   # currently we dont do any fixup here
   if (check.data) {
     for (cn in target)
- assertLogical(task$env$data[[cn]], any.missing = FALSE, .var.name = cn)
+      assertLogical(task$env$data[[cn]], any.missing = FALSE, .var.name = cn)
   }
   task$task.desc = makeMultilabelTaskDesc(id, data, target, weights, blocking, coordinates)
   addClasses(task, "MultilabelTask")

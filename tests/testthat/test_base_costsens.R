@@ -34,5 +34,4 @@ test_that("costsens", {
   lrn = makeCostSensWeightedPairsWrapper(makeLearner("classif.rpart"))
   r = resample(lrn, costsens.task, rdesc)
   expect_true(!is.na(r$aggr))
-}
-)
+})

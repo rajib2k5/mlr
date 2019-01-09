@@ -6,8 +6,7 @@ test_that("error dump is created in train", {
     config = list(on.learner.error = "quiet", on.error.dump = TRUE))
   mod = train(lrn, iris.task, subset = c(1L, 51L, 101L))
   expect_class(getFailureModelDump(mod), "dump.frames")
-}
-)
+})
 
 test_that("error dump is created in predict", {
   lrn = makeLearner("classif.knn", config = list(on.learner.error = "quiet", on.error.dump = TRUE))
@@ -17,8 +16,7 @@ test_that("error dump is created in predict", {
   mod = train(lrn, task)
   p = predict(mod, task)
   expect_class(getPredictionDump(p), "dump.frames")
-}
-)
+})
 
 
 test_that("error dump is created in resample", {
@@ -35,8 +33,7 @@ test_that("error dump is created in resample", {
   expect_equal(length(getRRDump(r)), 2)
   expect_class(getRRDump(r)[[1]]$predict.test, "dump.frames")
   expect_class(getRRDump(r)[[1]]$predict.train, "dump.frames")
-}
-)
+})
 
 
 test_that("error dump is created during tune", {
@@ -75,5 +72,4 @@ test_that("error dump is created during tune", {
   expect_class(getOptPathEl(z$opt.path, 1)$extra$.dump[[1]]$predict.test, "dump.frames")
   expect_class(getOptPathEl(z$opt.path, 1)$extra$.dump[[1]]$predict.train, "dump.frames")
   do.call(configureMlr, mlr.options)
-}
-)
+})

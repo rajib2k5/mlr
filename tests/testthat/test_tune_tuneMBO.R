@@ -40,8 +40,7 @@ test_that("tuneMBO", {
   expect_true(tr$x$sigma > 0)
   df.op.trafo = as.data.frame(trafoOptPath(tr$opt.path))
   expect_true(all(df.op.trafo$sigma > 0))
-}
-)
+})
 
 
 test_that("tuneMBO works with tune.threshold", {
@@ -55,5 +54,4 @@ test_that("tuneMBO works with tune.threshold", {
   lrn = makeTuneWrapper(lrn, hout, par.set = ps, control = ctrl)
   mod = train(lrn, sonar.task)
   expect_number(mod$learner.model$opt.result$threshold, lower = 0, upper = 1)
-}
-)
+})

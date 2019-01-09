@@ -29,8 +29,7 @@ test_that("regr_penalized", {
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(penalized::penalized, pars)
-    }
-    )
+    })
     # FIXME: should be removed, reported in issue 840
     m@formula$unpenalized[[2L]] = as.symbol(regr.target)
     p = penalized::predict(m, data = regr.test)
@@ -57,5 +56,4 @@ test_that("regr_penalized", {
 
   testCVParsets("regr.penalized", regr.df, regr.target,
     tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

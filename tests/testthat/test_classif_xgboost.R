@@ -57,24 +57,20 @@ test_that("classif_xgboost", {
 
   testProbParsets("classif.xgboost", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.probs.list, parset.probs.list)
-}
-)
+})
 
 test_that("xgboost works with different 'missing' arg vals", {
   lrn = makeLearner("classif.xgboost", missing = NA_real_)
   lrn = makeLearner("classif.xgboost", missing = NA)
   lrn = makeLearner("classif.xgboost", missing = NULL)
-}
-)
+})
 
 test_that("xgboost objective 'multi:softmax' does not work with predict.type = 'prob'", {
   expect_error(train(makeLearner("classif.xgboost", predict.type = "prob", objective = "multi:softmax"), binaryclass.task))
-}
-)
+})
 
 test_that("multiclass xgboost with 'multi:softmax' does not produce NA predictions", {
   mod = train(makeLearner("classif.xgboost", objective = "multi:softmax"), task = multiclass.task)
   pred = predict(mod, multiclass.task)
   expect_false(any(is.na(pred$data$response)))
-}
-)
+})

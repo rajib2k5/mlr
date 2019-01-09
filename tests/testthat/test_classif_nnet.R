@@ -15,8 +15,7 @@ test_that("classif_nnet", {
     set.seed(getOption("mlr.debug.seed"))
     # for the binaryclass task the mlr positive class is not the same as the ref class of nnet
     p3 = 1 - predict(m, newdata = binaryclass.test, type = "raw")[, 1]
-  }
-  )
+  })
   testSimple("classif.nnet", multiclass.df, multiclass.target,
     multiclass.train.inds, p, parset = list())
   testProb("classif.nnet", multiclass.df, multiclass.target,
@@ -43,5 +42,4 @@ test_that("classif_nnet", {
   mod = train(lrn, task = task)
   pred2 = predict(mod, task = task)
   expect_equal(pred1$data$response, pred2$data$response)
-}
-)
+})

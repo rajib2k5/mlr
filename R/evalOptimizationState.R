@@ -42,8 +42,7 @@ evalOptimizationState = function(learner, task, resampling, measures, par.set, b
   if (set.pars.ok) {
     exec.time = measureTime({
       r = resample.fun(learner2, task, resampling, measures = measures, show.info = FALSE)
-    }
-    )
+    })
 
     if (control$tune.threshold) {
       th.args = control$tune.threshold.args

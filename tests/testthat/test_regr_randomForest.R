@@ -30,8 +30,7 @@ test_that("regr_randomForest", {
   tt = randomForest::randomForest
 
   testCVParsets("regr.randomForest", regr.df, regr.target, tune.train = tt, parset.list = parset.list)
-}
-)
+})
 
 
 test_that("fix factors work", {
@@ -47,8 +46,7 @@ test_that("fix factors work", {
   newdata = data[head(test, 1L), ]
   newdata$Species = droplevels(newdata$Species)
   expect_is(predict(model, newdata = newdata), "Prediction")
-}
-)
+})
 
 test_that("different se.methods work", {
   se.methods = c("bootstrap", "jackknife", "sd")
@@ -76,17 +74,15 @@ test_that("different se.methods work", {
   # mean prediction should be unaffected from the se.method
   expect_equal(preds$bootstrap$data$response, preds$sd$data$response)
   expect_equal(preds$sd$data$response, preds$jackknife$data$response)
-}
-)
+})
 
 
 test_that("dplyr data.frames work", {
   data("mpg", package = "ggplot2")
   mpg$model = NULL
   for (cname in colnames(mpg)[sapply(mpg, is.character)])
- mpg[[cname]] = as.factor(mpg[[cname]])
+    mpg[[cname]] = as.factor(mpg[[cname]])
   expect_warning((task.mpg = makeRegrTask(data = mpg, target = "cty")), "Provided data is not a pure data.frame but from class")
   lrn = makeLearner("regr.randomForest", ntree = 2)
   train(lrn, task.mpg)
-}
-)
+})

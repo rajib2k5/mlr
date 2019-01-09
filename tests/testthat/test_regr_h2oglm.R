@@ -24,5 +24,4 @@ test_that("regr_h2oglm", {
   }
 
   testSimpleParsets("regr.h2o.glm", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

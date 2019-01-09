@@ -11,5 +11,4 @@ test_that("test createSpatialResamplingPlots() creates 10 ggplot objects", {
 
   expect_class(plots[[1]][[1]], "gg")
   expect_length(plots[[1]], 10)
-}
-)
+})

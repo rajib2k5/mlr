@@ -20,5 +20,4 @@ test_that("classif_quaDA", {
   }
 
   testCV("classif.quaDA", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp)
-}
-)
+})

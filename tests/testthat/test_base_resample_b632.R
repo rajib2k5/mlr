@@ -15,5 +15,4 @@ test_that("b632", {
   ls2 = 0.368 * mean(ls21[, 1] != ls21[, 2]) + 0.632 * mean(ls22[, 1] != ls22[, 2])
   ag = r$aggr
   expect_equal(mean(c(ls1, ls2)), ag[["mmce.b632"]])
-}
-)
+})

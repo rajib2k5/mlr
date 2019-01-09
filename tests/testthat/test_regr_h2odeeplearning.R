@@ -28,5 +28,4 @@ test_that("regr_h2odeeplearning", {
   }
 
   testSimpleParsets("regr.h2o.deeplearning", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

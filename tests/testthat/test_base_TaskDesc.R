@@ -52,5 +52,4 @@ test_that("TaskDesc", {
   expect_equal(td$has.missings, FALSE)
   expect_equal(td$type, "regr")
   expect_true(is.null(td$class.levels))
-}
-)
+})

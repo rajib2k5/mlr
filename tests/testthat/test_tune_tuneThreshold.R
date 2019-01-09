@@ -16,8 +16,7 @@ test_that("tuneThreshold", {
   tr = tuneThreshold(p, mmce, control = list(maxit = 5L))
   expect_true(length(tr$th) == 3 && all(tr$th >= 0) && all(tr$th <= 1))
   expect_true(tr$perf >= 0 && tr$perf < 0.1)
-}
-)
+})
 
 test_that("tuheThreshold works with all tuning methods", {
   lrn = makeLearner("classif.lda", predict.type = "prob")
@@ -34,5 +33,4 @@ test_that("tuheThreshold works with all tuning methods", {
     res = resample(lrn.tuned, binaryclass.task, resampling = makeResampleDesc("Holdout"), extract = getTuneResult)
     expect_number(res$extract[[1]]$threshold)
   }
-}
-)
+})

@@ -47,5 +47,4 @@ test_that("regr_mob", {
   # tp = function(model, newdata) predict(model, newdata)
   #
   # testCVParsets("regr.rpart", regr.df, regr.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

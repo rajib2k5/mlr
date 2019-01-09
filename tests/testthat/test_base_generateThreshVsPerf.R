@@ -129,5 +129,4 @@ test_that("generateThreshVsPerfData", {
   testFacetting(q, nrow = 2L)
   q = plotThreshVsPerf(pvs, facet.wrap.ncol = 2L)
   testFacetting(q, ncol = 2L)
-}
-)
+})

@@ -79,8 +79,7 @@ generateFilterValuesData = function(task, method = "randomForestSRC.rfsrc", nsel
     missing.score = setdiff(fn, names(x))
     x[missing.score] = NA_real_
     x[match(fn, names(x))]
-  }
-  )
+  })
 
   fval = do.call(cbind, fval)
   colnames(fval) = method

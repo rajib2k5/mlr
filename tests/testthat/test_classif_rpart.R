@@ -33,5 +33,4 @@ test_that("classif_rpart", {
   tp = function(model, newdata) predict(model, newdata, type = "class")
 
   testCVParsets("classif.rpart", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

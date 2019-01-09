@@ -21,5 +21,4 @@ test_that("classif_gaterSVM", {
   x = train(makeLearner("classif.gaterSVM", m = 2, seed = 0), traintask)
   result = predict(x, testtask)$data$response
   expect_equal(as.character(result), c("a", "a"))
-}
-)
+})

@@ -37,5 +37,4 @@ test_that("surv_glmnet", {
 
   # check that we restored the factory default
   expect_true(glmnet::glmnet.control()$prec < 1e-4) # should be ==1e-5
-}
-)
+})

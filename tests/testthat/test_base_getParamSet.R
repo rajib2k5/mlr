@@ -14,5 +14,4 @@ test_that("getParamSet", {
   expect_true(all(c("x.method", "x.fw.method", "selected.learner") %in% names(ps$pars)))
 
   expect_true("type" %in% names(getParamSet("classif.ksvm")$pars))
-}
-)
+})

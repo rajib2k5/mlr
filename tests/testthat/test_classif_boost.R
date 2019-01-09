@@ -60,5 +60,4 @@ test_that("classif_boosting", {
 
   testCVParsets("classif.boosting", multiclass.df, multiclass.target,
     tune.train = tt, tune.predict = tp, parset.list = parset.list2)
-}
-)
+})

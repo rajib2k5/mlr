@@ -21,8 +21,7 @@ test_that("regr_ranger", {
   }
 
   testSimpleParsets("regr.ranger", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})
 
 test_that("regr_ranger se", {
   requirePackagesOrSkip("ranger", default.method = "load")
@@ -47,5 +46,4 @@ test_that("regr_ranger se", {
   }
 
   testSimpleParsets("regr.ranger", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

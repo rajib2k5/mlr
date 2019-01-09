@@ -19,8 +19,7 @@ test_that("regr_crs", {
     set.seed(getOption("mlr.debug.seed"))
     suppressWarnings({
       m = do.call(crs::crs, pars)
-    }
-    )
+    })
     set.seed(getOption("mlr.debug.seed"))
     pred = predict(m, newdata = regr.test)
     attr(pred, "lwr") = NULL
@@ -29,5 +28,4 @@ test_that("regr_crs", {
   }
 
   suppressWarnings(testSimpleParsets("regr.crs", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list))
-}
-)
+})

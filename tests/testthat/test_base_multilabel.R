@@ -9,8 +9,7 @@ test_that("multilabel task", {
   expect_true(is.data.frame(y) && ncol(y) == 2L)
   expect_true(is.logical(y[, 1]) && is.logical(y[, 2L]))
   expect_equal(colnames(y), c("y1", "y2"))
-}
-)
+})
 
 test_that("multilabel learning", {
   lrn = makeLearner("multilabel.rFerns")
@@ -51,8 +50,7 @@ test_that("multilabel learning", {
   pred = predict(mod, multilabel.task)
   p = performance(pred)
   expect_true(!is.na(p))
-}
-)
+})
 
 test_that("MultilabelBinaryRelevanceWrapper with glmnet (#958)", {
   # multilabelBinaryRelevanceWrapper was not working properly for classif.glmnet, we had a bug here
@@ -61,8 +59,7 @@ test_that("MultilabelBinaryRelevanceWrapper with glmnet (#958)", {
   mod = train(lrn2, multilabel.task)
   pred = predict(mod, multilabel.task)
   expect_error(pred, NA)
-}
-)
+})
 
 testMultilabelWrapper = function(fun, ...) {
   desc = fun("classif.rpart")$model.subclass[1]
@@ -157,8 +154,7 @@ testMultilabelWrapper = function(fun, ...) {
       lrn2 = fun(lrn1, ...)
       expect_error(train(lrn2, multilabel3t.task), "Must be equal to set")
     }
-  }
-  )
+  })
 }
 
 testMultilabelWrapper(makeMultilabelBinaryRelevanceWrapper)

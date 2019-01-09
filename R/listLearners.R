@@ -15,8 +15,7 @@ getLearnerTable = function() {
       properties = list(row$properties),
       note = row$note %??% ""
     )
-  }
-  ))
+  }))
 
   # set learner type (classif, regr, surv, ...)
   tab$type = vcapply(stri_split_fixed(tab$id, ".", n = 2L), head, 1L)

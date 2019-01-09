@@ -19,19 +19,16 @@ test_that("regr_gbm", {
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(gbm::gbm, pars)
-    }
-    )
+    })
     set.seed(getOption("mlr.debug.seed"))
     p = gbm::predict.gbm(m, newdata = regr.test, n.trees = length(m$trees))
     old.predicts.list[[i]] = p
   }
 
   testSimpleParsets("regr.gbm", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})
 
 test_that("regr_gbm keep.data is passed correctly", {
   train(makeLearner("regr.gbm", keep.data = FALSE), regr.task)
   train(makeLearner("regr.gbm", keep.data = TRUE), regr.task)
-}
-)
+})

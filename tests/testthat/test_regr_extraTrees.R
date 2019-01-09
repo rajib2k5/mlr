@@ -27,5 +27,4 @@ test_that("regr_extraTrees", {
 
   testSimpleParsets("regr.extraTrees", regr.num.df, regr.num.target, regr.num.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

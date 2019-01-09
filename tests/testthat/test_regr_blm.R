@@ -21,5 +21,4 @@ test_that("regr_blm", {
     old.predicts.list[[i]] = predict(m, XX = regr.num.test[, -regr.num.class.col], pred.n = FALSE)$ZZ.km
   }
   testSimpleParsets("regr.blm", regr.num.df, regr.num.target, regr.num.train.inds, old.predicts.list, parset.list)
-}
-)
+})

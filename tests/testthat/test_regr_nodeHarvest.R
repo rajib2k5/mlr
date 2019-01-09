@@ -22,5 +22,4 @@ test_that("regr_nodeHarvest", {
 
   testSimpleParsets("regr.nodeHarvest", regr.df, regr.target, regr.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

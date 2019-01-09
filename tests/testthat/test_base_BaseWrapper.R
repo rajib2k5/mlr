@@ -21,8 +21,7 @@ test_that("BaseWrapper", {
     learner.subclass = "mywrapper", model.subclass = "mymodel")
   lrn2.rm = removeHyperPars(lrn2, names(getHyperPars(lrn2)))
   expect_equal(length(getHyperPars(lrn2.rm)), 0)
-}
-)
+})
 
 test_that("Joint model performance estimation, tuning, and model performance", {
   lrn = makeLearner("classif.ksvm", predict.type = "prob")
@@ -44,8 +43,7 @@ test_that("Joint model performance estimation, tuning, and model performance", {
   )
   bmrk = benchmark(lrn3, pid.task, makeResampleDesc(method = "Holdout"))
   expect_is(bmrk, "BenchmarkResult")
-}
-)
+})
 
 test_that("Error when wrapping tune wrapper around another optimization wrapper", {
   expect_error({
@@ -68,5 +66,4 @@ test_that("Error when wrapping tune wrapper around another optimization wrapper"
     )
     bmrk = benchmark(lrn3, pid.task)
   }, "Cannot wrap a tuning wrapper around another optimization wrapper!")
-}
-)
+})

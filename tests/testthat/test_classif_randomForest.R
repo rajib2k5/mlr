@@ -43,8 +43,7 @@ test_that("classif_randomForest", {
   # task = makeClassifTask(data=data, target=multiclass.target)
   # m = train(makeLearner("classif.randomForest"), task)
   # p = predict(m, task=task)
-}
-)
+})
 
 test_that("fix factors work", {
   data(iris)
@@ -60,5 +59,4 @@ test_that("fix factors work", {
   newdata = data[head(test, 1L), ]
   newdata$Species = droplevels(newdata$Species)
   expect_is(predict(model, newdata = newdata), "Prediction")
-}
-)
+})

@@ -21,8 +21,7 @@ test_that("classif_neuralnet", {
     p = neuralnet::compute(m, covariate = binaryclass.test[, -ncol(binaryclass.test)])
     p = as.numeric(as.vector(p[[2]]) > 0.5)
     p = factor(p, labels = binaryclass.class.levs)
-  }
-  )
+  })
 
   set.seed(getOption("mlr.debug.seed"))
   testSimple("classif.neuralnet", binaryclass.df, binaryclass.target, binaryclass.train.inds, p,
@@ -46,8 +45,7 @@ test_that("classif_neuralnet", {
     p = neuralnet::compute(m, covariate = binaryclass.test[, -ncol(binaryclass.test)])
     p = as.numeric(as.vector(p[[2]]) > 0.5)
     p = factor(p, labels = binaryclass.class.levs)
-  }
-  )
+  })
 
   set.seed(getOption("mlr.debug.seed"))
   testSimple("classif.neuralnet", binaryclass.df, binaryclass.target,
@@ -61,5 +59,4 @@ test_that("classif_neuralnet", {
   #   p2 = predictLearner(.learner=lrn,.model=m2,
   #                       .newdata = binaryclass.test[,-ncol(binaryclass.test)])
   #   expect_equal(p,p2,tol=1e-4)
-}
-)
+})

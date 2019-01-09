@@ -11,8 +11,7 @@ test_that("ClassificationViaRegressionWrapper predicts with response", {
   expect_lt(0, performance(p, measures = mmce))
   expect_lt(performance(p, measures = mmce), 1)
   expect_equal(length(binaryclass.test.inds), length(getPredictionResponse(p)))
-}
-)
+})
 
 test_that("ClassificationViaRegressionWrapper predicts with prob", {
   lrn1 = makeLearner("regr.rpart")
@@ -26,5 +25,4 @@ test_that("ClassificationViaRegressionWrapper predicts with prob", {
   expect_lt(performance(p, measures = mmce), 1)
   expect_equal(length(binaryclass.test.inds), length(getPredictionResponse(p)))
   expect_equal(length(binaryclass.test.inds), length(getPredictionProbabilities(p)))
-}
-)
+})

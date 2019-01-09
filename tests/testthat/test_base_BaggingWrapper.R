@@ -45,8 +45,7 @@ test_that("BaggingWrapper", {
   p = predict(m, regr.task)
 
   # blocking for BaggingWrapper is testet ind test_base_blocking.R
-}
-)
+})
 
 test_that("BaggingWrapper works with feature subsampling", {
   # fnn reported the problem when we had a bug here
@@ -54,8 +53,7 @@ test_that("BaggingWrapper works with feature subsampling", {
   mod = train(lrn, multiclass.task)
   p = predict(mod, task = multiclass.task)
   expect_true(!is.na(performance(p)))
-}
-)
+})
 
 test_that("BaggingWrapper works with 1 obs in newdata", {
   # fnn reported the problem when we had a bug here
@@ -64,8 +62,7 @@ test_that("BaggingWrapper works with 1 obs in newdata", {
   nd = regr.df[1, , drop = FALSE]
   p = predict(mod, newdata = nd)
   expect_true(!is.na(performance(p)))
-}
-)
+})
 
 test_that("BaggingWrapper with glmnet (#958)", {
   lrn = makeLearner("classif.glmnet", predict.type = "response")
@@ -73,5 +70,4 @@ test_that("BaggingWrapper with glmnet (#958)", {
   mod = train(lrn2, multiclass.task)
   pred = predict(mod, multiclass.task)
   expect_error(pred, NA)
-}
-)
+})

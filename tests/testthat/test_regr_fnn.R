@@ -38,5 +38,4 @@ test_that("regr_fnn", {
   }
 
   testCVParsets("regr.fnn", rdf, regr.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

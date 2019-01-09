@@ -31,5 +31,4 @@ test_that("regr_FDboost is equal to reference", {
   prd2 = predict(true.mod, as.list(getTaskData(fda.regr.fs.task,
     functionals.as = "matrix")))
   expect_equal(prd$data$response, prd2)
-}
-)
+})

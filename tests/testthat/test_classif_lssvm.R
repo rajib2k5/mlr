@@ -46,5 +46,4 @@ test_that("classif_lssvm", {
 
   testCV("classif.lssvm", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp,
     parset = list(kernel = "rbfdot", sigma = 20))
-}
-)
+})

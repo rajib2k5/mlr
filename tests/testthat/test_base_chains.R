@@ -27,5 +27,4 @@ test_that("chains", {
   expect_equal(getOptPathLength(or$opt.path), 2 * 2)
   perf = performance(p, mmce)
   expect_true(perf < 0.1)
-}
-)
+})

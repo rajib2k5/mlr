@@ -23,5 +23,4 @@ test_that("surv_coxph", {
   }
 
   testSimpleParsets("surv.coxph", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list)
-}
-)
+})

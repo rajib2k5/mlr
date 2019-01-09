@@ -19,5 +19,4 @@ test_that("classif_linDA", {
   }
 
   testCV("classif.linDA", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp)
-}
-)
+})

@@ -21,8 +21,7 @@ test_that("classif_gbm", {
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(gbm::gbm, pars)
-    }
-    )
+    })
     set.seed(getOption("mlr.debug.seed"))
     p = gbm::predict.gbm(m, newdata = binaryclass.test, n.trees = length(m$trees), type = "response")
     old.probs.list[[i]] = p
@@ -39,11 +38,9 @@ test_that("classif_gbm", {
   y = factor(apply(p[, , 1], 1, function(r) colnames(p)[which.max(r)]))
   testSimple("classif.gbm", multiclass.df, multiclass.target, multiclass.train.inds, y,
     parset = list(n.trees = 300, interaction.depth = 2, distribution = "multinomial"))
-}
-)
+})
 
 test_that("classif_gbm keep.data is passed correctly", {
   train(makeLearner("classif.gbm", keep.data = FALSE), binaryclass.task)
   train(makeLearner("classif.gbm", keep.data = TRUE), binaryclass.task)
-}
-)
+})

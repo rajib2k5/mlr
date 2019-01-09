@@ -23,5 +23,4 @@ test_that("regr_IBk", {
   }
 
   testSimpleParsets("regr.IBk", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

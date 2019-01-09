@@ -35,5 +35,4 @@ test_that("plotLearnerPrediction", {
   ggsave(path)
   doc = XML::xmlParse(path)
   testDocForStrings(doc, getLearnerId(lrn))
-}
-)
+})

@@ -50,8 +50,7 @@ test_that("tune", {
   expect_true(is.numeric(tr3$threshold) && length(tr3$threshold) == 3L && !any(is.na(tr3$threshold)))
 
   expect_error(tuneParams(lrn, multiclass.task, cv.instance, par.set = makeParamSet(), control = ctrl))
-}
-)
+})
 
 test_that("tuning works with infeasible pars", {
   # i am not sure if we want that behavior always but currently we impute Inf when we eval
@@ -70,8 +69,7 @@ test_that("tuning works with infeasible pars", {
   expect_true(is.na(d[1L, "error.message"]))
   expect_true(is.na(d[2L, "mmce.test.mean"]))
   expect_true(!is.na(d[2L, "error.message"]))
-}
-)
+})
 
 test_that("tuning works with errors", {
   configureMlr(on.learner.error = "quiet")
@@ -88,8 +86,7 @@ test_that("tuning works with errors", {
   expect_true(is.na(d[2L, "mmce.test.mean"]))
   expect_true(grep("foo", d[2L, "error.message"]) == 1L)
   configureMlr(on.learner.error = "stop")
-}
-)
+})
 
 # see bug in issue 219
 test_that("tuning works with tuneThreshold and multiple measures", {
@@ -110,8 +107,7 @@ test_that("tuning works with tuneThreshold and multiple measures", {
   res = tuneParams(lrn, sonar.task, resampling = rdesc, measures = list(mmce, auc),
     par.set = ps, control = ctrl)
   expect_true(is.numeric(res$y) && length(res$y) == 2L && !any(is.na(res$y)))
-}
-)
+})
 
 test_that("tuning allows usage of budget", {
   lrn = makeLearner("classif.rpart", predict.type = "prob")
@@ -143,8 +139,7 @@ test_that("tuning allows usage of budget", {
     par.set = ps, control = ctrl)
   expect_true(is.numeric(res$y) && length(res$y) == 2L && !any(is.na(res$y)))
   expect_identical(getOptPathLength(res$opt.path), 3L)
-}
-)
+})
 
 test_that("Learner defined with expression in param requires, see #369 and PH #52", {
   ps = makeParamSet(
@@ -156,8 +151,7 @@ test_that("Learner defined with expression in param requires, see #369 and PH #5
   ctrl = makeTuneControlRandom()
   res = tuneParams("classif.__mlrmocklearners__5", binaryclass.task, resampling = rdesc, par.set = ps, control = ctrl)
   expect_class(res, "TuneResult")
-}
-)
+})
 
 
 test_that("tuning does not break with small discrete values, see bug in #1115", {
@@ -168,8 +162,7 @@ test_that("tuning does not break with small discrete values, see bug in #1115", 
   # this next line created an exception in the bug
   res = tuneParams("classif.rpart", multiclass.task, hout, par.set = ps, control = ctrl)
   expect_class(res, "TuneResult")
-}
-)
+})
 
 test_that("tuning works with large param.sets", {
   lrn = makeLearner("classif.__mlrmocklearners__5")
@@ -178,10 +171,8 @@ test_that("tuning works with large param.sets", {
   ps.length = 200
   long.learner.params = do.call(base::c, lapply(seq_len(ps.length), function(x) {
     makeParamSet(makeIntegerLearnerParam(paste0("some.parameter", x), 1, 10))
-  }
-  ))
+  }))
   lrn$par.set = c(lrn$par.set, long.learner.params)
   res = tuneParams(lrn, pid.task, cv5, par.set = long.learner.params, control = ctrl, show.info = TRUE)
   expect_class(res, "TuneResult")
-}
-)
+})

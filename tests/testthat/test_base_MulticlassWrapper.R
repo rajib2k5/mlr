@@ -40,8 +40,7 @@ test_that("MulticlassWrapper", {
   expect_true(r1$aggr[[1L]] < 0.2)
   expect_true(r2$aggr[[1L]] < 0.2)
   expect_true(r3$aggr[[1L]] < 0.2)
-}
-)
+})
 
 test_that("MulticlassWrapper works with multiple factor levels (#620)", {
   df = iris
@@ -52,5 +51,4 @@ test_that("MulticlassWrapper works with multiple factor levels (#620)", {
   rdesc = makeResampleDesc("CV", iters = 2L)
   res = benchmark(w, classif.task, rdesc)
   expect_true(all(res$results[[1]]$classif.rpart.multiclass$measures.test$mmce < 1L))
-}
-)
+})

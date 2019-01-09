@@ -8,8 +8,7 @@ test_that("extractFDAFeatures", {
   expect_is(df, "data.frame")
   expect_equal(nrow(df), 129)
   # expect_subset(colnames(df), c("UVVIS.mean", "NIR.min", "NIR.max", "heatan", "h20"))
-}
-)
+})
 
 test_that("extractFeatures multiple times", {
   methods = list("UVVIS" = extractFDAMultiResFeatures(), "UVVIS" = extractFDAFourier(),
@@ -32,8 +31,7 @@ test_that("extractFeatures multiple times", {
   # expect_true(ncol(df) == 8L)
   # expect_subset(colnames(df), c("UVVIS.mean", "UVVIS.min", "UVVIS.max", "heatan",
   # "h20", "NIR.mean", "NIR.min", "NIR.max"))
-}
-)
+})
 
 
 test_that("extractFDAFeatures colnames work", {
@@ -42,8 +40,7 @@ test_that("extractFDAFeatures colnames work", {
   t2 = extractFDAFeatures(t, feat.methods = methods)
   cn = getTaskFeatureNames(t2$task)
   expect_match(setdiff(cn, "h2o"), regexp = "[NIR.phase]", all = TRUE)
-}
-)
+})
 
 
 test_that("Wrong methods yield errors", {
@@ -76,8 +73,7 @@ test_that("Wrong methods yield errors", {
   }
   expect_error(extractFDAFeatures(t, feat.methods = list("NIR" = wrng3())),
     "unused arguments")
-}
-)
+})
 
 test_that("extractFDAFeatures colnames work", {
   methods = list("NIR" = extractFDAFourier())
@@ -85,8 +81,7 @@ test_that("extractFDAFeatures colnames work", {
   t2 = extractFDAFeatures(t, feat.methods = methods)
   cn = getTaskFeatureNames(t2$task)
   expect_match(setdiff(cn, "h2o"), regexp = "[NIR.phase]", all = TRUE)
-}
-)
+})
 
 test_that("extractFDAFeaturesDesc", {
   methods = list("UVVIS" = extractFDAMultiResFeatures(), "NIR" = extractFDAFourier())
@@ -102,8 +97,7 @@ test_that("extractFDAFeaturesDesc", {
   expect_function(t$desc$extractFDAFeat$UVVIS$reextract)
   expect_list(t$desc$extractFDAFeat$NIR$args)
   expect_function(t$desc$extractFDAFeat$NIR$reextract)
-}
-)
+})
 
 test_that("extractFDAFeatures task equal data.frame", {
   # check data.frame output equal to task's data output
@@ -118,8 +112,7 @@ test_that("extractFDAFeatures task equal data.frame", {
 
   expect_error(extractFDAFeatures(gp.subset, feat.methods = list("fd" = extractFDAFourier(),
     "fd2" = extractFDAMultiResFeatures())), regexp = "Must be a subset of")
-}
-)
+})
 
 test_that("reextractFDAFeatures", {
   gp.subset = subsetTask(gunpoint.task, features = 1L)
@@ -129,8 +122,7 @@ test_that("reextractFDAFeatures", {
   expect_equal(getTaskFeatureNames(t3$task), getTaskFeatureNames(t4))
   expect_equal(t3$desc$target, getTaskTargetNames(t4))
   expect_equal(dim(getTaskData(t3$task)), dim(getTaskData(t4)))
-}
-)
+})
 
 test_that("extract reextract feat.methods all", {
   fm2 = list("all" = extractFDAFourier(trafo.coeff = "amplitude"))
@@ -139,8 +131,7 @@ test_that("extract reextract feat.methods all", {
   expect_equal(getTaskFeatureNames(t3$task), getTaskFeatureNames(t4))
   expect_equal(t3$desc$target, getTaskTargetNames(t4))
   expect_equal(dim(getTaskData(t3$task)), dim(getTaskData(t4)))
-}
-)
+})
 
 
 
@@ -158,8 +149,7 @@ test_that("Wavelet method are equal to package", {
   wtdata = t(BBmisc::dapply(df, fun = function(x) {
     wt = wavelets::dwt(as.numeric(x), filter = "haar", boundary = "reflection")
     unlist(c(wt@W, wt@V[[wt@level]]))
-  }
-  ))
+  }))
   df = as.data.frame(wtdata)
   colnames(df) = stringi::stri_paste("wav", "haar", seq_len(ncol(wtdata)), sep = ".")
 
@@ -167,8 +157,7 @@ test_that("Wavelet method are equal to package", {
   expect_equal(wavelets.gp, df)
   # Too many vanishing moments (support width) expected
   expect_error(extractWaveletFeatures(data = gp, filter = "d10"))
-}
-)
+})
 
 test_that("extract and reextract Wavelets", {
   requirePackagesOrSkip("wavelets", default.method = "load")
@@ -179,8 +168,7 @@ test_that("extract and reextract Wavelets", {
   expect_equal(getTaskFeatureNames(t3$task), getTaskFeatureNames(t4))
   expect_equal(t3$desc$target, getTaskTargetNames(t4))
   expect_equal(dim(getTaskData(t3$task)), dim(getTaskData(t4)))
-}
-)
+})
 
 
 
@@ -195,8 +183,7 @@ test_that("getUniFDAMultiResFeatures works on data.frame", {
   ngp = extractFDAMultiResFeatures()$learn(data = gp, curve.lens = c(100, 100), res.level = 3, shift = 0.5)
   expect_true(nrow(ngp) == nrow(gp))
   expect_true(ncol(ngp) == 20L)
-}
-)
+})
 
 test_that("get...FDAMultiResFeatures works on data.frame", {
   df = getTaskData(fuelsubset.task, functionals.as = "matrix")
@@ -219,8 +206,7 @@ test_that("get...FDAMultiResFeatures works on data.frame", {
   dfn = lrn(df, col = "NIR", res.level = 3L, shift = 0.5, curve.lens = 231L)
   expect_true(nrow(df) == nrow(dfn))
   expect_true(ncol(dfn) == 9L)
-}
-)
+})
 
 test_that("extract and reextract MultiRes", {
   gp.subset = subsetTask(gunpoint.task, subset = 1:20, features = 1L)
@@ -231,8 +217,7 @@ test_that("extract and reextract MultiRes", {
   expect_equal(t3$desc$target, getTaskTargetNames(t4))
   expect_equal(dim(getTaskData(t3$task)), dim(getTaskData(t4)))
   expect_equal(t3$task$task.desc$n.feat["numerics"], c(numerics = 12L))
-}
-)
+})
 
 
 
@@ -259,8 +244,7 @@ test_that("extractFPCAFeatures is equivalent to package", {
   expect_true((nrow(gp$data) == nrow(fpca.df)))
   expect_true((ncol(fpca.df) == 12L))
   expect_match(names(fpca.df), regexp = "[FPCA]")
-}
-)
+})
 
 test_that("extract and reextract FPCA", {
   requirePackagesOrSkip(c("mboost", "refund"), default.method = "load")
@@ -272,8 +256,7 @@ test_that("extract and reextract FPCA", {
   expect_equal(t3$desc$target, getTaskTargetNames(t4))
   expect_equal(dim(getTaskData(t3$task)), dim(getTaskData(t4)))
   expect_equal(t3$task$task.desc$n.feat["numerics"], c(numerics = 10L))
-}
-)
+})
 
 
 
@@ -311,5 +294,4 @@ test_that("Fourier equal to package", {
   # Can not have factors
   gp2 = data.frame(v1 = t(1:4), X1 = as.factor(1))
   expect_error(extractFourierFeatures(data = gp2, trafo.coeff = "amplitude"))
-}
-)
+})

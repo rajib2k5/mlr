@@ -63,8 +63,7 @@ test_that("learners work: classif", {
   # classif with only one feature
   # min.task = makeClassifTask("oneCol", data.frame(x = 1:10, y = as.factor(rep(c("a", "b"), each = 5))), target = "y")
   # lapply(lrns, testBasicLearnerProperties, task = min.task)
-}
-)
+})
 
 
 test_that("weightedClassWrapper on all binary learners", {
@@ -84,10 +83,8 @@ test_that("weightedClassWrapper on all binary learners", {
     cm3 = f(lrn, 1000)
     expect_true(all(cm1[, pos] <= cm2[, pos]))
     expect_true(all(cm2[, pos] <= cm3[, pos]))
-  }
-  )
-}
-)
+  })
+})
 
 
 test_that("WeightedClassWrapper on all multiclass learners", {
@@ -114,7 +111,5 @@ test_that("WeightedClassWrapper on all multiclass learners", {
     expect_true(all(cm2[, levs[2]] >= cm3[, levs[2]]))
     expect_true(all(cm3[, levs[3]] >= cm1[, levs[3]]))
     expect_true(all(cm3[, levs[3]] >= cm2[, levs[3]]))
-  }
-  )
-}
-)
+  })
+})

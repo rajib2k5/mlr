@@ -36,5 +36,4 @@ test_that("cluster_kmeans", {
   expect_equal(getMaxIndexOfRows(p), pp[, 1], check.attributes = FALSE)
   expect_equal(p[, 1], pp[, 2], check.attributes = FALSE)
   expect_equal(p[, 2], pp[, 3], check.attributes = FALSE)
-}
-)
+})

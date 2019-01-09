@@ -19,8 +19,7 @@ fdFeatsToColumnIndex = function(df, fd.features = NULL, exclude.cols = NULL) {
       assertSubset(fd.feature, seq_len(ncol(df)))
       setdiff(fd.feature, exclude.cols)
     }
-  }
-  )
+  })
 }
 
 # Convert a data.frame containing functional features to a data.frame containing

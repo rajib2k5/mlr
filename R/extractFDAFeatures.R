@@ -99,8 +99,7 @@ extractFDAFeatures.data.frame = function(obj, target = character(0L), feat.metho
   # Append Info relevant for reextraction to desc
   desc$extractFDAFeat = lapply(extracts, function(x) {
     c(x["args"], x["reextract"])
-  }
-  )
+  })
 
   # Extract feats for every functional feature and cbind to data.frame
   vals = extractSubList(extracts, "feats", simplify = FALSE)

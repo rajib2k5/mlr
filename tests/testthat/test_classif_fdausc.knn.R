@@ -38,8 +38,7 @@ test_that("classif_fdausc.knn behaves like original api", {
   # check if the output from the original API matches the mlr learner's output
   expect_equal(as.character(cp2), as.character(p2))
   expect_equal(as.character(cp), as.character(p1))
-}
-)
+})
 
 test_that("predicttype prob for fda.usc", {
   requirePackagesOrSkip("fda.usc", default.method = "load")
@@ -49,8 +48,7 @@ test_that("predicttype prob for fda.usc", {
   m = train(lrn, fda.binary.gp.task)
   cp = predict(m, newdata = getTaskData(fda.binary.gp.task, target.extra = TRUE, functionals.as = "matrix")$data)
   expect_equal(class(cp)[1], "PredictionClassif")
-}
-)
+})
 
 test_that("resampling fdausc.knn", {
   requirePackagesOrSkip("fda.usc", default.method = "load")
@@ -59,5 +57,4 @@ test_that("resampling fdausc.knn", {
   set.seed(getOption("mlr.debug.seed"))
   r = resample(lrn, fda.binary.gp.task.small, cv2)
   expect_class(r, "ResampleResult")
-}
-)
+})

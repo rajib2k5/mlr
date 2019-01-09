@@ -178,8 +178,7 @@ test_that("benchmark", {
   f(getBMRFeatSelResults(res), "FeatSelResult")
   f(getBMRTuneResults(res), "TuneResult")
   f(getBMRFilteredFeatures(res), "character")
-}
-)
+})
 
 test_that("keep.preds and models are passed down to resample()", {
   task.names = "binary"
@@ -213,8 +212,7 @@ test_that("keep.preds and models are passed down to resample()", {
   expect_is(x, "ResampleResult")
   expect_null(x$pred)
   expect_null(models11)
-}
-)
+})
 
 test_that("benchmark work with learner string", {
   # we had a bug here, check that learner(s) are created from string
@@ -222,8 +220,7 @@ test_that("benchmark work with learner string", {
   expect_class(b, "BenchmarkResult")
   b = benchmark(c("classif.rpart", "classif.lda"), iris.task, hout)
   expect_class(b, "BenchmarkResult")
-}
-)
+})
 
 test_that("drop option works for BenchmarkResults_operators", {
 
@@ -265,5 +262,4 @@ test_that("drop option works for BenchmarkResults_operators", {
   # getBMROptResults needs seperate checking since it needs extra argument
   testDropOption(one.two, getBMROptResults, new.names = learner.names,
     wrapper.class = "cl")
-}
-)
+})

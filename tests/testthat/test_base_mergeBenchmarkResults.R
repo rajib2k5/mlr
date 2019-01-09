@@ -83,5 +83,4 @@ test_that("mergeBenchmarkResults", {
   bench2 = benchmark(learners[[2L]], tasks[[2L]], cv2)
   bench3 = benchmark(learners[[2L]], tasks[[1L]], cv3)
   expect_error(mergeBenchmarkResults(list(bench1, bench2, bench3)), "Different resample description")
-}
-)
+})

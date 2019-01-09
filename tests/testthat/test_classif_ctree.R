@@ -39,5 +39,4 @@ test_that("classif_ctree", {
   ct = makeClassifTask(target = "Species", data = df1)
   m = train(makeLearner("classif.ctree"), ct)
   predict(m, newdata = df2)
-}
-)
+})

@@ -31,5 +31,4 @@ test_that("surv_gamboost", {
   }
 
   testSimpleParsets("surv.gamboost", surv.df, surv.target, surv.train.inds, old.predicts.list, parset.list2)
-}
-)
+})

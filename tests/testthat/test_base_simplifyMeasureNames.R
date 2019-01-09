@@ -16,5 +16,4 @@ test_that("simplifyMeasureNames", {
   # check inputs of length 0
   xs = character(0L)
   expect_equal(xs, simplifyMeasureNames(xs))
-}
-)
+})

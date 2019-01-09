@@ -26,5 +26,4 @@ test_that("cluster_kkmeans", {
 
   testSimpleParsets("cluster.kkmeans", noclass.df, character(0L), noclass.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

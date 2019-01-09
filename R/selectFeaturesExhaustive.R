@@ -7,8 +7,7 @@ selectFeaturesExhaustive = function(learner, task, resampling, measures, bit.nam
       b = rep(0, p)
       b[x[, j]] = 1
       b
-    }
-    )
+    })
     states = c(states, s)
   }
   evalOptimizationStatesFeatSel(learner, task, resampling, measures, bits.to.features, control,

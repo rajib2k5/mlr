@@ -20,5 +20,4 @@ test_that("cluster_Cobweb", {
 
   testSimpleParsets("cluster.Cobweb", noclass.df, character(0L), noclass.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

@@ -6,13 +6,11 @@ test_that("getCaretParamSet", {
     set.seed(123)
     a = capture.output({
       cps1 = getCaretParamSet(lrn, length = k, task = task, discretize = TRUE)
-    }
-    )
+    })
     set.seed(123)
     b = capture.output({
       cps2 = getCaretParamSet(lrn, length = k, task = task, discretize = FALSE)
-    }
-    )
+    })
     expect_identical(cps1$par.vals, cps2$par.vals)
     expect_identical(names(cps1$par.set$pars), names(cps2$par.set$pars))
     expect_identical(class(cps1$par.set), "ParamSet")
@@ -38,5 +36,4 @@ test_that("getCaretParamSet", {
     "rpart", "J48", "stepLDA", "earth")
   r1 = lapply(caret.learners, checkCaretParams, k = 9, task = regr.task)
   r2 = lapply(caret.learners, checkCaretParams, k = 5, task = regr.task)
-}
-)
+})

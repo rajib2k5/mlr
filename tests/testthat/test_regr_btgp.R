@@ -31,5 +31,4 @@ test_that("regr_btgp", {
     old.predicts.list[[i]] = predict(m, XX = test, pred.n = FALSE)$ZZ.km
   }
   testSimpleParsets("regr.btgpllm", regr.df[, c(2:5, 14)], regr.target, inds, old.predicts.list, parset.list)
-}
-)
+})

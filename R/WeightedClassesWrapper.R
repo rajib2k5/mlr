@@ -56,9 +56,9 @@
 #' # tuning the imbalancy param and the SVM param in one go
 #' lrn = makeWeightedClassesWrapper("classif.ksvm", wcw.param = "class.weights")
 #' ps = makeParamSet(
-#' makeNumericParam("wcw.weight", lower = 1, upper = 10),
-#' makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-#' makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
+#'   makeNumericParam("wcw.weight", lower = 1, upper = 10),
+#'   makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
+#'   makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
 #' )
 #' ctrl = makeTuneControlRandom(maxit = 3L)
 #' rdesc = makeResampleDesc("CV", iters = 2L, stratify = TRUE)

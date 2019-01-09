@@ -8,8 +8,7 @@ test_that("measures", {
   fun = function(task, model, pred, feats, extra.args) {
     tt = pred
     1
-  }
-  )
+  })
   ms = list(mmce, acc, bac, tp, fp, tn, fn, tpr, fpr, tnr, fnr, ppv, npv, mcc, f1, mymeasure)
 
   lrn = makeLearner("classif.rpart")
@@ -67,8 +66,7 @@ test_that("measures", {
       expect_number(res[[sprintf("%s.test.mean", measure$id)]], lower = r[1], upper = r[2], label = measure$id)
     }, measure = ms)
   }
-}
-)
+})
 
 test_that("classif measures do not produce integer overflow", {
   tsk = oversample(subsetTask(pid.task), 1000)
@@ -76,8 +74,7 @@ test_that("classif measures do not produce integer overflow", {
   ms = listMeasures("classif", create = TRUE)
   r = holdout(lrn, tsk, measures = ms, show.info = FALSE)
   expect_numeric(r$aggr, any.missing = FALSE)
-}
-)
+})
 
 test_that("measures with same id still work", {
   m1 = mmce
@@ -85,8 +82,7 @@ test_that("measures with same id still work", {
   m1$id = m2$id = "foo"
   r = holdout("classif.rpart", iris.task, measures = list(m1, m2))
   expect_true(r$aggr[1L] < 0.2 && r$aggr[2L] > 0.8)
-}
-)
+})
 
 test_that("ber with faulty model produces NA", {
   data = iris
@@ -95,15 +91,13 @@ test_that("ber with faulty model produces NA", {
   task = makeClassifTask(data = data, target = "Species")
   r = holdout(lrn, task, measures = ber)
   expect_true(is.na(r$aggr))
-}
-)
+})
 
 test_that("db with single cluster doesn't give warnings", {
   # using mtcars instead of agri task here because agri conflicts with
   # warning when column names inherit 'x' or 'y'
   expect_warning(crossval("cluster.kmeans", mtcars.task), NA)
-}
-)
+})
 
 test_that("mcc is implemented correctly", { # see issue 363
   r = holdout("classif.rpart", sonar.task, measure = mcc)
@@ -119,8 +113,7 @@ test_that("mcc is implemented correctly", { # see issue 363
   v = prod(r.sum, c.sum)
   phi = (cm[1, 1] / total - c.sum[1] * r.sum[1]) / sqrt(v)
   expect_equal(r$aggr[[1]], phi[[1L]])
-}
-)
+})
 
 test_that("listMeasures", {
   mycheck = function(type) {
@@ -134,8 +127,7 @@ test_that("listMeasures", {
   mycheck("surv")
   mycheck("costsens")
   mycheck("multilabel")
-}
-)
+})
 
 test_that("check measure calculations", {
   # tiny datasets for testing
@@ -191,8 +183,7 @@ test_that("check measure calculations", {
   # lm does not converge due to small data and warns
   suppressWarnings({
     mod.surv = train(lrn.surv, task.surv)
-  }
-  )
+  })
   pred.surv = predict(mod.surv, task.surv)
   pred.surv$data[, "response"] = pred.art.surv
   # for costsensitive
@@ -267,8 +258,7 @@ test_that("check measure calculations", {
     expect_warning(measureRSQ(0, 0))
     expect_warning(measureRSQ(1, 1))
     expect_warning(measureRSQ(c(1, 1, 1, 1), c(1, 2, 3, 4)))
-  }
-  )
+  })
   expect_silent(measureRSQ(c(1, 1, 1, 0), c(2, 2, 2, 2)))
   # arsq
   arsq.test = 1 - (1 - rsq.test) * (2L / (4L - 2L - 1L))
@@ -284,8 +274,7 @@ test_that("check measure calculations", {
       model = mod.regr.arsq)))
     expect_warning(performance(pred.regr.arsq, measures = arsq,
       model = mod.regr.arsq))
-  }
-  )
+  })
   # expvar
   expvar.test = sum((pred.art.regr - mean(tar.regr))^2L) / sum((tar.regr - mean(tar.regr))^2L)
   expvar.perf = performance(pred.regr, measures = expvar, model = mod.regr)
@@ -296,8 +285,7 @@ test_that("check measure calculations", {
     expect_equal(NA_real_, measureEXPVAR(0, 0))
     expect_warning(measureEXPVAR(0, 0))
     expect_warning(measureEXPVAR(c(1, 1, 1, 1), c(1, 2, 3, 4)))
-  }
-  )
+  })
   expect_silent(measureEXPVAR(c(1, 1, 1, 0), c(2, 2, 2, 2)))
   # rrse
   rrse.test = sqrt(sum((pred.art.regr - tar.regr)^2L) / sum((tar.regr - mean(tar.regr))^2L))
@@ -309,8 +297,7 @@ test_that("check measure calculations", {
     expect_equal(NA_real_, measureRRSE(0, 0))
     expect_warning(measureRRSE(0, 0))
     expect_warning(measureRRSE(c(1, 1, 1, 1), c(1, 2, 3, 4)))
-  }
-  )
+  })
   expect_silent(measureRRSE(c(1, 1, 1, 0), c(2, 2, 2, 2)))
   # rae
   rae.test = sum(abs(pred.art.regr - tar.regr)) / sum(abs(tar.regr - mean(tar.regr)))
@@ -322,15 +309,13 @@ test_that("check measure calculations", {
     expect_equal(NA_real_, measureRAE(0, 0))
     expect_warning(measureRAE(0, 0))
     expect_warning(measureRAE(c(1, 1, 1, 1), c(1, 2, 3, 4)))
-  }
-  )
+  })
   expect_silent(measureRAE(c(1, 1, 1, 0), c(2, 2, 2, 2)))
   # mape
   suppressWarnings({
     expect_equal(NA_real_, mape$fun(pred = pred.regr))
     expect_equal(NA_real_, measureMAPE(c(5, 10, 0, 5), c(4, 11, 0, 4)))
-  }
-  )
+  })
   expect_warning(mape$fun(pred = pred.regr), regexp = "Measure is undefined if any truth value is equal to 0.")
   expect_warning(measureMAPE(c(5, 10, 0, 5), c(4, 11, 0, 4)), regexp = "Measure is undefined if any truth value is equal to 0.")
   pred.regr.mape = pred.regr
@@ -444,8 +429,7 @@ test_that("check measure calculations", {
     expect_equal(c(multiclass.aunu = NA_real_, multiclass.aunp = NA_real_), performance(auc.pred.constant, list(multiclass.aunu, multiclass.aunp)))
     expect_warning(measureAUNU(getPredictionProbabilities(auc.pred.constant, auc.pred.constant$task.desc$class.levels), auc.pred.constant$data$truth))
     expect_warning(measureAUNP(getPredictionProbabilities(auc.pred.constant, auc.pred.constant$task.desc$class.levels), auc.pred.constant$data$truth))
-  }
-  )
+  })
 
   p1 = p2 = matrix(c(0.1, 0.9, 0.2, 0.8), 2, 2, byrow = TRUE)
   colnames(p1) = c("a", "b")
@@ -473,8 +457,7 @@ test_that("check measure calculations", {
   pred.probs = getPredictionProbabilities(pred.classif)
   ssr.test = mean(vnapply(seq_row(pred.probs), function(i) {
     pred.probs[i, tar.classif[i]]
-  }
-  ) / sqrt(rowSums(pred.probs^2)))
+  }) / sqrt(rowSums(pred.probs^2)))
   ssr.perf = performance(pred.classif, measures = ssr, model = mod.classif)
   expect_equal(ssr.test, ssr$fun(pred = pred.classif))
   expect_equal(ssr.test, as.numeric(ssr.perf))
@@ -870,8 +853,7 @@ test_that("check measure calculations", {
   # multiclass brier for a two class problem should be two times the binary brier score.
   multiclass.brier.twoclass.perf = performance(pred.bin, measures = multiclass.brier, model = mod.bin)
   expect_equal(2 * brier.perf, multiclass.brier.twoclass.perf, check.names = FALSE)
-}
-)
+})
 
 test_that("getDefaultMeasure", {
   expect_equal(mmce, getDefaultMeasure(iris.task))
@@ -879,8 +861,7 @@ test_that("getDefaultMeasure", {
   expect_equal(mmce, getDefaultMeasure(makeLearner("classif.rpart")))
   expect_equal(mmce, getDefaultMeasure("classif.rpart"))
   expect_equal(mmce, getDefaultMeasure("classif"))
-}
-)
+})
 
 test_that("measure properties", {
   # hasMeasureProps yields correct properties
@@ -888,18 +869,15 @@ test_that("measure properties", {
     function(m) {
       res = hasMeasureProperties(m, m$properties)
       all(res) & length(res) > 0
-    }
-  )))
+    })))
   props = listMeasureProperties()
   # all props exist in mlr$measure.properties
   expect_true(all(vlapply(listMeasures(create = TRUE),
     function(m) {
       res = all(getMeasureProperties(m) %in% props)
       all(res) & length(res) > 0
-    }
-  )))
-}
-)
+    })))
+})
 
 test_that("measures ppv denominator 0", {
   set.seed(1)
@@ -915,14 +893,12 @@ test_that("measures ppv denominator 0", {
   bmrk = benchmark(lrns, tasks, rdesc, measures = meas)
   pr = generateThreshVsPerfData(bmrk, measures = list(tpr, ppv))
   expect_equal(length(which(is.na(pr$data))), 0)
-}
-)
+})
 
 test_that("measures MCC denominator 0 (#1736)", {
   res = measureMCC(c(TRUE, TRUE, TRUE), c(TRUE, TRUE, TRUE), TRUE, FALSE)
   expect_equal(res, 0)
-}
-)
+})
 
 test_that("setMeasurePars", {
   mm = mmce
@@ -944,8 +920,7 @@ test_that("setMeasurePars", {
   # precedence of ... over par.vals
   mm = setMeasurePars(mmce, foo = 1, par.vals = list(foo = 2))
   expect_equal(mm$extra.args, list(foo = 1))
-}
-)
+})
 
 test_that("bac works as intended with multiclass tasks (#1834)", {
   var1 = c(1, 2, 3, 4)
@@ -963,8 +938,7 @@ test_that("bac works as intended with multiclass tasks (#1834)", {
   bac.perf = performance(pred.classif, measures = bac, model = mod.bin)
   expect_equal(bac.test, bac$fun(pred = pred.classif))
   expect_equal(bac.test, as.numeric(bac.perf))
-}
-)
+})
 
 test_that("new bac gives the same result as old implementation", {
   lrn = makeLearner("classif.rpart")
@@ -977,5 +951,4 @@ test_that("new bac gives the same result as old implementation", {
     tn$fun(pred = pred) / sum(pred$data$truth == pred$task.desc$negative)))
 
   expect_equivalent(old.bac, perf)
-}
-)
+})

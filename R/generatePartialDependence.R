@@ -205,8 +205,7 @@ generatePartialDependenceData = function(obj, input, features = NULL,
         } else {
           x
         }
-      }
-      )
+      })
     }
   } else {
     points = lapply(features, function(x) mmpf::uniformGrid(data[[x]], n[1]))
@@ -327,8 +326,7 @@ doDerivativeMarginalPrediction = function(x, z = sample(seq_len(nrow(data)), n[2
         uniform = uniform, aggregate.fun = fun, vars = x, int.points = z,
         predict.fun = getPrediction, n = n, target = target,
         individual = individual, ...))
-    }
-    )
+    })
     out = do.call("rbind", out)
     ret = cbind(out, points[[x]], if (individual) z)
   }

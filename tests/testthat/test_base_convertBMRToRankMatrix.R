@@ -37,5 +37,4 @@ test_that("convertBMRToRankMatrix", {
   r = convertBMRToRankMatrix(res)
   expect_equivalent(rownames(r), getBMRLearnerIds(res))
   expect_equivalent(colnames(r), getBMRTaskIds(res))
-}
-)
+})

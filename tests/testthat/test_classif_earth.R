@@ -30,8 +30,7 @@ test_that("classif_earth can do binary classification", {
 
   testSimpleParsets("classif.earth", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.earth", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.probs.list, parset.list)
-}
-)
+})
 
 test_that("classif_earth can do multiclass classification", {
   requirePackagesOrSkip("earth", default.method = "load")
@@ -61,5 +60,4 @@ test_that("classif_earth can do multiclass classification", {
 
   testSimpleParsets("classif.earth", multiclass.df, multiclass.target, multiclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.earth", multiclass.df, multiclass.target, multiclass.train.inds, old.probs.list, parset.list)
-}
-)
+})

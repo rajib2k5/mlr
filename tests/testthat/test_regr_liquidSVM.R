@@ -30,5 +30,4 @@ test_that("regr_liquidSVM", {
   }
 
   testSimpleParsets("regr.liquidSVM", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

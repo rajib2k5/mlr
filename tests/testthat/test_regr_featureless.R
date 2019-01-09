@@ -28,5 +28,4 @@ test_that("regr_featureless", {
     expect_output(print(lrn), "featureless")
     expect_output(print(lrn), m)
   }
-}
-)
+})

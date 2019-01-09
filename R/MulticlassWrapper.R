@@ -87,15 +87,13 @@ predictLearner.MulticlassWrapper = function(.learner, .model, .newdata, .subset 
       pred = as.numeric(pred == "1") * 2 - 1
     }
     pred
-  }
-  )
+  })
   rns = rownames(cm)
   # we use hamming decoding here, see http://jmlr.org/papers/volume11/escalera10a/escalera10a.pdf
   y = apply(p, 1L, function(v) {
     d = apply(cm, 1L, function(z) sum((1 - sign(v * z)) / 2))
     rns[getMinIndex(d)]
-  }
-  )
+  })
   as.factor(y)
 }
 

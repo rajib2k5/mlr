@@ -26,5 +26,4 @@ test_that("RankMatrix", {
   r3 = orderBMRTasks(res, order.tsks = tsk.id1)
   expect_is(r3, "data.frame")
   expect_equal(dim(r2), dim(as.data.frame(res)))
-}
-)
+})

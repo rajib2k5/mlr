@@ -8,5 +8,4 @@ test_that("estimateResidualVariance", {
   x2 = estimateResidualVariance(lrn, data = regr.df, target = regr.target)
   expect_equal(round(x1, 4), 21.9382)
   expect_equal(x1, x2)
-}
-)
+})

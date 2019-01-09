@@ -22,5 +22,4 @@ test_that("regr_randomForestSRC", {
   }
 
   testSimpleParsets("regr.randomForestSRC", regr.df, regr.target, regr.train.inds, old.predicts.list, parset.list)
-}
-)
+})

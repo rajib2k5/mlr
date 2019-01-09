@@ -36,5 +36,4 @@ test_that("classif_sparseLDA", {
     multiclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.sparseLDA", multiclass.df, multiclass.target,
     multiclass.train.inds, old.probs.list, parset.list)
-}
-)
+})

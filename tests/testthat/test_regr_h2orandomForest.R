@@ -26,5 +26,4 @@ test_that("regr_h2orandomForest", {
   }
   testSimpleParsets("regr.h2o.randomForest", regr.df, regr.target, regr.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})

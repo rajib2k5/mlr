@@ -45,8 +45,7 @@ test_that("tuneGrid", {
   op2.2 = as.data.frame(trafoOptPath(tr2.2$opt.path))
   op1.2$exec.time = op2.2$exec.time = NULL
   expect_equal(sortByCol(op1.2, c("C", "sigma")), sortByCol(op2.2, c("C", "sigma")))
-}
-)
+})
 
 test_that("tuneGrid works with dependent params", {
   ps = makeParamSet(
@@ -60,8 +59,7 @@ test_that("tuneGrid works with dependent params", {
   tr = tuneParams(lrn, multiclass.task, rdesc, par.set = ps, control = ctrl)
   expect_true(getOptPathLength(tr$opt.path) == 3 + 3 * 3)
   expect_true(!is.na(tr$y))
-}
-)
+})
 
 test_that("makeTuneControlGrid throws an error, if budget setting is not appropriate", {
   ps = makeParamSet(
@@ -73,5 +71,4 @@ test_that("makeTuneControlGrid throws an error, if budget setting is not appropr
   rdesc = makeResampleDesc("Holdout")
   ctrl = makeTuneControlGrid(resolution = 3L, budget = 50L)
   expect_error(tuneParams(lrn, multiclass.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE))
-}
-)
+})

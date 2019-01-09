@@ -120,8 +120,7 @@ suppressWarning = function(expr, str) {
     if (stri_detect_fixed(stri_flatten(w$message), str)) {
       invokeRestart("muffleWarning")
     }
-  }
-  )
+  })
 }
 
 hasEmptyLevels = function(x) {

@@ -74,7 +74,7 @@
 #' lrns = lapply(base, makeLearner)
 #' lrns = lapply(lrns, setPredictType, "prob")
 #' m = makeStackedLearner(base.learners = lrns,
-#' predict.type = "prob", method = "hill.climb")
+#'   predict.type = "prob", method = "hill.climb")
 #' tmp = train(m, tsk)
 #' res = predict(tmp, tsk)
 #' 
@@ -84,7 +84,7 @@
 #' base = c("regr.rpart", "regr.svm")
 #' lrns = lapply(base, makeLearner)
 #' m = makeStackedLearner(base.learners = lrns,
-#' predict.type = "response", method = "compress")
+#'   predict.type = "response", method = "compress")
 #' tmp = train(m, tsk)
 #' res = predict(tmp, tsk)
 #' @noMd
@@ -241,7 +241,7 @@ predictLearner.StackedLearner = function(.learner, .model, .newdata, ...) {
     if (bms.pt == "prob") {
       # if base learner predictions are probabilities for classification
       for (i in seq_along(probs))
- probs[[i]] = probs[[i]] * model.weight[i]
+        probs[[i]] = probs[[i]] * model.weight[i]
       prob = Reduce("+", probs)
       if (sm.pt == "prob") {
         # if super learner predictions should be probabilities
@@ -620,7 +620,7 @@ rowiseRatio = function(probs, levels, model.weight = NULL) {
   for (i in 1:m) {
     ids = matrix(probs == levels[i], nrow(probs), p)
     for (j in 1:p)
- ids[, j] = ids[, j] * model.weight[j]
+      ids[, j] = ids[, j] * model.weight[j]
     mat[, i] = rowSums(ids)
   }
   colnames(mat) = levels
@@ -723,11 +723,11 @@ getPseudoData = function(.data, k = 3, prob = 0.1, s = NULL, ...) {
     res = rbind(res, data)
   }
   for (i in ind1)
- res[, i] = res[, i] * (mx[i] - mn[i]) + mn[i]
+    res[, i] = res[, i] * (mx[i] - mn[i]) + mn[i]
   res = data.frame(res)
   names(res) = ori.names
   for (i in ind2)
- res[[i]] = factor(res[[i]], labels = ori.labels[[i]])
+    res[[i]] = factor(res[[i]], labels = ori.labels[[i]])
   return(res)
 }
 

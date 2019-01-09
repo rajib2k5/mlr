@@ -25,8 +25,7 @@ test_that("classif_h2ogbm", {
   }
 
   testProbParsets("classif.h2o.gbm", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.probs.list, parset.list)
-}
-)
+})
 
 test_that("class names are integers and probabilities predicted (#1787)", {
   df = data.frame(matrix(runif(100, 0, 1), 100, 9))
@@ -39,5 +38,4 @@ test_that("class names are integers and probabilities predicted (#1787)", {
   rin = makeResampleInstance(rdesc, task = classif.task)
   r = resample(gb.lrn, classif.task, rin)
   expect_false(is.null(r$pred))
-}
-)
+})

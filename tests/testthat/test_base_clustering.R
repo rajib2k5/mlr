@@ -8,8 +8,7 @@ test_that("clustering predict", {
   expect_true(is.integer(y))
   p = getPredictionProbabilities(pred)
   expect_true(is.data.frame(p) && nrow(noclass.df) && ncol(p) == max(y))
-}
-)
+})
 
 
 test_that("clustering performance", {
@@ -22,8 +21,7 @@ test_that("clustering performance", {
   expect_true(is.numeric(performance(pred, task = noclass.task, measures = G1)))
   expect_true(is.numeric(performance(pred, task = noclass.task, measures = G2)))
   expect_true(is.numeric(performance(pred, task = noclass.task, measures = silhouette)))
-}
-)
+})
 
 test_that("clustering performance with missing clusters", {
   lrn = makeLearner("cluster.SimpleKMeans")
@@ -36,8 +34,7 @@ test_that("clustering performance with missing clusters", {
   expect_warning(performance(pred, task = noclass.task, measures = G1), NA)
   expect_warning(performance(pred, task = noclass.task, measures = G2), NA)
   expect_warning(performance(pred, task = noclass.task, measures = silhouette), NA)
-}
-)
+})
 
 test_that("clustering resample", {
   rdesc = makeResampleDesc("Subsample", split = 0.3, iters = 2)
@@ -46,8 +43,7 @@ test_that("clustering resample", {
 
   expect_true(all(!is.na(res$measures.test)))
   expect_false(is.na(res$aggr))
-}
-)
+})
 
 test_that("clustering benchmark", {
   task.names = "noclass"
@@ -58,14 +54,12 @@ test_that("clustering benchmark", {
 
   res = benchmark(learners = learners, task = tasks, resamplings = makeResampleDesc("CV", iters = 2L))
   expect_true("BenchmarkResult" %in% class(res))
-}
-)
+})
 
 test_that("clustering downsample", {
   down.tsk = downsample(noclass.task, perc = 1 / 3)
   expect_equal(getTaskSize(down.tsk), 50L)
-}
-)
+})
 
 test_that("clustering tune", {
   lrn = makeLearner("cluster.SimpleKMeans")
@@ -78,5 +72,4 @@ test_that("clustering tune", {
   tr = tuneParams(lrn, noclass.task, rdesc, par.set = ps, control = ctrl)
   expect_equal(getOptPathLength(tr$opt.path), 2)
   expect_true(!is.na(tr$y))
-}
-)
+})

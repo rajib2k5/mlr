@@ -40,5 +40,4 @@ test_that("classif_fdausc.np behaves like original api", {
   # check if the output from the original API matches the mlr learner's output
   expect_equal(as.character(cp2), as.character(p2))
   expect_equal(as.character(cp), as.character(p1))
-}
-)
+})

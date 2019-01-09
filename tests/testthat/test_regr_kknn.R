@@ -33,5 +33,4 @@ test_that("regr_kknn", {
 
   testCVParsets("regr.kknn", regr.df, regr.target, tune.train = tt, tune.predict = tp,
     parset.list = parset.list)
-}
-)
+})

@@ -32,8 +32,7 @@ test_that("classif_glmboost", {
 
   testSimpleParsets("classif.glmboost", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.predicts.list, parset.list2)
   testProbParsets("classif.glmboost", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.probs.list, parset.list2)
-}
-)
+})
 
 test_that("classif_glmboost probability predictions with family 'AUC' and 'AdaExp'", {
   families = list("AUC", "AdaExp")
@@ -41,10 +40,8 @@ test_that("classif_glmboost probability predictions with family 'AUC' and 'AdaEx
     lrn = makeLearner("classif.glmboost", par.vals = list(family = x), predict.type = "prob")
     mod = train(lrn, binaryclass.task)
     expect_error(predict(mod, binaryclass.task), "support probabilities")
-  }
-  )
-}
-)
+  })
+})
 
 
 # mlr does not support ordered factors as target yet.

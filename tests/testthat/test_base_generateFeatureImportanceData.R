@@ -12,5 +12,4 @@ test_that("generateFeatureImportanceData", {
 
   # Test printer
   expect_output(print(classif.imp), regexp = "FeatureImportance:")
-}
-)
+})

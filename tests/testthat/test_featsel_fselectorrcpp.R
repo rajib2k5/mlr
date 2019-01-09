@@ -23,5 +23,4 @@ test_that("filterFeatures_fselectorrcpp", {
   lrn = makeFilterWrapper(learner = lrn, fw.method = "FSelectorRcpp_information.gain", fw.perc = 0.1)
   res = resample(learner = lrn, task = binaryclass.task, resampling = cv3, measures = list(mmce, timetrain), extract = getFilteredFeatures, show.info = FALSE)
   expect_length(res$extract[[1L]], 6)
-}
-)
+})

@@ -118,8 +118,7 @@ extractFDAWavelets = function(filter = "la8", boundary = "periodic") {
     wtdata = t(dapply(df, fun = function(x) {
       wt = wavelets::dwt(as.numeric(x), filter = filter, boundary = boundary)
       unlist(c(wt@W, wt@V[[wt@level]]))
-    }
-    ))
+    }))
 
     df = as.data.frame(wtdata)
     colnames(df) = stri_paste("wav", filter, seq_len(ncol(wtdata)), sep = ".")
@@ -211,8 +210,7 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
       }, clsum - curve.lens + 1, cumsum(curve.lens))
       # And return as vector
       unlist(subfeats)
-    }
-    )
+    })
     data.frame(t(feat.list))
   }
 

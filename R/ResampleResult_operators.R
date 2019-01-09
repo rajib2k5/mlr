@@ -95,14 +95,12 @@ getRRPredictionList = function(res, ...) {
       makePrediction(task.desc, id = p$id,
         truth = p$truth, y = y, row.names = p$id,
         predict.type = predict.type, time = NA_real_, ...)
-    }
-    )
+    })
     # add time info afterwards
     for (i in seq_along(p.split))
- p.split[[i]]$time = time[i]
+      p.split[[i]]$time = time[i]
     return(p.split)
-  }
-  )
+  })
 
   ret = setNames(prediction, set)
   if (is.null(ret$train)) ret = append(ret, list(train = NULL))
@@ -138,10 +136,8 @@ addRRMeasure = function(res, measures) {
       as.data.frame(do.call("rbind", lapply(pred[[s]], function(p) {
         ret = performance(p, measures)
         matrix(ret, ncol = length(measures), dimnames = list(NULL, names(ret)))
-      }
-      )))
-    }
-    ), set)
+      })))
+    }), set)
 
     # add missing measures to resample result
     if (is.null(perf$train)) {
@@ -161,8 +157,7 @@ addRRMeasure = function(res, measures) {
         measure = m,
         pred = getRRPredictions(res),
         group = res$pred$instance$group)
-    }
-    )
+    })
     names(aggr) = vcapply(measures[measures.id %in% missing.measures], measureAggrName)
     res$aggr = c(res$aggr, aggr)
   }

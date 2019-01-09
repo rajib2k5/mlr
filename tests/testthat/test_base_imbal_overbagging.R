@@ -6,15 +6,13 @@ test_that("OverBagging wrapper", {
   lrn2 = makeOverBaggingWrapper(lrn1, obw.rate = 2)
   r = resample(lrn2, binaryclass.task, rdesc)
   expect_true(!is.na(r$aggr))
-}
-)
+})
 
 test_that("OverBagging wrapper arg check works", {
   task = makeClassifTask(data = binaryclass.df, target = binaryclass.target)
   lrn1 = makeLearner("classif.rpart")
   expect_error(makeOverBaggingWrapper(lrn1, obw.rate = 0.5))
-}
-)
+})
 
 test_that("oversampling in each bag works", {
   y = binaryclass.df[, binaryclass.target]
@@ -31,10 +29,8 @@ test_that("oversampling in each bag works", {
     tab = table(data[, binaryclass.target])
     expect_equal(tab1["M"], tab["M"])
     expect_equal(tab1["R"], round(tab["R"] / 5))
-  }
-  )
-}
-)
+  })
+})
 
 test_that("oversampling bigger class works", {
   y = binaryclass.df[, binaryclass.target]
@@ -51,7 +47,5 @@ test_that("oversampling bigger class works", {
     tab = table(data[, binaryclass.target])
     expect_equal(tab1["R"], tab["R"])
     expect_equal(tab1["M"], round(tab["M"] / 5))
-  }
-  )
-}
-)
+  })
+})

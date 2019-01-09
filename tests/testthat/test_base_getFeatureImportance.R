@@ -41,5 +41,4 @@ test_that("getFeatureImportance", {
   lrn = makeLearner("classif.qda")
   mod = train(lrn, binaryclass.task)
   expect_error(getFeatureImportance(mod), regexp = "does not support 'featimp'")
-}
-)
+})

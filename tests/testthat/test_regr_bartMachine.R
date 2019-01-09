@@ -27,5 +27,4 @@ test_that("regr_bartMachine", {
   for (i in seq_along(parset.list)) {
     expect_true(length(old.predicts.list[[i]]) == nrow(regr.test))
   }
-}
-)
+})

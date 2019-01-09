@@ -32,8 +32,7 @@ test_that("tuneGenSA", {
   )
   expect_error(tuneParams(makeLearner("classif.rpart"), multiclass.task, res,
     par.set = ps3, control = ctrl1))
-}
-)
+})
 
 test_that("tuneGenSA with budget", {
   res = makeResampleDesc("CV", iters = 2)
@@ -47,5 +46,4 @@ test_that("tuneGenSA with budget", {
     par.set = ps1, control = ctrl1)
   expect_identical(getOptPathLength(tr1$opt.path), ctrl1$budget)
   expect_identical(getOptPathLength(tr1$opt.path), ctrl1$extra.args$max.call)
-}
-)
+})

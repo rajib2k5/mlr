@@ -28,5 +28,4 @@ test_that("classif_clusterSVM", {
 
   testSimpleParsets("classif.clusterSVM", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.predicts.list, parset.list2)
-}
-)
+})

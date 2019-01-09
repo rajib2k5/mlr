@@ -10,5 +10,4 @@ test_that("checkTaskSubset", {
   # oversampling is allowed
   subs50 = sample.int(20, 50, replace = TRUE)
   expect_equal(subs50, checkTaskSubset(subs50, size = 20))
-}
-)
+})

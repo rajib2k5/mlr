@@ -28,8 +28,7 @@ test_that("classif_ada", {
 
   testProbParsets("classif.ada", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.probs.list, parset.list)
-}
-)
+})
 
 test_that("classif_ada passes parameters correctly to rpart.control (#732)", {
   cp.vals = c(0.022, 0.023)
@@ -42,5 +41,4 @@ test_that("classif_ada passes parameters correctly to rpart.control (#732)", {
       expect_equal(mod$model$lossObj$loss, loss)
     }
   }
-}
-)
+})

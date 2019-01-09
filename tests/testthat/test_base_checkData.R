@@ -48,8 +48,7 @@ test_that("checkData", {
 
   # check costiris.task has costs
   expect_equal(nrow(getTaskData(costiris.task)), nrow(getTaskCosts(costiris.task)))
-}
-)
+})
 
 test_that("changeData . getTaskData is a noop on builtin tasks", {
   # We expect changeData(task, getTaskData(task, ...)) to not change task.
@@ -62,5 +61,4 @@ test_that("changeData . getTaskData is a noop on builtin tasks", {
     changeddata = changeData(taskdata, getTaskData(taskdata, functionals.as = "matrix"))
     expect_equal(taskdata, changeddata)
   }
-}
-)
+})

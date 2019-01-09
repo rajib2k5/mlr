@@ -15,13 +15,11 @@ test_that("test_CritDifferences", {
 
   expect_warning({
     r1 = generateCritDifferencesData(res)
-  }
-  )
+  })
   expect_is(r1, "CritDifferencesData")
   expect_warning({
     r2 = generateCritDifferencesData(res, ber, test = "nemenyi")
-  }
-  )
+  })
   expect_is(r2, "CritDifferencesData")
   r3 = generateCritDifferencesData(res, ber, p.value = 0.5, test = "bd")
   expect_is(r3, "CritDifferencesData")
@@ -44,5 +42,4 @@ test_that("test_CritDifferences", {
   ggsave(tempfile(fileext = ".png"))
   plotCritDifferences(r4)
   ggsave(tempfile(fileext = ".png"))
-}
-)
+})

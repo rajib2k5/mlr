@@ -22,8 +22,7 @@ getThresholdFromOptPath = function(opt.path, inds) {
     ns = names(ex)
     ex = ex[stri_detect_regex(ns, "^threshold")]
     setNames(ex, stri_replace_first(names(ex), "", regex = "^threshold\\."))
-  }
-  ))
+  }))
   rowMeans(ths)
 }
 

@@ -8,8 +8,7 @@ test_that("helpLearner of learner with single help page", {
   environment(testfn)$readline = function(x) stop("Was not expecting readline.")
 
   expect_true(length(quiet(testfn("classif.logreg"))) == 1)
-}
-)
+})
 
 test_that("helpLearner of learner with multiple help pages", {
   testfn = helpLearner
@@ -53,8 +52,7 @@ test_that("helpLearner of learner with multiple help pages", {
 
   # regr.randomForest with option '2' should give the randomForest help page.
   expect_true(length(quiet(testfn("regr.randomForest"))) == 1)
-}
-)
+})
 
 test_that("helpLearner of wrapped learner", {
   testfn = helpLearner
@@ -64,8 +62,7 @@ test_that("helpLearner of wrapped learner", {
 
   # check that it doesn't give an error
   expect_output(testfn(makeBaggingWrapper(makeLearner("classif.qda"), 2)), "No information about learner")
-}
-)
+})
 
 test_that("helpLearnerParam", {
   # mention parameters
@@ -102,8 +99,7 @@ test_that("helpLearnerParam", {
   expect_output(helpLearnerParam(
     makeLearner("classif.randomForest", cutoff = c(.1, .2, .3)), "cutoff"),
   "Value:.+0\\.1.+0\\.2.+0\\.3")
-}
-)
+})
 
 test_that("helpLearnerParam of wrapped learner", {
   w1 = makeBaggingWrapper(makeLearner("classif.qda", nu = 4), 2)
@@ -117,5 +113,4 @@ test_that("helpLearnerParam of wrapped learner", {
     "is a wrapped learner. Showing documentation of 'classif.qda' instead", fixed = TRUE, all = TRUE)
   expect_message(quiet(helpLearnerParam(w2)),
     "is a wrapped learner. Showing documentation of 'classif.qda' instead", fixed = TRUE, all = TRUE)
-}
-)
+})

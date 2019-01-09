@@ -36,5 +36,4 @@ test_that("classif_rotationForest", {
     binaryclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.rotationForest", binaryclass.df, binaryclass.target,
     binaryclass.train.inds, old.probs.list, parset.list)
-}
-)
+})

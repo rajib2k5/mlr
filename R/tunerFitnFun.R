@@ -33,7 +33,7 @@ tunerSmoofFun = function(learner, task, resampling, measures, par.set, ctrl, opt
   # remove trafos for mbo, we do this in tunerFitnFun
   ps2 = par.set
   for (i in seq_along(ps2$pars))
- ps2$pars[[i]]$trafo = NULL
+    ps2$pars[[i]]$trafo = NULL
 
 
   fn = function(x) {

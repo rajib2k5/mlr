@@ -217,8 +217,7 @@ test_that("batchmark", {
   f(getBMRFeatSelResults(res), "FeatSelResult")
   f(getBMRTuneResults(res), "TuneResult")
   f(getBMRFilteredFeatures(res), "character")
-}
-)
+})
 
 test_that("keep.preds and models are passed down to resample()", {
   skip_if_not_installed("batchtools")
@@ -262,8 +261,7 @@ test_that("keep.preds and models are passed down to resample()", {
   expect_is(x, "ResampleResult")
   expect_null(x$pred)
   expect_null(models11)
-}
-)
+})
 
 
 test_that("batchmark works with resampling instances", {
@@ -277,8 +275,7 @@ test_that("batchmark works with resampling instances", {
   rin = makeResampleInstance(rdesc, task)
   ids = batchmark(learners = learners, task = task, resampling = rin, reg = reg)
   expect_data_table(ids, nrow = 4)
-}
-)
+})
 
 test_that("batchmark works with incomplete results", {
   skip_if_not_installed("batchtools")
@@ -306,7 +303,6 @@ test_that("batchmark works with incomplete results", {
     res = reduceBatchmarkResults(ids = data.table(job.id = 5), reg = reg, keep.pred = FALSE)
   }, "subset")
   expect_set_equal(getBMRLearnerIds(res), "classif.rpart")
-}
-)
+})
 
 options(batchtools.verbose = prev)

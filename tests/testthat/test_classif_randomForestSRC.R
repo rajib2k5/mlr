@@ -25,5 +25,4 @@ test_that("classif_randomForestSRC", {
 
   testSimpleParsets("classif.randomForestSRC", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.randomForestSRC", binaryclass.df, binaryclass.target, binaryclass.train.inds, old.probs.list, parset.list)
-}
-)
+})

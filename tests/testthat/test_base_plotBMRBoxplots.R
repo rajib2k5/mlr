@@ -56,8 +56,7 @@ test_that("BenchmarkResult", {
   res = benchmark(lrns, tasks, rdesc, meas)
   expect_error(plotBMRSummary(res),
     "names are not unique")
-}
-)
+})
 
 test_that("BenchmarkResult allows spaces", {
   cv = makeResampleDesc("CV", iters = 2L)
@@ -68,5 +67,4 @@ test_that("BenchmarkResult allows spaces", {
   res = benchmark(learners, sonar.task, cv, measures)
   plotBMRBoxplots(res, measure = auc)
   ggsave(tempfile(fileext = ".png"))
-}
-)
+})

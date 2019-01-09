@@ -29,5 +29,4 @@ test_that("regr_svm", {
   tp = function(model, newdata) predict(model, newdata)
 
   testCVParsets("regr.svm", regr.df, regr.target, tune.train = tt, tune.predict = tp, parset.list = parset.list)
-}
-)
+})

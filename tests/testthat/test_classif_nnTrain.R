@@ -21,8 +21,7 @@ test_that("classif_nnTrain", {
     p = deepnet::nn.predict(m, data.matrix(binaryclass.test[, -ncol(binaryclass.test)]))
     colnames(p) = binaryclass.class.levs
     p = as.factor(colnames(p)[max.col(p)])
-  }
-  )
+  })
 
   set.seed(getOption("mlr.debug.seed"))
   testSimple("classif.nnTrain", binaryclass.df, binaryclass.target, binaryclass.train.inds, p,
@@ -47,8 +46,7 @@ test_that("classif_nnTrain", {
     p = deepnet::nn.predict(m, data.matrix(binaryclass.test[, -ncol(binaryclass.test)]))
     colnames(p) = binaryclass.class.levs
     p = as.factor(colnames(p)[max.col(p)])
-  }
-  )
+  })
 
   set.seed(getOption("mlr.debug.seed"))
   testSimple("classif.nnTrain", binaryclass.df, binaryclass.target, binaryclass.train.inds, p,
@@ -58,5 +56,4 @@ test_that("classif_nnTrain", {
   lrn = makeLearner("classif.nnTrain", max.number.of.layers = 2, hidden = 1:3)
   m = getLearnerModel(train(lrn, binaryclass.task))
   expect_equal(m$hidden, 1:2)
-}
-)
+})

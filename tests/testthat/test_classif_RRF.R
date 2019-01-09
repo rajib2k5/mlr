@@ -34,5 +34,4 @@ test_that("classif_RRF", {
   tt = RRF::RRF
   testCVParsets("classif.RRF", multiclass.df, multiclass.target, tune.train = tt,
     parset.list = parset.list)
-}
-)
+})

@@ -12,8 +12,7 @@ test_that("tuneRandom", {
   tr = tuneParams(lrn, multiclass.task, rdesc, par.set = ps, control = ctrl, measures = acc)
   expect_equal(getOptPathLength(tr$opt.path), 5)
   expect_number(tr$y, lower = 0.8, upper = 1)
-}
-)
+})
 
 test_that("tuneRandom works with dependent params", {
   lrn = makeLearner("classif.ksvm")
@@ -28,8 +27,7 @@ test_that("tuneRandom works with dependent params", {
   tr = tuneParams(lrn, multiclass.task, rdesc, par.set = ps, control = ctrl)
   expect_equal(getOptPathLength(tr$opt.path), 5)
   expect_number(tr$y, lower = 0, upper = 0.2)
-}
-)
+})
 
 test_that("tuneRandom works with trafo", {
   lrn = makeLearner("classif.ksvm")
@@ -39,8 +37,7 @@ test_that("tuneRandom works with trafo", {
   tr = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl)
   expect_equal(getOptPathLength(tr$opt.path), 3)
   expect_true(!is.na(tr$y) && is.finite(tr$y))
-}
-)
+})
 
 test_that("tuneRandom uses budget", {
   lrn = makeLearner("classif.ksvm")
@@ -56,5 +53,4 @@ test_that("tuneRandom uses budget", {
   tr = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl)
   expect_equal(getOptPathLength(tr$opt.path), 3)
   expect_true(!is.na(tr$y) && is.finite(tr$y))
-}
-)
+})

@@ -40,8 +40,7 @@ mergeBenchmarkResults = function(bmrs) {
   all.combos = stri_paste(all.combos$task.id, all.combos$learner.id, sep = " - ")
   existing.combos = rbindlist(lapply(bmrs, function(bmr) {
     getBMRAggrPerformances(bmr, as.df = TRUE)[, c("task.id", "learner.id")]
-  }
-  ))
+  }))
   existing.combos = stri_paste(existing.combos$task.id, existing.combos$learner.id, sep = " - ")
   if (!identical(sort(existing.combos), sort(all.combos))) {
     dupls = existing.combos[duplicated(existing.combos)]
@@ -87,8 +86,7 @@ groupNamedListByNames = function(xs, name = sort(unique(names(xs)))) {
     ret = xs[names(xs) == x]
     names(ret) = NULL
     peelList(ret)
-  }
-  )
+  })
   names(res) = name
   res[order(names(res))]
 }

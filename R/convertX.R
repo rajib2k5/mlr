@@ -31,8 +31,7 @@ convertXVectorizedMatrixCols = function(xs, par.set) {
   rownames(xs) = colnames(xs) = NULL
   xs = lapply(seq_col(xs), function(i) {
     convertXNumeric(xs[, i], par.set)
-  }
-  )
+  })
 }
 
 roundIntegers = function(x, par.set) {

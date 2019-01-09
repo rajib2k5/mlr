@@ -32,5 +32,4 @@ test_that("classif_binomial", {
     old.predicts.list, parset.list2)
   testProbParsets("classif.binomial", binaryclass.df[, -nof], binaryclass.target, binaryclass.train.inds,
     old.probs.list, parset.list2)
-}
-)
+})

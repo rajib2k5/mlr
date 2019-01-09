@@ -28,5 +28,4 @@ test_that("classif_gausspr", {
     multiclass.train.inds, old.predicts.list, parset.list)
   testProbParsets("classif.gausspr", multiclass.df, multiclass.target,
     multiclass.train.inds, old.probs.list, parset.list)
-}
-)
+})

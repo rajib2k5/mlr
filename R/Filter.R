@@ -160,8 +160,7 @@ makeFilter(
     res = mRMRe::mRMR.classic(data = data, target_indices = target.ind, feature_count = nselect, ...)
     scores = as.numeric(mRMRe::scores(res)[[1L]])
     setNames(scores, res@feature_names[as.integer(mRMRe::solutions(res)[[1L]])])
-  }
-)
+  })
 
 # carscore ----------------
 
@@ -183,8 +182,7 @@ makeFilter(
     data = getTaskData(task, target.extra = TRUE)
     y = care::carscore(Xtrain = data$data, Ytrain = data$target, verbose = FALSE, ...)^2
     setNames(as.double(y), names(y))
-  }
-)
+  })
 
 # rf.importance ----------------
 
@@ -217,8 +215,7 @@ rf.importance = makeFilter(
       y = unname(im)
     }
     setNames(y, ns)
-  }
-)
+  })
 .FilterRegister[["rf.importance"]] = rf.importance
 .FilterRegister[["rf.importance"]]$desc = "Importance of random forests fitted in package 'randomForestSRC'. Importance is calculated using argument 'permute'. (DEPRECATED)"
 .FilterRegister[["rf.importance"]]$fun = function(...) {
@@ -247,8 +244,7 @@ rf.min.depth = makeFilter(
     im = randomForestSRC::var.select(getTaskFormula(task), getTaskData(task),
       method = method, verbose = FALSE, ...)$md.obj$order
     setNames(-im[, 1L], rownames(im))
-  }
-)
+  })
 .FilterRegister[["rf.min.depth"]] = rf.min.depth
 .FilterRegister[["rf.min.depth"]]$desc = "Minimal depth of random forest fitted in package 'randomForestSRC. (DEPRECATED)"
 .FilterRegister[["rf.min.depth"]]$fun = function(...) {
@@ -292,8 +288,7 @@ makeFilter(
       cforest.args))
     im = do.call(party::varimp, c(list(obj = fit), varimp.args))
     im
-  }
-)
+  })
 
 # randomForest.importance ----------------
 
@@ -323,8 +318,7 @@ makeFilter(
       keep.forest = FALSE, importance = (type != 2L))
     im = randomForest::importance(rf, type = type, ...)
     setNames(im, rownames(im))
-  }
-)
+  })
 
 # linear.correlation ----------------
 
@@ -344,8 +338,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     data = getTaskData(task, target.extra = TRUE)
     abs(cor(as.matrix(data$data), data$target, use = "pairwise.complete.obs", method = "pearson")[, 1L])
-  }
-)
+  })
 
 # rank.correlation ----------------
 
@@ -365,8 +358,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     data = getTaskData(task, target.extra = TRUE)
     abs(cor(as.matrix(data$data), data$target, use = "pairwise.complete.obs", method = "spearman")[, 1L])
-  }
-)
+  })
 
 # information.gain (FSelector)----------------
 
@@ -384,8 +376,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     y = FSelector::information.gain(getTaskFormula(task), data = getTaskData(task))
     setNames(y[["attr_importance"]], getTaskFeatureNames(task))
-  }
-)
+  })
 
 # gain.ratio (FSelector) ----------------
 
@@ -403,8 +394,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     y = FSelector::gain.ratio(getTaskFormula(task), data = getTaskData(task))
     setNames(y[["attr_importance"]], getTaskFeatureNames(task))
-  }
-)
+  })
 
 # symmetrical.uncertainty (FSelector) ----------------
 
@@ -422,8 +412,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     y = FSelector::symmetrical.uncertainty(getTaskFormula(task), data = getTaskData(task))
     setNames(y[["attr_importance"]], getTaskFeatureNames(task))
-  }
-)
+  })
 
 # chi.squared (FSelector) ----------------
 
@@ -447,8 +436,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     y = FSelector::chi.squared(getTaskFormula(task), data = getTaskData(task))
     setNames(y[["attr_importance"]], getTaskFeatureNames(task))
-  }
-)
+  })
 
 # relief (FSelector) ----------------
 
@@ -479,8 +467,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     y = FSelector::relief(getTaskFormula(task), data = getTaskData(task), ...)
     setNames(y[["attr_importance"]], getTaskFeatureNames(task))
-  }
-)
+  })
 
 # oneR (FSelector) ----------------
 
@@ -503,8 +490,7 @@ makeFilter(
   fun = function(task, nselect, ...) {
     y = FSelector::oneR(getTaskFormula(task), data = getTaskData(task))
     setNames(y[["attr_importance"]], getTaskFeatureNames(task))
-  }
-)
+  })
 
 # univariate ----------------
 
@@ -560,8 +546,7 @@ univariate = makeFilter(
       res = -1.0 * res
     }
     setNames(res, fns)
-  }
-)
+  })
 .FilterRegister[["univariate"]] = univariate
 .FilterRegister[["univariate"]]$desc = "Resamples an mlr learner for each input feature individually. The resampling performance is used as filter score, with rpart as default learner. (DEPRECATED)"
 .FilterRegister[["univariate"]]$fun = function(...) {
@@ -591,10 +576,8 @@ makeFilter(
       f = as.formula(stri_paste(feat.name, "~", getTaskTargetNames(task)))
       aov.t = aov(f, data = data)
       summary(aov.t)[[1L]][1L, "F value"]
-    }
-    )
-  }
-)
+    })
+  })
 
 # kruskal.test ----------------
 
@@ -621,10 +604,8 @@ makeFilter(
       f = as.formula(stri_paste(feat.name, "~", getTaskTargetNames(task)))
       t = kruskal.test(f, data = data)
       unname(t$statistic)
-    }
-    )
-  }
-)
+    })
+  })
 
 # variance ----------------
 
@@ -646,10 +627,8 @@ makeFilter(
     data = getTaskData(task)
     sapply(getTaskFeatureNames(task), function(feat.name) {
       var(data[[feat.name]], na.rm = na.rm)
-    }
-    )
-  }
-)
+    })
+  })
 
 # permutation.importance ----------------
 
@@ -681,8 +660,7 @@ makeFilter(
     imp = as.numeric(imp$res)
     names(imp) = getTaskFeatureNames(task)
     return(imp)
-  }
-)
+  })
 
 # auc ----------------
 
@@ -708,8 +686,7 @@ makeFilter(
       measureAUC(x, y, task$task.desc$negative, task$task.desc$positive)
     }, y = data$target)
     abs(0.5 - score)
-  }
-)
+  })
 
 #' Filters from the package \pkg{praznik} use the mutual information criteria in a greedy forward fashion:
 #' \dQuote{praznik_CMIM}, \dQuote{praznik_DISR}, \dQuote{praznik_JMIM}, \dQuote{praznik_JMI},
@@ -895,8 +872,7 @@ makeFilter(
     lrn = makeLearner(lrn.type, importance = "permutation", ...)
     mod = train(lrn, task)
     ranger::importance(mod$learner.model)
-  }
-)
+  })
 
 # ranger.impurity ----------------
 
@@ -919,5 +895,4 @@ makeFilter(
     lrn = makeLearner(lrn.type, importance = "impurity", ...)
     mod = train(lrn, task)
     ranger::importance(mod$learner.model)
-  }
-)
+  })

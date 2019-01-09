@@ -19,5 +19,4 @@ test_that("classif_geoDA", {
   }
 
   testCV("classif.geoDA", multiclass.df, multiclass.target, tune.train = tt, tune.predict = tp)
-}
-)
+})

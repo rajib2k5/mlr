@@ -22,5 +22,4 @@ test_that("classif_logreg", {
   }
 
   testCV("classif.logreg", binaryclass.df, binaryclass.target, tune.train = tt, tune.predict = tp)
-}
-)
+})

@@ -20,8 +20,7 @@ test_that("regr_km", {
     set.seed(getOption("mlr.debug.seed"))
     capture.output({
       m = do.call(DiceKriging::km, pars)
-    }
-    )
+    })
     old.predicts.list[[i]] = DiceKriging::predict(m, newdata = des2, type = "SK")$mean
   }
   testSimpleParsets("regr.km", dd, regr.num.target, 1:25, old.predicts.list, parset.list)
@@ -37,5 +36,4 @@ test_that("regr_km", {
   lrn = setHyperPars(lrn, nugget.stability = 10^-8)
   m = train(lrn, tsk)
   expect_is(m$learner.model, "km")
-}
-)
+})

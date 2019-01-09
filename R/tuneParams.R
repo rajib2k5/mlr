@@ -46,8 +46,8 @@
 #' # a grid search for an SVM (with a tiny number of points...)
 #' # note how easily we can optimize on a log-scale
 #' ps = makeParamSet(
-#' makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-#' makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
+#'   makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
+#'   makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
 #' )
 #' ctrl = makeTuneControlGrid(resolution = 2L)
 #' rdesc = makeResampleDesc("CV", iters = 2L)
@@ -67,12 +67,12 @@
 #' # we optimize the SVM over 3 kernels simultanously
 #' # note how we use dependent params (requires = ...) and iterated F-racing here
 #' ps = makeParamSet(
-#' makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-#' makeDiscreteParam("kernel", values = c("vanilladot", "polydot", "rbfdot")),
-#' makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x,
-#' requires = quote(kernel == "rbfdot")),
-#' makeIntegerParam("degree", lower = 2L, upper = 5L,
-#' requires = quote(kernel == "polydot"))
+#'   makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
+#'   makeDiscreteParam("kernel", values = c("vanilladot", "polydot", "rbfdot")),
+#'   makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x,
+#'     requires = quote(kernel == "rbfdot")),
+#'   makeIntegerParam("degree", lower = 2L, upper = 5L,
+#'     requires = quote(kernel == "polydot"))
 #' )
 #' print(ps)
 #' ctrl = makeTuneControlIrace(maxExperiments = 5, nbIterations = 1, minNbSurvival = 1)
@@ -85,7 +85,7 @@
 #' # include the training set performance as well
 #' rdesc = makeResampleDesc("Holdout", predict = "both")
 #' res = tuneParams("classif.ksvm", iris.task, rdesc, par.set = ps,
-#' control = ctrl, measures = list(mmce, setAggregation(mmce, train.mean)))
+#'   control = ctrl, measures = list(mmce, setAggregation(mmce, train.mean)))
 #' print(res)
 #' df2 = as.data.frame(res$opt.path)
 #' print(head(df2[, -ncol(df2)]))

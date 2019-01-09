@@ -24,5 +24,4 @@ test_that("regr_ctree", {
 
   testSimpleParsets("regr.ctree", regr.df, regr.target, regr.train.inds,
     old.predicts.list, parset.list)
-}
-)
+})
