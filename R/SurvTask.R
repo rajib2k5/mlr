@@ -1,6 +1,7 @@
 #' @rdname Task
 #' @export
 makeSurvTask = function(id = deparse(substitute(data)), data, target, weights = NULL, blocking = NULL, coordinates = NULL, fixup.data = "warn", check.data = TRUE) {
+
   assertString(id)
   assertDataFrame(data)
   assertCharacter(target, any.missing = FALSE, len = 2L)
@@ -47,6 +48,7 @@ makeSurvTask = function(id = deparse(substitute(data)), data, target, weights = 
 #' @export
 #' @rdname makeTaskDesc
 makeSurvTaskDesc = function(id, data, target, weights, blocking, coordinates) {
+
   td = makeTaskDescInternal("surv", id, data, target, weights, blocking, coordinates)
   addClasses(td, c("SurvTaskDesc", "SupervisedTaskDesc"))
 }

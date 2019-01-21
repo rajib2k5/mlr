@@ -6,18 +6,21 @@
 #' @export
 #' @family task
 getTaskDesc = function(x) {
+
   UseMethod("getTaskDesc")
 }
 
 
 #' @export
 getTaskDesc.default = function(x) {
+
   # FIXME: would be much cleaner to specialize here
   x$task.desc
 }
 
 #' @export
 getTaskDesc.TaskDesc = function(x) {
+
   x
 }
 
@@ -25,6 +28,7 @@ getTaskDesc.TaskDesc = function(x) {
 #' @inheritParams getTaskDesc
 #' @export
 getTaskDescription = function(x) {
+
   .Deprecated("getTaskDesc")
   getTaskDesc(x)
 }
@@ -37,6 +41,7 @@ getTaskDescription = function(x) {
 #' @export
 #' @family task
 getTaskType = function(x) {
+
   getTaskDesc(x)$type
 }
 
@@ -48,6 +53,7 @@ getTaskType = function(x) {
 #' @export
 #' @family task
 getTaskId = function(x) {
+
   getTaskDesc(x)$id
 }
 
@@ -62,21 +68,25 @@ getTaskId = function(x) {
 #' @export
 #' @family task
 getTaskTargetNames = function(x) {
+
   UseMethod("getTaskTargetNames")
 }
 
 #' @export
 getTaskTargetNames.Task = function(x) {
+
   getTaskTargetNames(getTaskDesc(x))
 }
 
 #' @export
 getTaskTargetNames.SupervisedTaskDesc = function(x) {
+
   x$target
 }
 
 #' @export
 getTaskTargetNames.UnsupervisedTaskDesc = function(x) {
+
   character(0L)
 }
 
@@ -92,26 +102,31 @@ getTaskTargetNames.UnsupervisedTaskDesc = function(x) {
 #' @export
 #' @family task
 getTaskClassLevels = function(x) {
+
   UseMethod("getTaskClassLevels")
 }
 
 #' @export
 getTaskClassLevels.ClassifTask = function(x) {
+
   getTaskClassLevels(getTaskDesc(x))
 }
 
 #' @export
 getTaskClassLevels.MultilabelTask = function(x) {
+
   getTaskClassLevels(getTaskDesc(x))
 }
 
 #' @export
 getTaskClassLevels.ClassifTaskDesc = function(x) {
+
   getTaskDesc(x)$class.levels
 }
 
 #' @export
 getTaskClassLevels.MultilabelTaskDesc = function(x) {
+
   getTaskDesc(x)$class.levels
 }
 
@@ -124,11 +139,13 @@ getTaskClassLevels.MultilabelTaskDesc = function(x) {
 #' @family task
 #' @export
 getTaskFeatureNames = function(task) {
+
   UseMethod("getTaskFeatureNames")
 }
 
 #' @export
 getTaskFeatureNames.Task = function(task) {
+
   setdiff(names(task$env$data), getTaskDesc(task)$target)
 }
 
@@ -140,6 +157,7 @@ getTaskFeatureNames.Task = function(task) {
 #' @export
 #' @family task
 getTaskNFeats = function(x) {
+
   sum(getTaskDesc(x)$n.feat)
 }
 
@@ -151,6 +169,7 @@ getTaskNFeats = function(x) {
 #' @export
 #' @family task
 getTaskSize = function(x) {
+
   getTaskDesc(x)$size
 }
 
@@ -174,6 +193,7 @@ getTaskSize = function(x) {
 #' @family task
 #' @export
 getTaskFormula = function(x, target = getTaskTargetNames(x), explicit.features = FALSE, env = parent.frame()) {
+
   assertCharacter(target, any.missing = FALSE)
   assertFlag(explicit.features)
   assertEnvironment(env)
@@ -217,22 +237,26 @@ getTaskFormula = function(x, target = getTaskTargetNames(x), explicit.features =
 #' task = makeClassifTask(data = iris, target = "Species")
 #' getTaskTargets(task)
 getTaskTargets = function(task, recode.target = "no") {
+
   UseMethod("getTaskTargets")
 }
 
 #' @export
 getTaskTargets.SupervisedTask = function(task, recode.target = "no") {
+
   y = task$env$data[, task$task.desc$target, drop = TRUE]
   recodeY(y, recode.target, task$task.desc)
 }
 
 #' @export
 getTaskTargets.UnsupervisedTask = function(task, recode.target = "no") {
+
   stop("There is no target available for unsupervised tasks.")
 }
 
 #' @export
 getTaskTargets.CostSensTask = function(task, recode.target = "no") {
+
   stop("There is no target available for costsens tasks.")
 }
 
@@ -281,6 +305,7 @@ getTaskTargets.CostSensTask = function(task, recode.target = "no") {
 #' head(getTaskData(task, subset = 1:100, recode.target = "01"))
 getTaskData = function(task, subset = NULL, features, target.extra = FALSE, recode.target = "no",
   functionals.as = "dfcols") {
+
   checkTask(task, "Task")
   checkTaskSubset(subset, size = task$task.desc$size)
   assertLogical(target.extra)
@@ -304,6 +329,7 @@ getTaskData = function(task, subset = NULL, features, target.extra = FALSE, reco
   tn = task$task.desc$target
 
   indexHelper = function(df, i, j, drop = TRUE, functionals.as) {
+
     df = switch(2L * is.null(i) + is.null(j) + 1L,
       df[i, j, drop = drop],
       df[i, , drop = drop],
@@ -342,6 +368,7 @@ getTaskData = function(task, subset = NULL, features, target.extra = FALSE, reco
 }
 
 recodeY = function(y, type, td) {
+
   if (type == "no") {
     return(y)
   }
@@ -375,16 +402,19 @@ recodeY = function(y, type, td) {
 #' @family task
 #' @export
 getTaskCosts = function(task, subset = NULL) {
+
   UseMethod("getTaskCosts")
 }
 
 #' @export
 getTaskCosts.Task = function(task, subset = NULL) {
+
   NULL
 }
 
 #' @export
 getTaskCosts.CostSensTask = function(task, subset = NULL) {
+
   subset = checkTaskSubset(subset, size = getTaskDesc(task)$size)
   getTaskDesc(task)$costs[subset, , drop = FALSE]
 }
@@ -403,6 +433,7 @@ getTaskCosts.CostSensTask = function(task, subset = NULL) {
 #' task = makeClassifTask(data = iris, target = "Species")
 #' subsetTask(task, subset = 1:100)
 subsetTask = function(task, subset = NULL, features) {
+
   # FIXME: we recompute the taskdesc for each subsetting. do we want that? speed?
   # FIXME: maybe we want this independent of changeData?
   # Keep functionals here as they are (matrix)
@@ -437,6 +468,7 @@ subsetTask = function(task, subset = NULL, features) {
 #' @keywords internal
 #' @export
 changeData = function(task, data, costs, weights, coordinates) {
+
   if (missing(data)) {
     data = getTaskData(task)
   }
@@ -470,10 +502,12 @@ changeData = function(task, data, costs, weights, coordinates) {
 # returns factor levels of all factors in a task a named list of char vecs
 # non chars do not occur in the output
 getTaskFactorLevels = function(task) {
+
   cols = vlapply(task$env$data, is.factor)
   lapply(task$env$data[cols], levels)
 }
 
 getTaskWeights = function(task) {
+
   task$weights
 }

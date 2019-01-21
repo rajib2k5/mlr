@@ -46,6 +46,7 @@
 #' @export
 generateLearningCurveData = function(learners, task, resampling = NULL,
   percs = seq(0.1, 1, by = 0.1), measures, stratify = FALSE, show.info = getMlrOption("show.info")) {
+
   learners = ensureVector(learners, 1, "Learner")
   learners = lapply(learners, checkLearner)
   assertClass(task, "Task")
@@ -61,7 +62,9 @@ generateLearningCurveData = function(learners, task, resampling = NULL,
 
   # create downsampled versions for all learners
   lrnds1 = lapply(learners, function(lrn) {
+
     lapply(seq_along(percs), function(p.id) {
+
       perc = percs[p.id]
       dsw = makeDownsampleWrapper(learner = lrn, dw.perc = perc, dw.stratify = stratify)
       list(
@@ -94,6 +97,7 @@ generateLearningCurveData = function(learners, task, resampling = NULL,
 }
 #' @export
 print.LearningCurveData = function(x, ...) {
+
   catf("LearningCurveData:")
   catf("Task: %s", x$task$task.desc$id)
   catf("Measures: %s", collapse(extractSubList(x$measures, "name")))
@@ -122,6 +126,7 @@ print.LearningCurveData = function(x, ...) {
 #' @export
 plotLearningCurve = function(obj, facet = "measure", pretty.names = TRUE,
   facet.wrap.nrow = NULL, facet.wrap.ncol = NULL) {
+
   assertClass(obj, "LearningCurveData")
   mappings = c("measure", "learner")
   assertChoice(facet, mappings)

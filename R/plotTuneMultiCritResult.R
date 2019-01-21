@@ -26,6 +26,7 @@
 #' @examples
 #' # see tuneParamsMultiCrit
 plotTuneMultiCritResult = function(res, path = TRUE, col = NULL, shape = NULL, pointsize = 2, pretty.names = TRUE) {
+
   assertClass(res, "TuneMultiCritResult")
   assertFlag(path)
   op1 = res$opt.path

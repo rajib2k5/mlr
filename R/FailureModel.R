@@ -34,6 +34,7 @@
 NULL
 
 predictFailureModel = function(model, newdata) {
+
   lrn = model$learner
   type = lrn$type
   ptype = lrn$predict.type
@@ -68,21 +69,25 @@ predictFailureModel = function(model, newdata) {
 
 #' @export
 print.FailureModel = function(x, ...) {
+
   print.WrappedModel(x)
   catf("Training failed: %s", getFailureModelMsg(x))
 }
 
 #' @export
 isFailureModel.FailureModel = function(model) {
+
   return(TRUE)
 }
 
 #' @export
 getFailureModelMsg.FailureModel = function(model) {
+
   return(as.character(model$learner.model))
 }
 
 #' @export
 getFailureModelDump.FailureModel = function(model) {
+
   return(model$dump)
 }

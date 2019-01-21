@@ -65,6 +65,7 @@ NULL
 #' )
 #' @export
 makeAggregation = function(id, name = id, properties, fun) {
+
   assertString(id)
   assertString(name)
   makeS3Obj("Aggregation", id = id, name = name, fun = fun, properties = properties)
@@ -72,5 +73,6 @@ makeAggregation = function(id, name = id, properties, fun) {
 
 #' @export
 print.Aggregation = function(x, ...) {
+
   catf("Aggregation function: %s", x$id)
 }

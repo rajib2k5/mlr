@@ -117,6 +117,7 @@ NULL
 NULL
 
 makeTask = function(type, data, weights = NULL, blocking = NULL, fixup.data = "warn", check.data = TRUE, coordinates = NULL) {
+
   if (fixup.data != "no") {
     if (fixup.data == "quiet") {
       data = droplevels(data)
@@ -177,7 +178,9 @@ makeTask = function(type, data, weights = NULL, blocking = NULL, fixup.data = "w
 }
 
 checkTaskData = function(data, cols = names(data)) {
+
   fun = function(cn, x) {
+
     if (is.numeric(x)) {
       if (anyInfinite(x)) {
         stopf("Column '%s' contains infinite values.", cn)
@@ -200,6 +203,7 @@ checkTaskData = function(data, cols = names(data)) {
 
 #' @export
 print.Task = function(x, print.weights = TRUE, ...) {
+
   td = x$task.desc
   catf("Task: %s", td$id)
   catf("Type: %s", td$type)

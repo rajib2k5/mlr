@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.cvglmnet = function() {
+
   makeRLearnerRegr(
     cl = "regr.cvglmnet",
     package = "glmnet",
@@ -47,6 +48,7 @@ makeRLearner.regr.cvglmnet = function() {
 
 #' @export
 trainLearner.regr.cvglmnet = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   d = getTaskData(.task, .subset, target.extra = TRUE)
   info = getFixDataInfo(d$data, factors.to.dummies = TRUE, ordered.to.int = TRUE)
   args = c(list(x = as.matrix(fixDataForLearner(d$data, info)), y = d$target), list(...))
@@ -69,6 +71,7 @@ trainLearner.regr.cvglmnet = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.regr.cvglmnet = function(.learner, .model, .newdata, ...) {
+
   info = getTrainingInfo(.model)
   .newdata = as.matrix(fixDataForLearner(.newdata, info))
   p = drop(predict(.model$learner.model, newx = .newdata, type = "response", ...))

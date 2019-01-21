@@ -31,6 +31,7 @@
 #' @family filter
 filterFeatures = function(task, method = "randomForestSRC.rfsrc", fval = NULL, perc = NULL, abs = NULL,
   threshold = NULL, mandatory.feat = NULL, ...) {
+
   assertClass(task, "SupervisedTask")
   assertChoice(method, choices = ls(.FilterRegister))
   select = checkFilterArguments(perc, abs, threshold)
@@ -86,6 +87,7 @@ filterFeatures = function(task, method = "randomForestSRC.rfsrc", fval = NULL, p
 }
 
 checkFilterArguments = function(perc, abs, threshold) {
+
   sum.null = sum(!is.null(perc), !is.null(abs), !is.null(threshold))
   if (sum.null == 0L) {
     stop("At least one of 'perc', 'abs' or 'threshold' must be not NULL")

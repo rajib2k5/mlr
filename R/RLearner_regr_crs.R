@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.crs = function() {
+
   makeRLearnerRegr(
     cl = "regr.crs",
     package = "!crs",
@@ -49,6 +50,7 @@ makeRLearner.regr.crs = function() {
 
 #' @export
 trainLearner.regr.crs = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   if (is.null(.weights)) {
     crs::crs(formula = f, data = getTaskData(.task, .subset), ...)
@@ -59,6 +61,7 @@ trainLearner.regr.crs = function(.learner, .task, .subset, .weights = NULL, ...)
 
 #' @export
 predictLearner.regr.crs = function(.learner, .model, .newdata, ...) {
+
   if (.learner$predict.type == "se") {
     pred = predict(.model$learner.model, newdata = .newdata, ...)
     lwr = attr(pred, "lwr")

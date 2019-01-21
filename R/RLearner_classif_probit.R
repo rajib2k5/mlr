@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.probit = function() {
+
   makeRLearnerClassif(
     cl = "classif.probit",
     package = "stats",
@@ -19,6 +20,7 @@ makeRLearner.classif.probit = function() {
 
 #' @export
 trainLearner.classif.probit = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   stats::glm(f, data = getTaskData(.task, .subset),
     family = binomial(link = "probit"), weights = .weights, ...)
@@ -26,6 +28,7 @@ trainLearner.classif.probit = function(.learner, .task, .subset, .weights = NULL
 
 #' @export
 predictLearner.classif.probit = function(.learner, .model, .newdata, ...) {
+
   x = predict(.model$learner.model, newdata = .newdata, type = "response", ...)
   levs = .model$task.desc$class.levels
   if (.learner$predict.type == "prob") {

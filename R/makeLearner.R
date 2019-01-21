@@ -51,6 +51,7 @@
 #' print(lrn$par.vals)
 makeLearner = function(cl, id = cl, predict.type = "response", predict.threshold = NULL,
   fix.factors.prediction = FALSE, ..., par.vals = list(), config = list()) {
+
   assertString(cl)
   assertFlag(fix.factors.prediction)
   assertList(config, names = "named")

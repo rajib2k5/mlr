@@ -39,6 +39,7 @@
 #' print(p)
 #' getPredictionProbabilities(p)
 predict.WrappedModel = function(object, task, newdata, subset = NULL, ...) {
+
   if (!xor(missing(task), missing(newdata))) {
     stop("Pass either a task object or a newdata data.frame to predict, but not both!")
   }
@@ -118,6 +119,7 @@ predict.WrappedModel = function(object, task, newdata, subset = NULL, ...) {
       identity
     } else {
       function(x) {
+
         withCallingHandlers(x, error = function(c) utils::dump.frames())
       }
     }

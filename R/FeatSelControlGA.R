@@ -4,6 +4,7 @@ makeFeatSelControlGA = function(same.resampling.instance = TRUE, impute.val = NU
   maxit = NA_integer_, max.features = NA_integer_, comma = FALSE, mu = 10L, lambda,
   crossover.rate = 0.5, mutation.rate = 0.05, tune.threshold = FALSE, tune.threshold.args = list(),
   log.fun = "default") {
+
   maxit = asCount(maxit, positive = TRUE)
   assertFlag(comma)
   mu = asCount(mu, positive = TRUE)

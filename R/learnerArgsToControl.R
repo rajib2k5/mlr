@@ -10,6 +10,7 @@
 #' @return Control structure for learner.
 #' @export
 learnerArgsToControl = function(control, ...) {
+
   args = list()
   dots = match.call(expand.dots = FALSE)$...
   for (i in seq_along(dots)) {

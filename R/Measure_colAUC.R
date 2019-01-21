@@ -5,6 +5,7 @@
 # https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf
 
 colAUC = function(samples, truth, maximum = TRUE) {
+
   y = as.factor(truth)
   X = as.matrix(samples)
   if (nrow(X) == 1) {

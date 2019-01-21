@@ -33,6 +33,7 @@
 makeTuneControlMBO = function(same.resampling.instance = TRUE, impute.val = NULL,
   learner = NULL, mbo.control = NULL, tune.threshold = FALSE, tune.threshold.args = list(),
   continue = FALSE, log.fun = "default", final.dw.perc = NULL, budget = NULL, mbo.design = NULL) {
+
   if (!is.null(learner)) {
     learner = checkLearner(learner, type = "regr")
     learner = setPredictType(learner, "se")

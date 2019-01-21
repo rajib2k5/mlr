@@ -40,6 +40,7 @@
 #' @family wrapper
 #' @export
 makeOverBaggingWrapper = function(learner, obw.iters = 10L, obw.rate = 1, obw.maxcl = "boot", obw.cl = NULL) {
+
   learner = checkLearner(learner, "classif")
   pv = list()
   if (!missing(obw.iters)) {
@@ -77,6 +78,7 @@ makeOverBaggingWrapper = function(learner, obw.iters = 10L, obw.rate = 1, obw.ma
 #' @export
 trainLearner.OverBaggingWrapper = function(.learner, .task, .subset = NULL, .weights = NULL,
   obw.iters = 10L, obw.rate = 1, obw.maxcl = "boot", obw.cl = NULL, ...) {
+
   .task = subsetTask(.task, subset = .subset)
   y = getTaskTargets(.task)
   if (is.null(obw.cl)) {
@@ -91,6 +93,7 @@ trainLearner.OverBaggingWrapper = function(.learner, .task, .subset = NULL, .wei
 }
 
 doOverBaggingTrainIteration = function(i, y, obw.rate, obw.cl, obw.maxcl, learner, task, weights) {
+
   setSlaveOptions()
   bag = sampleBinaryClass(y, rate = obw.rate, cl = obw.cl, resample.other.class = (obw.maxcl == "boot"))
   train(learner$next.learner, task, subset = bag, weights = weights)
@@ -99,5 +102,6 @@ doOverBaggingTrainIteration = function(i, y, obw.rate, obw.cl, obw.maxcl, learne
 
 #' @export
 getLearnerProperties.OverBaggingWrapper = function(learner) {
+
   union(getLearnerProperties(learner$next.learner), "prob")
 }

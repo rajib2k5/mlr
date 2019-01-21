@@ -67,6 +67,7 @@ plotLearnerPrediction = function(learner, task, features = NULL, measures, cv = 
   bg.cols = c("darkblue", "green", "darkred"),
   err.col = "white", err.size = pointsize,
   greyscale = FALSE, pretty.names = TRUE) {
+
   learner = checkLearner(learner)
   assert(
     checkClass(task, "ClassifTask"),

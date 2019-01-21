@@ -64,6 +64,7 @@
 #' @importFrom utils type.convert
 generateHyperParsEffectData = function(tune.result, include.diagnostics = FALSE,
   trafo = FALSE, partial.dep = FALSE) {
+
   assert(
     checkClass(tune.result, "ResampleResult"),
     checkClass(tune.result, classes = "TuneResult")
@@ -131,6 +132,7 @@ generateHyperParsEffectData = function(tune.result, include.diagnostics = FALSE,
 
 #' @export
 print.HyperParsEffectData = function(x, ...) {
+
   catf("HyperParsEffectData:")
   catf("Hyperparameters: %s", collapse(x$hyperparams))
   catf("Measures: %s", collapse(x$measures))
@@ -242,6 +244,7 @@ plotHyperParsEffect = function(hyperpars.effect.data, x = NULL, y = NULL,
   z = NULL, plot.type = "scatter", loess.smooth = FALSE, facet = NULL,
   global.only = TRUE, interpolate = NULL, show.experiments = FALSE,
   show.interpolated = FALSE, nested.agg = mean, partial.dep.learn = NULL) {
+
   assertClass(hyperpars.effect.data, classes = "HyperParsEffectData")
   assertChoice(x, choices = names(hyperpars.effect.data$data))
   assertChoice(y, choices = names(hyperpars.effect.data$data))

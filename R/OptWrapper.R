@@ -1,5 +1,6 @@
 makeOptWrapper = function(id, learner, resampling, measures, par.set, bit.names, bits.to.features,
   control, show.info, learner.subclass, model.subclass) {
+
   x = makeBaseWrapper(id, learner$type, learner, learner.subclass = c(learner.subclass, "OptWrapper"),
     model.subclass = model.subclass)
   x$resampling = resampling
@@ -15,6 +16,7 @@ makeOptWrapper = function(id, learner, resampling, measures, par.set, bit.names,
 
 #' @export
 print.OptModel = function(x, ...) {
+
   print.WrappedModel(x)
   cat("\nOptimization result:\n")
   print(x$learner.model$opt.result)

@@ -1,6 +1,7 @@
 #' @export
 #' @rdname Task
 makeClassifTask = function(id = deparse(substitute(data)), data, target, weights = NULL, blocking = NULL, coordinates = NULL, positive = NA_character_, fixup.data = "warn", check.data = TRUE) {
+
   assertString(id)
   assertDataFrame(data)
   assertString(target)
@@ -35,6 +36,7 @@ makeClassifTask = function(id = deparse(substitute(data)), data, target, weights
 #' @export
 #' @rdname makeTaskDesc
 makeClassifTaskDesc = function(id, data, target, weights, blocking, positive, coordinates) {
+
   levs = levels(data[[target]])
   m = length(levs)
   if (is.na(positive)) {
@@ -62,6 +64,7 @@ makeClassifTaskDesc = function(id, data, target, weights, blocking, positive, co
 
 #' @export
 print.ClassifTask = function(x, ...) {
+
   di = printToChar(x$task.desc$class.distribution)
   m = length(x$task.desc$class.levels)
   print.SupervisedTask(x)

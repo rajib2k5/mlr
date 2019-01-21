@@ -23,6 +23,7 @@
 #' @family imbalancy
 #' @export
 oversample = function(task, rate, cl = NULL) {
+
   checkTask(task, "ClassifTask", binary = TRUE)
   assertNumber(rate, lower = 1)
   y = getTaskTargets(task)
@@ -38,6 +39,7 @@ oversample = function(task, rate, cl = NULL) {
 #' @rdname oversample
 #' @export
 undersample = function(task, rate, cl = NULL) {
+
   checkTask(task, "ClassifTask", binary = TRUE)
   assertNumber(rate, lower = 0, upper = 1)
   y = getTaskTargets(task)

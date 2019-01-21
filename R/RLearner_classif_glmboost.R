@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.glmboost = function() {
+
   makeRLearnerClassif(
     cl = "classif.glmboost",
     package = "mboost",
@@ -30,6 +31,7 @@ makeRLearner.classif.glmboost = function() {
 
 #' @export
 trainLearner.classif.glmboost = function(.learner, .task, .subset, .weights = NULL, Binomial.link = "logit", custom.family.definition, mstop, nu, risk, stopintern, trace, family, ...) {
+
   ctrl = learnerArgsToControl(mboost::boost_control, mstop, nu, risk, stopintern, trace)
   family = switch(family,
     Binomial = mboost::Binomial(link = Binomial.link),
@@ -54,6 +56,7 @@ trainLearner.classif.glmboost = function(.learner, .task, .subset, .weights = NU
 
 #' @export
 predictLearner.classif.glmboost = function(.learner, .model, .newdata, ...) {
+
   type = ifelse(.learner$predict.type == "response", "class", "response")
   p = predict(.model$learner.model, newdata = .newdata, type = type, ...)
   if (.learner$predict.type == "prob") {

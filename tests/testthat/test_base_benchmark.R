@@ -164,6 +164,7 @@ test_that("benchmark", {
   expect_equal(unique(tffd$iter), 1:2)
 
   f = function(tmp, cl) {
+
     context(sprintf("benchmark: extracting %s", cl))
     expect_true(is.list(tmp))
     expect_true(setequal(names(tmp), task.names))
@@ -249,6 +250,7 @@ test_that("drop option works for BenchmarkResults_operators", {
 
   # check all other functions that use 'drop' briefly
   testDropOption = function(bmr, fun, new.names, ...) {
+
     extra.args = list(...)
     res = do.call(fun, c(list(bmr, drop = TRUE), extra.args))
     expect_true(all(names(res) == new.names))

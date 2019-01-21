@@ -1,4 +1,5 @@
 tuneCMAES = function(learner, task, resampling, measures, par.set, control, opt.path, show.info, resample.fun) {
+
   requirePackages("cmaes", why = "tune_cmaes", default.method = "load")
 
   low = getLower(par.set)

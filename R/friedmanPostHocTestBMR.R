@@ -29,6 +29,7 @@
 #' @examples
 #' # see benchmark
 friedmanPostHocTestBMR = function(bmr, measure = NULL, p.value = 0.05, aggregation = "default") {
+
   requirePackages("PMCMR")
   assertClass(bmr, "BenchmarkResult")
   assertNumeric(p.value, lower = 0, upper = 1, len = 1)

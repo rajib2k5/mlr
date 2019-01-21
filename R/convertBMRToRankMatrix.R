@@ -18,6 +18,7 @@
 #' @examples
 #' # see benchmark
 convertBMRToRankMatrix = function(bmr, measure = NULL, ties.method = "average", aggregation = "default") {
+
   assertClass(bmr, "BenchmarkResult")
   measure = checkBMRMeasure(measure, bmr)
   assertChoice(aggregation, c("mean", "default"))

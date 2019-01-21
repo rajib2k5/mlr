@@ -46,6 +46,7 @@ test_that("no labels are switched", {
 
 
   checkErrsForTask = function(task, predtype) {
+
     props = if (predtype == "response") character(0L) else "prob"
     lrns = listLearners(task, create = TRUE, properties = props)
     lids = extractSubList(lrns, "id")
@@ -57,6 +58,7 @@ test_that("no labels are switched", {
     lrns = lrns[!toremove]
 
     vnapply(lrns, function(lrn) {
+
       lrn = setPredictType(lrn, predtype)
       id = lrn$id
       hps = hpars[[id]]

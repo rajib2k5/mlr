@@ -41,6 +41,7 @@
 #' @export
 #' @useDynLib mlr c_smote
 smote = function(task, rate, nn = 5L, standardize = TRUE, alt.logic = FALSE) {
+
   checkTask(task, binary = TRUE)
   assertNumber(rate, lower = 1)
   nn = asInt(nn, lower = 1L)

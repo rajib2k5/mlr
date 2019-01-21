@@ -24,6 +24,7 @@
 #' @family performance
 makeCostMeasure = function(id = "costs", minimize = TRUE, costs, combine = mean, best = NULL, worst = NULL,
   name = id, note = "") {
+
   assertString(id)
   assertFlag(minimize)
   assertMatrix(costs)
@@ -36,6 +37,7 @@ makeCostMeasure = function(id = "costs", minimize = TRUE, costs, combine = mean,
     properties = c("classif", "classif.multi", "req.pred", "req.truth", "predtype.response", "predtype.prob"),
     best = best, worst = worst,
     fun = function(task, model, pred, feats, extra.args) {
+
       # check costs
       td = pred$task.desc
       levs = td$class.levels
@@ -56,6 +58,7 @@ makeCostMeasure = function(id = "costs", minimize = TRUE, costs, combine = mean,
         return(NA_real_)
       }
       cc = function(truth, pred) {
+
         costs[truth, pred]
       }
       y = mapply(cc, as.character(pred$data$truth), as.character(r))

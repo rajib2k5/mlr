@@ -41,6 +41,7 @@
 #' 
 #' rin = makeResampleInstance("CV", iters = 10, task = iris.task)
 makeResampleInstance = function(desc, task, size, ...) {
+
   assert(checkClass(desc, "ResampleDesc"), checkString(desc))
   if (is.character(desc)) {
     desc = makeResampleDesc(desc, ...)
@@ -136,6 +137,7 @@ makeResampleInstance = function(desc, task, size, ...) {
 }
 
 makeResampleInstanceInternal = function(desc, size, train.inds, test.inds, group = factor()) {
+
   if (missing(test.inds) && !missing(train.inds)) {
     # shuffle data set and remove inds
     test.inds = sample(size)
@@ -157,6 +159,7 @@ makeResampleInstanceInternal = function(desc, size, train.inds, test.inds, group
 
 #' @export
 print.ResampleInstance = function(x, ...) {
+
   catf("Resample instance for %i cases.", x$size)
   print(x$desc)
 }

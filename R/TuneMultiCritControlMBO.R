@@ -8,6 +8,7 @@ makeTuneMultiCritControlMBO = function(n.objectives = mbo.control$n.objectives,
   learner = NULL, mbo.control = NULL, tune.threshold = FALSE, tune.threshold.args = list(),
   continue = FALSE, log.fun = "default", final.dw.perc = NULL, budget = NULL,
   mbo.design = NULL) {
+
   assertInt(n.objectives, lower = 2L)
 
   if (!is.null(learner)) {

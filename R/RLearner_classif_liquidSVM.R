@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.liquidSVM = function() {
+
   makeRLearnerClassif(
     cl = "classif.liquidSVM",
     package = "liquidSVM",
@@ -34,6 +35,7 @@ makeRLearner.classif.liquidSVM = function() {
 
 #' @export
 trainLearner.classif.liquidSVM = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   liquidSVM::svm(f, getTaskData(.task, .subset), ...)
   # liquidSVM::svm(f, getTaskData(.task, .subset), predict.prob = .learner$predict.type == "prob",  ...)
@@ -41,6 +43,7 @@ trainLearner.classif.liquidSVM = function(.learner, .task, .subset, .weights = N
 
 #' @export
 predictLearner.classif.liquidSVM = function(.learner, .model, .newdata, ...) {
+
   predict(.model$learner.model, newdata = .newdata, ...)
   # res = as.matrix(predict(.model$learner.model, newdata = .newdata, ...))
   # res = res/rowSums(res)

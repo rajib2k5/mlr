@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.mda = function() {
+
   makeRLearnerClassif(
     cl = "classif.mda",
     package = "!mda",
@@ -30,12 +31,14 @@ makeRLearner.classif.mda = function() {
 
 #' @export
 trainLearner.classif.mda = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   mda::mda(f, data = getTaskData(.task, .subset), ...)
 }
 
 #' @export
 predictLearner.classif.mda = function(.learner, .model, .newdata, ...) {
+
   type = ifelse(.learner$predict.type == "response", "class", "posterior")
   predict(.model$learner.model, newdata = .newdata, type = type, ...)
 }

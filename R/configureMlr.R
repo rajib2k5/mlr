@@ -59,6 +59,7 @@
 configureMlr = function(show.info, on.learner.error, on.learner.warning,
   on.par.without.desc, on.par.out.of.bounds, on.measure.not.applicable,
   show.learner.output, on.error.dump) {
+
   defaults = list(
     show.info = TRUE,
     on.learner.error = "stop",

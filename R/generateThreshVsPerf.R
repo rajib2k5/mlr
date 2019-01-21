@@ -28,12 +28,14 @@ generateThreshVsPerfData = function(obj, measures, gridsize = 100L, aggregate = 
 #' @export
 generateThreshVsPerfData.Prediction = function(obj, measures, gridsize = 100L, aggregate = TRUE,
   task.id = NULL) {
+
   checkPrediction(obj, task.type = "classif", binary = TRUE, predict.type = "prob")
   generateThreshVsPerfData.list(namedList("prediction", obj), measures, gridsize, aggregate, task.id)
 }
 #' @export
 generateThreshVsPerfData.ResampleResult = function(obj, measures, gridsize = 100L, aggregate = TRUE,
   task.id = NULL) {
+
   obj = getRRPredictions(obj)
   checkPrediction(obj, task.type = "classif", binary = TRUE, predict.type = "prob")
   generateThreshVsPerfData.Prediction(obj, measures, gridsize, aggregate)
@@ -41,6 +43,7 @@ generateThreshVsPerfData.ResampleResult = function(obj, measures, gridsize = 100
 #' @export
 generateThreshVsPerfData.BenchmarkResult = function(obj, measures, gridsize = 100L, aggregate = TRUE,
   task.id = NULL) {
+
   tids = getBMRTaskIds(obj)
   if (is.null(task.id)) {
     task.id = tids[1L]
@@ -55,6 +58,7 @@ generateThreshVsPerfData.BenchmarkResult = function(obj, measures, gridsize = 10
 }
 #' @export
 generateThreshVsPerfData.list = function(obj, measures, gridsize = 100L, aggregate = TRUE, task.id = NULL) {
+
   assertList(obj, c("Prediction", "ResampleResult"), min.len = 1L)
   ## unwrap ResampleResult to Prediction and set default names
   if (inherits(obj[[1L]], "ResampleResult")) {
@@ -72,11 +76,14 @@ generateThreshVsPerfData.list = function(obj, measures, gridsize = 100L, aggrega
   grid = data.frame(threshold = seq(0, 1, length.out = gridsize))
   resamp = all(vlapply(obj, function(x) inherits(x, "ResamplePrediction")))
   out = lapply(obj, function(x) {
+
     do.call("rbind", lapply(grid$threshold, function(th) {
+
       pp = setThreshold(x, threshold = th)
       if (!aggregate && resamp) {
         iter = seq_len(pp$instance$desc$iters)
         asMatrixRows(lapply(iter, function(i) {
+
           pp$data = pp$data[pp$data$iter == i, ]
           c(setNames(performance(pp, measures = measures), mids), "iter" = i, "threshold" = th)
         }))
@@ -138,6 +145,7 @@ generateThreshVsPerfData.list = function(obj, measures, gridsize = 100L, aggrega
 plotThreshVsPerf = function(obj, measures = obj$measures,
   facet = "measure", mark.th = NA_real_,
   pretty.names = TRUE, facet.wrap.nrow = NULL, facet.wrap.ncol = NULL) {
+
   assertClass(obj, classes = "ThreshVsPerfData")
   mappings = c("measure", "learner")
   assertChoice(facet, mappings)
@@ -244,6 +252,7 @@ plotThreshVsPerf = function(obj, measures = obj$measures,
 #' plotROCCurves(roc_l)
 #' }
 plotROCCurves = function(obj, measures, diagonal = TRUE, pretty.names = TRUE, facet.learner = FALSE) {
+
   assertClass(obj, "ThreshVsPerfData")
 
   if (missing(measures)) {

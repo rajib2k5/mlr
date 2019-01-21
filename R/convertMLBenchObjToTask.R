@@ -17,6 +17,7 @@
 #' print(convertMLBenchObjToTask("Ionosphere"))
 #' print(convertMLBenchObjToTask("mlbench.spirals", n = 100, sd = 0.1))
 convertMLBenchObjToTask = function(x, n = 100L, ...) {
+
   assertString(x)
   requirePackages("mlbench")
   id = x

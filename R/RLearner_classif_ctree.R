@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.ctree = function() {
+
   makeRLearnerClassif(
     cl = "classif.ctree",
     package = "party",
@@ -28,6 +29,7 @@ makeRLearner.classif.ctree = function() {
 trainLearner.classif.ctree = function(.learner, .task, .subset, .weights = NULL, teststat, testtype,
   mincriterion, minsplit, minbucket, stump, nresample, maxsurrogate, mtry,
   savesplitstats, maxdepth, ...) {
+
   ctrl = learnerArgsToControl(party::ctree_control, teststat, testtype, mincriterion, minsplit,
     minbucket, stump, nresample, maxsurrogate, mtry, savesplitstats, maxdepth)
   f = getTaskFormula(.task)
@@ -36,6 +38,7 @@ trainLearner.classif.ctree = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.classif.ctree = function(.learner, .model, .newdata, ...) {
+
   if (.learner$predict.type == "prob") {
     m = .model$learner.model
     p = party::treeresponse(m, newdata = .newdata, ...)

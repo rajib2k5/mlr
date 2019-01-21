@@ -125,6 +125,7 @@ createSpatialResamplingPlots = function(task = NULL, resample = NULL, crs = NULL
   datum = 4326, repetitions = 1, color.train = "#0072B5", color.test = "#E18727",
   point.size = 0.5, axis.text.size = 14, x.axis.breaks = waiver(),
   y.axis.breaks = waiver()) {
+
   requireNamespace("hrbrthemes", quietly = TRUE)
   requireNamespace("sf", quietly = TRUE)
 
@@ -167,6 +168,7 @@ createSpatialResamplingPlots = function(task = NULL, resample = NULL, crs = NULL
     plot.list = rep(list(data), nfolds * repetitions)
 
     plot.list.out = imap(plot.list, function(.x, .y) {
+
       ggplot(.x) +
         geom_sf(data = subset(.x, as.integer(rownames(.x)) %in%
           r$pred$instance[["train.inds"]][[.y]]),

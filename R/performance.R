@@ -29,6 +29,7 @@
 #' ms = list("mmce" = mmce, "acc" = acc, "timetrain" = timetrain)
 #' performance(pred, measures = ms, task, mod)
 performance = function(pred, measures, task = NULL, model = NULL, feats = NULL) {
+
   if (!is.null(pred)) {
     assertClass(pred, classes = "Prediction")
   }
@@ -44,6 +45,7 @@ performance = function(pred, measures, task = NULL, model = NULL, feats = NULL) 
 }
 
 doPerformanceIteration = function(measure, pred = NULL, task = NULL, model = NULL, td = NULL, feats = NULL) {
+
   m = measure
   props = getMeasureProperties(m)
   if ("req.pred" %in% props) {
@@ -125,6 +127,7 @@ doPerformanceIteration = function(measure, pred = NULL, task = NULL, model = NUL
     if (is.null(pred$data$iter)) pred$data$iter = 1L
     if (is.null(pred$data$set)) pred$data$set = "test"
     fun = function(ss) {
+
       is.train = ss$set == "train"
       if (any(is.train)) {
         pred$data = as.data.frame(ss[is.train, ])

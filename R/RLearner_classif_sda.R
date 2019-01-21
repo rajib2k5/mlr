@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.sda = function() {
+
   makeRLearnerClassif(
     cl = "classif.sda",
     package = "sda",
@@ -19,12 +20,14 @@ makeRLearner.classif.sda = function() {
 
 #' @export
 trainLearner.classif.sda = function(.learner, .task, .subset, ...) {
+
   d = getTaskData(.task, .subset, target.extra = TRUE)
   sda::sda(Xtrain = as.matrix(d$data), L = d$target, ...)
 }
 
 #' @export
 predictLearner.classif.sda = function(.learner, .model, .newdata, ...) {
+
   p = sda::predict.sda(.model$learner.model, as.matrix(.newdata))
   if (.learner$predict.type == "response") {
     return(p$class)

@@ -31,6 +31,7 @@ test_that("FilterWrapper with praznik mutual information, resample", {
   candidates = as.character(listFilterMethods()$id)
   candidates = candidates[startsWith(candidates, "praznik_")]
   lapply(candidates, function(x) {
+
     lrn1 = makeLearner("classif.lda")
     lrn2 = makeFilterWrapper(lrn1, fw.method = x, fw.perc = 0.5)
     m = train(lrn2, binaryclass.task)

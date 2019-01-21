@@ -108,6 +108,7 @@ regr.na.num.class.col = 13
 regr.na.num.task = makeRegrTask("regrnanumdf", data = regr.na.num.df, target = regr.na.num.target)
 
 getSurvData = function(n = 100, p = 10) {
+
   set.seed(1)
   beta = c(rep(1, 10), rep(0, p - 10))
   x = matrix(rnorm(n * p), n, p)

@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.randomForest = function() {
+
   makeRLearnerClassif(
     cl = "classif.randomForest",
     package = "randomForest",
@@ -33,6 +34,7 @@ makeRLearner.classif.randomForest = function() {
 
 #' @export
 trainLearner.classif.randomForest = function(.learner, .task, .subset, .weights = NULL, classwt = NULL, cutoff, ...) {
+
   f = getTaskFormula(.task)
   data = getTaskData(.task, .subset, recode.target = "drop.levels")
   levs = levels(data[, getTaskTargetNames(.task)])
@@ -51,12 +53,14 @@ trainLearner.classif.randomForest = function(.learner, .task, .subset, .weights 
 
 #' @export
 predictLearner.classif.randomForest = function(.learner, .model, .newdata, ...) {
+
   type = ifelse(.learner$predict.type == "response", "response", "prob")
   predict(.model$learner.model, newdata = .newdata, type = type, ...)
 }
 
 #' @export
 getOOBPredsLearner.classif.randomForest = function(.learner, .model) {
+
   if (.learner$predict.type == "response") {
     m = getLearnerModel(.model, more.unwrap = TRUE)
     unname(m$predicted)
@@ -67,6 +71,7 @@ getOOBPredsLearner.classif.randomForest = function(.learner, .model) {
 
 #' @export
 getFeatureImportanceLearner.classif.randomForest = function(.learner, .model, ...) {
+
   mod = getLearnerModel(.model, more.unwrap = TRUE)
   ctrl = list(...)
   if (is.null(ctrl$type)) {

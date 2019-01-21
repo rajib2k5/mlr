@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.surv.gamboost = function() {
+
   makeRLearnerSurv(
     cl = "surv.gamboost",
     package = c("!survival", "mboost"),
@@ -30,6 +31,7 @@ makeRLearner.surv.gamboost = function() {
 
 #' @export
 trainLearner.surv.gamboost = function(.learner, .task, .subset, .weights = NULL, nuirange = c(0, 100), family, custom.family.definition, mstop, nu, risk, stopintern, trace, ...) {
+
   requirePackages("mboost", why = "argument 'baselearner' requires package", suppress.warnings = TRUE)
   ctrl = learnerArgsToControl(mboost::boost_control, mstop, nu, risk, trace, stopintern)
   family = switch(family,
@@ -52,5 +54,6 @@ trainLearner.surv.gamboost = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.surv.gamboost = function(.learner, .model, .newdata, ...) {
+
   predict(.model$learner.model, newdata = .newdata, type = "link")
 }

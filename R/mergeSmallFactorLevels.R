@@ -19,6 +19,7 @@
 #' @family eda_and_preprocess
 #' @export
 mergeSmallFactorLevels = function(task, cols = NULL, min.perc = 0.01, new.level = ".merged") {
+
   assertClass(task, "Task")
   assertNumber(min.perc, lower = 0, upper = 1)
   assertString(new.level)

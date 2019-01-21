@@ -9,6 +9,7 @@
 #' @export
 #' @family resample
 getRRPredictions = function(res) {
+
   if (is.null(res$pred)) {
     stopf("The 'pred' slot is empty because the ResampleResult was generated with keep.pred = FALSE.")
   } else {
@@ -27,6 +28,7 @@ getRRPredictions = function(res) {
 #' @export
 #' @family resample
 getRRTaskDescription = function(res) {
+
   .Deprecated("getRRTaskDesc")
   getRRTaskDesc(res)
 }
@@ -42,6 +44,7 @@ getRRTaskDescription = function(res) {
 #' @export
 #' @family resample
 getRRTaskDesc = function(res) {
+
   res$task.desc
 }
 
@@ -64,6 +67,7 @@ getRRTaskDesc = function(res) {
 #' @export
 #' @family resample
 getRRPredictionList = function(res, ...) {
+
   assertClass(res, "ResampleResult")
   # We need to force keep.pred = TRUE (will be checked in getRRPredictions)
   pred = getRRPredictions(res)
@@ -76,11 +80,13 @@ getRRPredictionList = function(res, ...) {
 
   # get prediction objects for train and test set
   prediction = lapply(set, function(s) {
+
     # split by resample iterations
     p.split = pred$data[pred$data$set == s, , drop = FALSE]
     p.split = split(p.split, as.factor(p.split$iter))
     # create prediction object for each resample iteration
     p.split = lapply(p.split, function(p) {
+
       # get predictions based on predict.type
       if (predict.type == "prob") {
         y = p[, stri_startswith_fixed(colnames(p), "prob."), drop = FALSE]
@@ -118,6 +124,7 @@ getRRPredictionList = function(res, ...) {
 #' @export
 #' @family resample
 addRRMeasure = function(res, measures) {
+
   assertClass(res, "ResampleResult")
   if (inherits(measures, "Measure")) measures = list(measures)
 
@@ -133,7 +140,9 @@ addRRMeasure = function(res, measures) {
     # recompute missing performance for train and/or test set
     set = names(pred)[!vlapply(pred, is.null)]
     perf = setNames(lapply(set, function(s) {
+
       as.data.frame(do.call("rbind", lapply(pred[[s]], function(p) {
+
         ret = performance(p, measures)
         matrix(ret, ncol = length(measures), dimnames = list(NULL, names(ret)))
       })))
@@ -151,6 +160,7 @@ addRRMeasure = function(res, measures) {
       res$measures.test = cbind(res$measures.test, perf$test[, missing.measures, drop = FALSE])
     }
     aggr = vnapply(measures[measures.id %in% missing.measures], function(m) {
+
       m$aggr$fun(task = NULL,
         perf.test = res$measures.test[, m$id],
         perf.train = res$measures.train[, m$id],
@@ -182,5 +192,6 @@ addRRMeasure = function(res, measures) {
 #' @family debug
 #' @export
 getRRDump = function(res) {
+
   return(res$err.dumps)
 }

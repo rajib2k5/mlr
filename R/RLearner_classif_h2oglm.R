@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.h2o.glm = function() {
+
   makeRLearnerClassif(
     cl = "classif.h2o.glm",
     package = "h2o",
@@ -31,6 +32,7 @@ makeRLearner.classif.h2o.glm = function() {
 
 #' @export
 trainLearner.classif.h2o.glm = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   # check if h2o connection already exists, otherwise start one
   conn.up = tryCatch(h2o::h2o.getConnection(), error = function(err) return(FALSE))
   if (!inherits(conn.up, "H2OConnection")) {
@@ -50,6 +52,7 @@ trainLearner.classif.h2o.glm = function(.learner, .task, .subset, .weights = NUL
 
 #' @export
 predictLearner.classif.h2o.glm = function(.learner, .model, .newdata, ...) {
+
   m = .model$learner.model
   h2of = h2o::as.h2o(.newdata)
   p = h2o::h2o.predict(m, newdata = h2of, ...)

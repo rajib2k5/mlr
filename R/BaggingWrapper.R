@@ -42,6 +42,7 @@
 #' @family wrapper
 #' @export
 makeBaggingWrapper = function(learner, bw.iters = 10L, bw.replace = TRUE, bw.size, bw.feats = 1) {
+
   learner = checkLearner(learner, type = c("classif", "regr"))
   pv = list()
   if (!missing(bw.iters)) {
@@ -79,6 +80,7 @@ makeBaggingWrapper = function(learner, bw.iters = 10L, bw.replace = TRUE, bw.siz
 
 #' @export
 print.BaggingModel = function(x, ...) {
+
   s = capture.output(print.WrappedModel(x))
   u = sprintf("Bagged Learner: %s", class(x$learner$next.learner)[1L])
   s = append(s, u, 1L)
@@ -88,6 +90,7 @@ print.BaggingModel = function(x, ...) {
 #' @export
 trainLearner.BaggingWrapper = function(.learner, .task, .subset = NULL, .weights = NULL,
   bw.iters = 10, bw.replace = TRUE, bw.size, bw.feats = 1, ...) {
+
   if (missing(bw.size)) {
     bw.size = if (bw.replace) 1 else 0.632
   }
@@ -109,6 +112,7 @@ trainLearner.BaggingWrapper = function(.learner, .task, .subset = NULL, .weights
 }
 
 doBaggingTrainIteration = function(i, n, m, k, bw.replace, task, learner, weights) {
+
   setSlaveOptions()
   bag = sample(seq_len(n), m, replace = bw.replace)
   task = subsetTask(task, features = sample(getTaskFeatureNames(task), k, replace = FALSE))
@@ -117,9 +121,11 @@ doBaggingTrainIteration = function(i, n, m, k, bw.replace, task, learner, weight
 
 #' @export
 predictLearner.BaggingWrapper = function(.learner, .model, .newdata, .subset = NULL, ...) {
+
   models = getLearnerModel(.model, more.unwrap = FALSE)
   g = if (.learner$type == "classif") as.character else identity
   p = asMatrixCols(lapply(models, function(m) {
+
     nd = .newdata[, m$features, drop = FALSE]
     g(predict(m, newdata = nd, subset = .subset, ...)$data$response)
   }))
@@ -133,6 +139,7 @@ predictLearner.BaggingWrapper = function(.learner, .model, .newdata, .subset = N
     if (.learner$type == "classif") {
       levs = .model$task.desc$class.levels
       p = apply(p, 1L, function(x) {
+
         x = factor(x, levels = levs) # we need all level for the table and we need them in consistent order!
         as.numeric(prop.table(table(x)))
       })
@@ -147,11 +154,13 @@ predictLearner.BaggingWrapper = function(.learner, .model, .newdata, .subset = N
 # be response, we can estimates probs and se on the outside
 #' @export
 setPredictType.BaggingWrapper = function(learner, predict.type) {
+
   setPredictType.Learner(learner, predict.type)
 }
 
 #' @export
 getLearnerProperties.BaggingWrapper = function(learner) {
+
   switch(learner$type,
     "classif" = union(getLearnerProperties(learner$next.learner), "prob"),
     "regr" = union(getLearnerProperties(learner$next.learner), "se")

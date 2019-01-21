@@ -54,6 +54,7 @@ test_that("classif_adaboostm1", {
     multiclass.train.inds, old.probs.list, parset.list)
 
   tt = function(formula, data, subset, ...) {
+
     RWeka::AdaBoostM1(formula, data = data[subset, ], control = RWeka::Weka_control(...))
   }
 

@@ -74,6 +74,7 @@
 #' print(r$aggr)
 resample = function(learner, task, resampling, measures, weights = NULL, models = FALSE,
   extract, keep.pred = TRUE, ..., show.info = getMlrOption("show.info")) {
+
   learner = checkLearner(learner)
   learner = setHyperPars(learner, ...)
   assertClass(task, classes = "Task")
@@ -89,7 +90,9 @@ resample = function(learner, task, resampling, measures, weights = NULL, models 
   }
   assertFlag(models)
   if (missing(extract)) {
-    extract = function(model) {}
+    extract = function(model) {
+
+    }
   } else {
     assertFunction(extract)
   }
@@ -142,6 +145,7 @@ resample = function(learner, task, resampling, measures, weights = NULL, models 
 
 # this wraps around calculateREsampleIterationResult and contains the subsetting for a specific fold i
 doResampleIteration = function(learner, task, rin, i, measures, weights, model, extract, show.info) {
+
   setSlaveOptions()
   train.i = rin$train.inds[[i]]
   test.i = rin$test.inds[[i]]
@@ -153,6 +157,7 @@ doResampleIteration = function(learner, task, rin, i, measures, weights, model, 
 # Evaluate one train/test split of the resample function and get one or more performance values
 calculateResampleIterationResult = function(learner, task, i, train.i, test.i, measures,
   weights, rdesc, model, extract, show.info) {
+
   err.msgs = c(NA_character_, NA_character_)
   err.dumps = list()
   m = train(learner, task, subset = train.i, weights = weights[train.i])
@@ -246,6 +251,7 @@ calculateResampleIterationResult = function(learner, task, i, train.i, test.i, m
 
 # Merge a list of train/test splits created by calculateResampleIterationResult to one resample result
 mergeResampleResult = function(learner.id, task, iter.results, measures, rin, models, extract, keep.pred, show.info, runtime) {
+
   iters = length(iter.results)
   mids = vcapply(measures, function(m) m$id)
 
@@ -260,6 +266,7 @@ mergeResampleResult = function(learner.id, task, iter.results, measures, rin, mo
 
   # aggr = vnapply(measures, function(m) m$aggr$fun(task, ms.test[, m$id], ms.train[, m$id], m, rin$group, pred))
   aggr = vnapply(seq_along(measures), function(i) {
+
     m = measures[[i]]
     m$aggr$fun(task, ms.test[, i], ms.train[, i], m, rin$group, pred)
   })

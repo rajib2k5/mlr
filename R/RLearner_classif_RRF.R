@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.RRF = function() {
+
   makeRLearnerClassif(
     cl = "classif.RRF",
     package = "RRF",
@@ -39,12 +40,14 @@ makeRLearner.classif.RRF = function() {
 
 #' @export
 trainLearner.classif.RRF = function(.learner, .task, .subset, .weights, ...) {
+
   RRF::RRF(formula = getTaskFormula(.task), data = getTaskData(.task, .subset),
     keep.forest = TRUE, ...)
 }
 
 #' @export
 predictLearner.classif.RRF = function(.learner, .model, .newdata, ...) {
+
   type = ifelse(.learner$predict.type == "response", "response", "prob")
   p = predict(object = .model$learner.model, newdata = .newdata, type = type, ...)
   return(p)
@@ -52,6 +55,7 @@ predictLearner.classif.RRF = function(.learner, .model, .newdata, ...) {
 
 #' @export
 getFeatureImportanceLearner.classif.RRF = function(.learner, .model, ...) {
+
   mod = getLearnerModel(.model, more.unwrap = TRUE)
   ctrl = list(...)
   if (is.null(ctrl$type)) {

@@ -15,6 +15,7 @@
 #' @family featsel
 #' @export
 analyzeFeatSelResult = function(res, reduce = TRUE) {
+
   assertClass(res$control, "FeatSelControlSequential")
   assertFlag(reduce)
 

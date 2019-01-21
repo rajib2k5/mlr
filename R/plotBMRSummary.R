@@ -29,6 +29,7 @@
 #' # see benchmark
 plotBMRSummary = function(bmr, measure = NULL, trafo = "none", order.tsks = NULL,
   pointsize = 4L, jitter = 0.05, pretty.names = TRUE) {
+
   assertClass(bmr, "BenchmarkResult")
   measure = checkBMRMeasure(measure, bmr)
   assertChoice(trafo, c("none", "rank"))

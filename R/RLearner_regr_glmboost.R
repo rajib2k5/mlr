@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.glmboost = function() {
+
   makeRLearnerRegr(
     cl = "regr.glmboost",
     package = "mboost",
@@ -29,6 +30,7 @@ makeRLearner.regr.glmboost = function() {
 
 #' @export
 trainLearner.regr.glmboost = function(.learner, .task, .subset, .weights = NULL, family = "Gaussian", nuirange = c(0, 100), d = NULL, custom.family.definition, mstop, nu, risk, trace, stopintern, ...) {
+
   ctrl = learnerArgsToControl(mboost::boost_control, mstop, nu, risk, trace, stopintern)
   data = getTaskData(.task, .subset)
   f = getTaskFormula(.task)
@@ -52,6 +54,7 @@ trainLearner.regr.glmboost = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.regr.glmboost = function(.learner, .model, .newdata, ...) {
+
   p = predict(.model$learner.model, newdata = .newdata, ...)
   return(as.vector(p))
 }

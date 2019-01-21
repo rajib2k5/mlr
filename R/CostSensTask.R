@@ -2,6 +2,7 @@
 #' @rdname Task
 #' @family costsens
 makeCostSensTask = function(id = deparse(substitute(data)), data, costs, blocking = NULL, coordinates = NULL, fixup.data = "warn", check.data = TRUE) {
+
   assertString(id)
   assertDataFrame(data)
   assertChoice(fixup.data, choices = c("no", "quiet", "warn"))
@@ -44,6 +45,7 @@ makeCostSensTask = function(id = deparse(substitute(data)), data, costs, blockin
 #' @export
 #' @rdname makeTaskDesc
 makeCostSensTaskDesc = function(id, data, target, blocking, costs, coordinates) {
+
   td = makeTaskDescInternal("costsens", id, data, target, weights = NULL, blocking = blocking, coordinates)
   td$class.levels = colnames(costs)
   td$costs = costs
@@ -52,6 +54,7 @@ makeCostSensTaskDesc = function(id, data, target, blocking, costs, coordinates) 
 
 #' @export
 print.CostSensTask = function(x, ...) {
+
   print.SupervisedTask(x, print.target = FALSE, print.weights = FALSE)
   levs = x$task.desc$class.levels
   catf("Classes: %i\n%s", length(levs), clipString(collapse(levs, sep = ", "), 30L))

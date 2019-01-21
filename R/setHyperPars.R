@@ -20,6 +20,7 @@
 #' # note the now set and altered hyperparameters:
 #' print(cl2)
 setHyperPars = function(learner, ..., par.vals = list()) {
+
   args = list(...)
   assertList(args, names = "unique", .var.name = "parameter settings")
   assertList(par.vals, names = "unique", .var.name = "parameter settings")
@@ -33,11 +34,13 @@ setHyperPars = function(learner, ..., par.vals = list()) {
 #'   List of named (hyper)parameter settings.
 #' @export
 setHyperPars2 = function(learner, par.vals) {
+
   UseMethod("setHyperPars2")
 }
 
 #' @export
 setHyperPars2.Learner = function(learner, par.vals) {
+
   if (length(par.vals) == 0L) {
     return(learner)
   }

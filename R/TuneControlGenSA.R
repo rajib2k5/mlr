@@ -19,6 +19,7 @@
 makeTuneControlGenSA = function(same.resampling.instance = TRUE, impute.val = NULL,
   start = NULL, tune.threshold = FALSE, tune.threshold.args = list(), log.fun = "default",
   final.dw.perc = NULL, budget = NULL, ...) {
+
   args = list(...)
   if (is.null(budget)) {
     if (!is.null(args$max.call)) {

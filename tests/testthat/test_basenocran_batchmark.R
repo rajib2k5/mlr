@@ -203,6 +203,7 @@ test_that("batchmark", {
   expect_equal(unique(tffd$iter), 1:2)
 
   f = function(tmp, cl) {
+
     context(sprintf("batchmark: extracting %s", cl))
     expect_true(is.list(tmp))
     expect_true(setequal(names(tmp), task.names))

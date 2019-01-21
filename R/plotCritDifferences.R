@@ -58,6 +58,7 @@
 #' @export
 generateCritDifferencesData = function(bmr, measure = NULL, p.value = 0.05,
   baseline = NULL, test = "bd") {
+
   assertClass(bmr, "BenchmarkResult")
   assertChoice(test, c("nemenyi", "bd"))
   assertNumeric(p.value, lower = 0, upper = 1, len = 1)
@@ -152,6 +153,7 @@ generateCritDifferencesData = function(bmr, measure = NULL, p.value = 0.05,
 #' @examples
 #' # see benchmark
 plotCritDifferences = function(obj, baseline = NULL, pretty.names = TRUE) {
+
   assertClass(obj, "CritDifferencesData")
 
   # Plot descritptive lines and learner names

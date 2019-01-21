@@ -3,6 +3,7 @@ context("getCaretParamSet")
 test_that("getCaretParamSet", {
   requirePackagesOrSkip(c("caret", "rpart", "earth"))
   checkCaretParams = function(lrn, k, task) {
+
     set.seed(123)
     a = capture.output({
       cps1 = getCaretParamSet(lrn, length = k, task = task, discretize = TRUE)

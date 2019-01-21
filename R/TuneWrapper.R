@@ -42,6 +42,7 @@
 #' getNestedTuneResultsX(r)
 #' }
 makeTuneWrapper = function(learner, resampling, measures, par.set, control, show.info = getMlrOption("show.info")) {
+
   learner = checkLearner(learner)
   assert(checkClass(resampling, "ResampleDesc"), checkClass(resampling, "ResampleInstance"))
   measures = checkMeasures(measures, learner)
@@ -50,13 +51,16 @@ makeTuneWrapper = function(learner, resampling, measures, par.set, control, show
   assertFlag(show.info)
   id = stri_paste(learner$id, "tuned", sep = ".")
   x = makeOptWrapper(id, learner, resampling, measures, par.set, character(0L),
-    function() {}, control, show.info, "TuneWrapper", "TuneModel")
+    function() {
+
+    }, control, show.info, "TuneWrapper", "TuneModel")
   checkTunerParset(learner, par.set, measures, control)
   return(x)
 }
 
 #' @export
 trainLearner.TuneWrapper = function(.learner, .task, .subset = NULL, ...) {
+
   .task = subsetTask(.task, .subset)
   or = tuneParams(.learner$next.learner, .task, .learner$resampling, .learner$measures,
     .learner$opt.pars, .learner$control, .learner$show.info)
@@ -74,12 +78,14 @@ trainLearner.TuneWrapper = function(.learner, .task, .subset = NULL, ...) {
 
 #' @export
 predictLearner.TuneWrapper = function(.learner, .model, .newdata, ...) {
+
   lrn = setHyperPars(.learner$next.learner, par.vals = .model$learner.model$opt.result$x)
   predictLearner(lrn, .model$learner.model$next.model, .newdata, ...)
 }
 
 #' @export
 makeWrappedModel.TuneWrapper = function(learner, learner.model, task.desc, subset = NULL, features, factor.levels, time) {
+
   # set threshold in learner so it is used in predict calls from here on
   if (learner$control$tune.threshold) {
     learner = setPredictThreshold(learner, learner.model$opt.result$threshold)

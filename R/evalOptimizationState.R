@@ -4,6 +4,7 @@
 # return y-value(s), exectime, and potential erorr msg
 evalOptimizationState = function(learner, task, resampling, measures, par.set, bits.to.features, control,
   opt.path, show.info, dob, state, remove.nas, resample.fun) {
+
   setSlaveOptions()
   y = setNames(rep(NA_real_, length(measures)), vcapply(measures, measureAggrName))
   errmsg = NA_character_
@@ -89,6 +90,7 @@ evalOptimizationState = function(learner, task, resampling, measures, par.set, b
 # returns list of lists, the single eval results
 evalOptimizationStates = function(learner, task, resampling, measures, par.set, bits.to.features, control,
   opt.path, show.info, states, dobs, eols, remove.nas, resample.fun, level) {
+
   n = length(states)
   if (length(dobs) == 1L) {
     dobs = rep(dobs, n)
@@ -125,12 +127,14 @@ evalOptimizationStates = function(learner, task, resampling, measures, par.set, 
 
 evalOptimizationStatesTune = function(learner, task, resampling, measures, par.set, control,
   opt.path, show.info, states, dobs, eols, remove.nas, resample.fun) {
+
   evalOptimizationStates(learner, task, resampling, measures, par.set, NULL, control,
     opt.path, show.info, states, dobs, eols, remove.nas, resample.fun, "mlr.tuneParams")
 }
 
 evalOptimizationStatesFeatSel = function(learner, task, resampling, measures, bits.to.features, control,
   opt.path, show.info, states, dobs, eols) {
+
   evalOptimizationStates(learner, task, resampling, measures, NULL, bits.to.features, control,
     opt.path, show.info, states, dobs, eols, FALSE, resample, "mlr.selectFeatures")
 }

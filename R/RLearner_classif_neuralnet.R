@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.neuralnet = function() {
+
   makeRLearnerClassif(
     cl = "classif.neuralnet",
     package = "neuralnet",
@@ -38,6 +39,7 @@ makeRLearner.classif.neuralnet = function() {
 
 #' @export
 trainLearner.classif.neuralnet = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   cf = as.character(f)
   taskdat = getTaskData(.task, .subset)
@@ -72,6 +74,7 @@ trainLearner.classif.neuralnet = function(.learner, .task, .subset, .weights = N
 
 #' @export
 predictLearner.classif.neuralnet = function(.learner, .model, .newdata, ...) {
+
   type = switch(.learner$predict.type, response = "class", prob = "raw")
 
   p = neuralnet::compute(x = .model$learner.model, covariate = .newdata, ...)

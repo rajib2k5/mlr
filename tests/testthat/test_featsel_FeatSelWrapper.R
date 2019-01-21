@@ -9,6 +9,7 @@ test_that("FeatSelWrapper", {
   lrn2 = makeFeatSelWrapper(lrn1, resampling = inner, control = ctrl)
 
   r = resample(lrn2, multiclass.task, outer, extract = function(model) {
+
     getFeatSelResult(model)
   })
   expect_true(!is.na(r$aggr[[1]]))
@@ -21,6 +22,7 @@ test_that("FeatSelWrapper", {
 test_that("FeatSelWrapper works with custom bits", {
   bns = c("b1", "b2")
   btf = function(x, task) {
+
     fns = getTaskFeatureNames(task)
     Reduce(c, list(fns[1:2], fns[3:4])[as.logical(x)], init = character(0))
   }
@@ -30,6 +32,7 @@ test_that("FeatSelWrapper works with custom bits", {
   lrn2 = makeFeatSelWrapper(lrn1, resampling = makeResampleDesc("Holdout"), control = ctrl, bit.names = bns, bits.to.features = btf)
 
   r = resample(lrn2, multiclass.task, cv2, extract = function(model) {
+
     getFeatSelResult(model)
   })
   expect_true(!is.na(r$aggr[[1]]))

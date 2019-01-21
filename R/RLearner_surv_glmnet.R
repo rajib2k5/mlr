@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.surv.glmnet = function() {
+
   makeRLearnerSurv(
     cl = "surv.glmnet",
     package = "glmnet",
@@ -47,6 +48,7 @@ makeRLearner.surv.glmnet = function() {
 
 #' @export
 trainLearner.surv.glmnet = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   d = getTaskData(.task, subset = .subset, target.extra = TRUE, recode.target = "surv")
   info = getFixDataInfo(d$data, factors.to.dummies = TRUE, ordered.to.int = TRUE)
   args = c(list(x = as.matrix(fixDataForLearner(d$data, info)), y = d$target, family = "cox"), list(...))
@@ -69,6 +71,7 @@ trainLearner.surv.glmnet = function(.learner, .task, .subset, .weights = NULL, .
 
 #' @export
 predictLearner.surv.glmnet = function(.learner, .model, .newdata, ...) {
+
   info = getTrainingInfo(.model)
   .newdata = as.matrix(fixDataForLearner(.newdata, info))
   as.numeric(predict(.model$learner.model, newx = .newdata, type = "link", ...))

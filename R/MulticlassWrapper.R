@@ -29,6 +29,7 @@
 #' @family wrapper
 #' @export
 makeMulticlassWrapper = function(learner, mcw.method = "onevsrest") {
+
   learner = checkLearner(learner)
   ps = makeParamSet(
     makeUntypedLearnerParam(id = "mcw.method", default = "onevsrest")
@@ -49,6 +50,7 @@ makeMulticlassWrapper = function(learner, mcw.method = "onevsrest") {
 
 #' @export
 trainLearner.MulticlassWrapper = function(.learner, .task, .subset = NULL, .weights = NULL, mcw.method, ...) {
+
   .task = subsetTask(.task, .subset)
   y = getTaskTargets(.task)
   cm = buildCMatrix(mcw.method, .task)
@@ -64,6 +66,7 @@ trainLearner.MulticlassWrapper = function(.learner, .task, .subset = NULL, .weig
 }
 
 doMulticlassTrainIteration = function(x, i, learner, task, weights) {
+
   setSlaveOptions()
   d = getTaskData(task)
   tn = getTaskTargetNames(task)
@@ -77,11 +80,13 @@ doMulticlassTrainIteration = function(x, i, learner, task, weights) {
 
 #' @export
 predictLearner.MulticlassWrapper = function(.learner, .model, .newdata, .subset = NULL, ...) {
+
   models = .model$learner.model$next.model
   cm = .model$learner.model$cm
   # predict newdata with every binary model, get n x n.models matrix of +1,-1
   # FIXME: this will break for length(models) == 1? do not use sapply!
   p = sapply(models, function(m) {
+
     pred = predict(m, newdata = .newdata, subset = .subset, ...)$data$response
     if (is.factor(pred)) {
       pred = as.numeric(pred == "1") * 2 - 1
@@ -91,6 +96,7 @@ predictLearner.MulticlassWrapper = function(.learner, .model, .newdata, .subset 
   rns = rownames(cm)
   # we use hamming decoding here, see http://jmlr.org/papers/volume11/escalera10a/escalera10a.pdf
   y = apply(p, 1L, function(v) {
+
     d = apply(cm, 1L, function(z) sum((1 - sign(v * z)) / 2))
     rns[getMinIndex(d)]
   })
@@ -99,6 +105,7 @@ predictLearner.MulticlassWrapper = function(.learner, .model, .newdata, .subset 
 
 #' @export
 getLearnerProperties.MulticlassWrapper = function(learner) {
+
   props = getLearnerProperties(learner$next.learner)
   props = union(props, "multiclass")
   setdiff(props, "prob")
@@ -107,6 +114,7 @@ getLearnerProperties.MulticlassWrapper = function(learner) {
 ##############################               helpers                      ##############################
 
 buildCMatrix = function(mcw.method, .task) {
+
   if (is.function(mcw.method)) {
     meth = mcw.method
   } else {
@@ -128,6 +136,7 @@ buildCMatrix = function(mcw.method, .task) {
 
 # function for multi-to-binary problem conversion
 multi.to.binary = function(target, codematrix) {
+
   if (anyMissing(codematrix)) {
     stop("Code matrix contains missing values!")
   }
@@ -145,6 +154,7 @@ multi.to.binary = function(target, codematrix) {
 }
 
 cm.onevsrest = function(task) {
+
   tcl = getTaskClassLevels(task)
   n = length(tcl)
   cm = matrix(-1, n, n)
@@ -153,6 +163,7 @@ cm.onevsrest = function(task) {
 }
 
 cm.onevsone = function(task) {
+
   tcl = getTaskClassLevels(task)
   n = length(tcl)
   cm = matrix(0, n, choose(n, 2))

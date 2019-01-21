@@ -9,11 +9,13 @@
 #' @examples
 #' joinClassLevels(iris.task, new.levels = list(foo = c("setosa", "virginica")))
 joinClassLevels = function(task, new.levels) {
+
   UseMethod("joinClassLevels")
 }
 
 #' @export
 joinClassLevels.ClassifTask = function(task, new.levels) {
+
   assertList(new.levels, types = "character", names = "unique")
   target = getTaskTargetNames(task)
   y = as.character(getTaskTargets(task))

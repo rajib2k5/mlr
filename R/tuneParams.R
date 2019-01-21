@@ -92,6 +92,7 @@
 #' }
 #' @seealso [generateHyperParsEffectData]
 tuneParams = function(learner, task, resampling, measures, par.set, control, show.info = getMlrOption("show.info"), resample.fun = resample) {
+
   learner = checkLearner(learner)
   assertClass(task, classes = "Task")
   measures = checkMeasures(measures, learner)
@@ -149,6 +150,7 @@ tuneParams = function(learner, task, resampling, measures, par.set, control, sho
 #' @return ([ParamHelpers::OptPath]) or ([data.frame]).
 #' @export
 getTuneResultOptPath = function(tune.result, as.df = TRUE) {
+
   if (as.df == TRUE) {
     return(as.data.frame(tune.result$opt.path))
   } else {

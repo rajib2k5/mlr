@@ -1,10 +1,12 @@
 getLearnerTable = function() {
+
   ids = as.character(methods("makeRLearner"))
   ids = ids[!stri_detect_fixed(ids, "__mlrmocklearners__")]
   ids = stri_replace_first_fixed(ids, "makeRLearner.", "")
   slots = c("cl", "name", "short.name", "package", "properties", "note")
   ee = asNamespace("mlr")
   tab = rbindlist(lapply(ids, function(id) {
+
     fun = getS3method("makeRLearner", id)
     row = lapply(as.list(functionBody(fun)[[2L]])[slots], eval, envir = ee)
     data.table(
@@ -29,6 +31,7 @@ getLearnerTable = function() {
 }
 
 filterLearnerTable = function(tab = getLearnerTable(), types = character(0L), properties = character(0L), check.packages = FALSE) {
+
   contains = function(lhs, rhs) all(lhs %in% rhs)
 
   if (check.packages) {
@@ -98,6 +101,7 @@ filterLearnerTable = function(tab = getLearnerTable(), types = character(0L), pr
 #' @export
 listLearners = function(obj = NA_character_, properties = character(0L),
   quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
+
   assertSubset(properties, listLearnerProperties())
   assertFlag(quiet)
   assertFlag(warn.missing.packages)
@@ -111,12 +115,14 @@ listLearners = function(obj = NA_character_, properties = character(0L),
 #' @rdname listLearners
 listLearners.default = function(obj = NA_character_, properties = character(0L),
   quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
+
   listLearners.character(obj = NA_character_, properties, quiet, warn.missing.packages, check.packages, create)
 }
 
 #' @export
 #' @rdname listLearners
 listLearners.character = function(obj = NA_character_, properties = character(0L), quiet = TRUE, warn.missing.packages = TRUE, check.packages = FALSE, create = FALSE) {
+
   if (!isScalarNA(obj)) {
     assertSubset(obj, listTaskTypes())
   }
@@ -145,6 +151,7 @@ listLearners.character = function(obj = NA_character_, properties = character(0L
 #' @rdname listLearners
 listLearners.Task = function(obj = NA_character_, properties = character(0L),
   quiet = TRUE, warn.missing.packages = TRUE, check.packages = TRUE, create = FALSE) {
+
   task = obj
   td = getTaskDesc(task)
 
@@ -164,5 +171,6 @@ listLearners.Task = function(obj = NA_character_, properties = character(0L),
 
 #' @export
 print.ListLearners = function(x, ...) {
+
   printHead(as.data.frame(dropNamed(x, drop = "note")), ...)
 }

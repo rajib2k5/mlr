@@ -11,6 +11,7 @@
 #' @keywords internal
 #' @export
 checkLearner = function(learner, type = NULL, props = NULL) {
+
   if (is.character(learner)) {
     learner = makeLearner(learner)
   } else {

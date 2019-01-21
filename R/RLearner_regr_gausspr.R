@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.gausspr = function() {
+
   makeRLearnerRegr(
     cl = "regr.gausspr",
     package = "kernlab",
@@ -36,6 +37,7 @@ makeRLearner.regr.gausspr = function() {
 #' @export
 trainLearner.regr.gausspr = function(.learner, .task, .subset, .weights = NULL,
   degree, offset, scale, sigma, order, length, lambda, normalized, ...) {
+
   kpar = learnerArgsToControl(list, degree, offset, scale, sigma, order, length, lambda, normalized)
   f = getTaskFormula(.task)
   vm = .learner$predict.type == "se"
@@ -48,6 +50,7 @@ trainLearner.regr.gausspr = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.regr.gausspr = function(.learner, .model, .newdata, ...) {
+
   if (.learner$predict.type != "se") {
     as.vector(kernlab::predict(.model$learner.model, newdata = .newdata, ...))
   } else {

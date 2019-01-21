@@ -2,6 +2,7 @@ context("resample_convenience")
 
 test_that("resample convenience functions", {
   mycheck = function(r) {
+
     expect_true(all(!is.na(r$aggr)))
   }
 

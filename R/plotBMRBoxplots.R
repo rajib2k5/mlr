@@ -23,6 +23,7 @@
 #' # see benchmark
 plotBMRBoxplots = function(bmr, measure = NULL, style = "box", order.lrns = NULL,
   order.tsks = NULL, pretty.names = TRUE, facet.wrap.nrow = NULL, facet.wrap.ncol = NULL) {
+
   assertClass(bmr, "BenchmarkResult")
   measure = checkBMRMeasure(measure, bmr)
   assertChoice(style, c("box", "violin"))

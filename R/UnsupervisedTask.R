@@ -1,4 +1,5 @@
 makeUnsupervisedTask = function(type, data, weights, blocking, fixup.data, check.data, coordinates) {
+
   task = makeTask(type, data, weights, blocking, fixup.data = fixup.data, check.data = check.data,
     coordinates = coordinates)
   if (check.data) {
@@ -11,6 +12,7 @@ makeUnsupervisedTask = function(type, data, weights, blocking, fixup.data, check
 
 #' @export
 print.UnsupervisedTask = function(x, print.weights = TRUE, ...) {
+
   td = x$task.desc
   catf("Unsupervised task: %s", td$id)
   catf("Type: %s", td$type)

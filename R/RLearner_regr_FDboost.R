@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.FDboost = function() {
+
   makeRLearnerRegr(
     cl = "regr.FDboost",
     package = c("FDboost", "mboost"),
@@ -30,6 +31,7 @@ makeRLearner.regr.FDboost = function() {
 trainLearner.regr.FDboost = function(.learner, .task, .subset, .weights = NULL, mstop = 100L,
   knots = 10L, df = 4L, bsignal.check.ident = FALSE, degree = 3L, differences = 1L,
   nu = 0.1, family = "Gaussian", custom.family.definition = NULL, nuirange = c(0, 100), d = NULL, ...) {
+
   family = switch(family,
     Gaussian = mboost::Gaussian(),
     Laplace = mboost::Laplace(),
@@ -98,6 +100,7 @@ trainLearner.regr.FDboost = function(.learner, .task, .subset, .weights = NULL, 
 
 #' @export
 predictLearner.regr.FDboost = function(.learner, .model, .newdata, ...) {
+
   nl = as.list(.newdata)
   prd = predict(object = .model$learner.model, newdata = nl, which = NULL)
 }

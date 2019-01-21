@@ -32,6 +32,7 @@
 #' # Create a regression task
 #' makeRegrTask(data = d2, target = "target")
 makeFunctionalData = function(data, fd.features = NULL, exclude.cols = NULL) {
+
   assertDataFrame(data)
   assertList(fd.features, null.ok = TRUE, names = "unique")
   # Assert that exclude.cols refers to valid columns and convert to index
@@ -57,6 +58,7 @@ makeFunctionalData = function(data, fd.features = NULL, exclude.cols = NULL) {
 
   # Create a list of functional feature matricies
   ffeats = lapply(fd.features, function(x) {
+
     as.matrix(data[, x, drop = FALSE])
   })
   # Drop original numeric data

@@ -1,6 +1,7 @@
 #' @export
 #' @rdname Task
 makeRegrTask = function(id = deparse(substitute(data)), data, target, weights = NULL, blocking = NULL, coordinates = NULL, fixup.data = "warn", check.data = TRUE) {
+
   assertString(id)
   assertDataFrame(data)
   assertString(target)
@@ -26,5 +27,6 @@ makeRegrTask = function(id = deparse(substitute(data)), data, target, weights = 
 #' @export
 #' @rdname makeTaskDesc
 makeRegrTaskDesc = function(id, data, target, weights, blocking, coordinates) {
+
   addClasses(makeTaskDescInternal("regr", id, data, target, weights, blocking, coordinates), c("RegrTaskDesc", "SupervisedTaskDesc"))
 }

@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.svm = function() {
+
   makeRLearnerRegr(
     cl = "regr.svm",
     package = "e1071",
@@ -28,11 +29,13 @@ makeRLearner.regr.svm = function() {
 
 #' @export
 trainLearner.regr.svm = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   e1071::svm(f, data = getTaskData(.task, .subset), ...)
 }
 
 #' @export
 predictLearner.regr.svm = function(.learner, .model, .newdata, ...) {
+
   predict(.model$learner.model, newdata = .newdata, ...)
 }

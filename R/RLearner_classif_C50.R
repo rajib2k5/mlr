@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.C50 = function() {
+
   makeRLearnerClassif(
     cl = "classif.C50",
     package = "C50",
@@ -33,6 +34,7 @@ makeRLearner.classif.C50 = function() {
 trainLearner.classif.C50 = function(.learner, .task, .subset, .weights = NULL,
   subset, bands, winnow, noGlobalPruning, CF, minCases, fuzzyThreshold, sample,
   seed, earlyStopping, label, ...) {
+
   ctrl = learnerArgsToControl(C50::C5.0Control, bands, winnow, subset,
     noGlobalPruning, CF, minCases, fuzzyThreshold, sample, seed, earlyStopping,
     label)
@@ -43,6 +45,7 @@ trainLearner.classif.C50 = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.classif.C50 = function(.learner, .model, .newdata, ...) {
+
   m = .model$learner.model
   pred.type = .learner$predict.type
   if (pred.type == "response") {

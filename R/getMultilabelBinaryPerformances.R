@@ -15,6 +15,7 @@
 #' @examples
 #' # see makeMultilabelBinaryRelevanceWrapper
 getMultilabelBinaryPerformances = function(pred, measures) {
+
   checkPrediction(pred, task.type = "multilabel")
   measures = checkMeasures(measures, "classif")
   p = matrix(, length(pred$task.desc$class.levels), length(measures))

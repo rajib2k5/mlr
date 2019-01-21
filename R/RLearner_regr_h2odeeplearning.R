@@ -153,6 +153,7 @@
 
 #' @export
 makeRLearner.regr.h2o.deeplearning = function() {
+
   makeRLearnerRegr(
     cl = "regr.h2o.deeplearning",
     package = "h2o",
@@ -237,6 +238,7 @@ makeRLearner.regr.h2o.deeplearning = function() {
 
 #' @export
 trainLearner.regr.h2o.deeplearning = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   # check if h2o connection already exists, otherwise start one
   conn.up = tryCatch(h2o::h2o.getConnection(), error = function(err) return(FALSE))
   if (!inherits(conn.up, "H2OConnection")) {
@@ -256,6 +258,7 @@ trainLearner.regr.h2o.deeplearning = function(.learner, .task, .subset, .weights
 
 #' @export
 predictLearner.regr.h2o.deeplearning = function(.learner, .model, .newdata, ...) {
+
   m = .model$learner.model
   h2of = h2o::as.h2o(.newdata)
   p = h2o::h2o.predict(m, newdata = h2of, ...)

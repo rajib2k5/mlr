@@ -30,6 +30,7 @@
 #' @examples
 #' # See makeModelMultiplexer
 makeModelMultiplexerParamSet = function(multiplexer, ..., .check = TRUE) {
+
   assertClass(multiplexer, classes = "ModelMultiplexer")
   assertFlag(.check)
 

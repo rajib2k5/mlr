@@ -15,6 +15,7 @@
 #' @family wrapper
 #' @export
 makePreprocWrapperCaret = function(learner, ...) {
+
   par.set = makeParamSet(
     makeLogicalLearnerParam("ppc.BoxCox", default = FALSE),
     makeLogicalLearnerParam("ppc.YeoJohnson", default = FALSE),
@@ -49,6 +50,7 @@ makePreprocWrapperCaret = function(learner, ...) {
   par.vals = insert(par.vals, list(...))
 
   trainfun = function(data, target, args) {
+
     all.methods = c(
       "BoxCox", "YeoJohnson", "expoTrans", "center",
       "scale", "range", "knnImpute", "bagImpute",
@@ -86,6 +88,7 @@ makePreprocWrapperCaret = function(learner, ...) {
   }
 
   predictfun = function(data, target, args, control) {
+
     data.frame(predict(control, data))
   }
 
@@ -95,6 +98,7 @@ makePreprocWrapperCaret = function(learner, ...) {
 
 #' @export
 getLearnerProperties.PreprocWrapperCaret = function(learner) {
+
   props = getLearnerProperties(learner$next.learner)
   par.vals = getHyperPars(learner)
   if (par.vals$ppc.bagImpute | par.vals$ppc.knnImpute | par.vals$ppc.medianImpute) {

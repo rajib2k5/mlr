@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.LiblineaRL2L2SVR = function() {
+
   makeRLearnerRegr(
     cl = "regr.LiblineaRL2L2SVR",
     package = "LiblineaR",
@@ -27,11 +28,13 @@ makeRLearner.regr.LiblineaRL2L2SVR = function() {
 
 #' @export
 trainLearner.regr.LiblineaRL2L2SVR = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   d = getTaskData(.task, .subset, target.extra = TRUE)
   LiblineaR::LiblineaR(data = d$data, target = d$target, ...)
 }
 
 #' @export
 predictLearner.regr.LiblineaRL2L2SVR = function(.learner, .model, .newdata, ...) {
+
   predict(.model$learner.model, newx = .newdata, ...)$predictions
 }

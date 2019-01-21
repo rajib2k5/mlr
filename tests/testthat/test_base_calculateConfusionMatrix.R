@@ -2,6 +2,7 @@ context("calculateConfusionMatrix")
 
 test_that("calculateConfusionMatrix", {
   test.confMatrix = function(p) {
+
     lvls = getTaskClassLevels(p$task.desc)
     n = getTaskSize(p$task.desc)
     l = length(lvls)

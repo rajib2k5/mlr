@@ -25,6 +25,7 @@
 #' @export
 plotResiduals = function(obj, type = "scatterplot", loess.smooth = TRUE,
   rug = TRUE, pretty.names = TRUE) {
+
   assertChoice(type, c("scatterplot", "hist"))
   assertLogical(loess.smooth, len = 1L)
   assertLogical(rug, len = 1L)
@@ -35,6 +36,7 @@ plotResiduals = function(obj, type = "scatterplot", loess.smooth = TRUE,
 #' @export
 plotResiduals.Prediction = function(obj, type = "scatterplot", loess.smooth = TRUE,
   rug = TRUE, pretty.names = TRUE) {
+
   task.type = obj$task.desc$type
   if (task.type %nin% c("regr", "classif")) {
     stopf("Task type must be 'regr' or 'classif'. But has type '%s'.", task.type)
@@ -50,7 +52,9 @@ plotResiduals.Prediction = function(obj, type = "scatterplot", loess.smooth = TR
 #' @export
 plotResiduals.BenchmarkResult = function(obj, type = "scatterplot", loess.smooth = TRUE,
   rug = TRUE, pretty.names = TRUE) {
+
   task.type = getBMRObjects(obj, as.df = TRUE, fun = function(X) {
+
     getRRTaskDesc(X)$type
   })
   task.type = unique(task.type$p)
@@ -76,6 +80,7 @@ plotResiduals.BenchmarkResult = function(obj, type = "scatterplot", loess.smooth
 
 makeResidualPlot = function(df, type = "scatterplot", loess.smooth = TRUE,
   rug = TRUE, task.type) {
+
   if (type == "scatterplot") {
     p = ggplot(df, aes_string("truth", "response"))
     if (task.type == "classif") {

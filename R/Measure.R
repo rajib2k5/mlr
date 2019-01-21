@@ -90,6 +90,7 @@
 #' makeMeasure(id = "my.sse", minimize = TRUE, properties = c("regr", "response"), fun = f)
 makeMeasure = function(id, minimize, properties = character(0L),
   fun, extra.args = list(), aggr = test.mean, best = NULL, worst = NULL, name = id, note = "") {
+
   assertString(id)
   assertFlag(minimize)
   assertCharacter(properties, any.missing = FALSE)
@@ -140,6 +141,7 @@ makeMeasure = function(id, minimize, properties = character(0L),
 #' @return ([Measure]).
 #' @export
 getDefaultMeasure = function(x) {
+
   type = if (inherits(x, "TaskDesc")) {
     x$type
   } else if (inherits(x, "Task")) {
@@ -163,6 +165,7 @@ getDefaultMeasure = function(x) {
 
 #' @export
 print.Measure = function(x, ...) {
+
   catf("Name: %s", x$name)
   catf("Performance measure: %s", x$id)
   catf("Properties: %s", collapse(x$properties))

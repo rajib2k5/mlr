@@ -32,6 +32,7 @@
 makeTuneControlIrace = function(impute.val = NULL, n.instances = 100L,
   show.irace.output = FALSE, tune.threshold = FALSE, tune.threshold.args = list(),
   log.fun = "default", final.dw.perc = NULL, budget = NULL, ...) {
+
   n.instances = asCount(n.instances)
 
   # construct super object so we get arg checks

@@ -4,6 +4,7 @@
 
 #' @export
 makeRLearner.classif.bartMachine = function() {
+
   makeRLearnerClassif(
     cl = "classif.bartMachine",
     package = "bartMachine",
@@ -42,6 +43,7 @@ makeRLearner.classif.bartMachine = function() {
 
 #' @export
 trainLearner.classif.bartMachine = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   d = getTaskData(.task, .subset, target.extra = TRUE)
   y = d$target
   td = getTaskDesc(.task)
@@ -52,6 +54,7 @@ trainLearner.classif.bartMachine = function(.learner, .task, .subset, .weights =
 
 #' @export
 predictLearner.classif.bartMachine = function(.learner, .model, .newdata, ...) {
+
   td = .model$task.desc
   levs = c(td$positive, td$negative)
   if (.learner$predict.type == "prob") {

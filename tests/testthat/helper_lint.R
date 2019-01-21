@@ -2,6 +2,7 @@
 # check if lintr version is sufficient
 # if `error.if.not` is TRUE an error is thrown with a meaningful message.
 isLintrVersionOk = function(error.if.not = FALSE) {
+
   lintr.ver = try(packageVersion("lintr"), silent = TRUE)
   lintr.required = "1.0.0.9001"
   if (inherits(lintr.ver, "try-error")) {
@@ -54,7 +55,9 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
 
   # prohibit <-
   left.assign.linter = function(source_file) {
+
     lapply(lintr:::ids_with_token(source_file, "LEFT_ASSIGN"), function(id) {
+
       parsed = lintr:::with_id(source_file, id)
       if (parsed$text == ":=") return(NULL) # ':=' is also a LEFT_ASSIGN token for some reason
       Lint(filename = source_file$filename, line_number = parsed$line1,
@@ -66,7 +69,9 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
 
   # prohibit ->
   right.assign.linter = function(source_file) {
+
     lapply(lintr:::ids_with_token(source_file, "RIGHT_ASSIGN"), function(id) {
+
       parsed = lintr:::with_id(source_file, id)
       Lint(filename = source_file$filename, line_number = parsed$line1,
         column_number = parsed$col1, type = "style", message = "Use =, not ->, for assignment.",
@@ -79,7 +84,9 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
   `%==%` = lintr:::`%==%`
 
   spaces.left.parentheses.linter = function(source_file) {
+
     lapply(lintr:::ids_with_token(source_file, "'('"), function(id) {
+
       parsed = source_file$parsed_content[id, ]
       terminal.tokens.before = source_file$parsed_content$token[source_file$parsed_content$line1 ==
         parsed$line1 & source_file$parsed_content$col1 <
@@ -106,8 +113,10 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
   }
 
   function.left.parentheses.linter = function(source_file) {
+
     lapply(lintr:::ids_with_token(source_file, "'('"),
       function(id) {
+
         parsed = source_file$parsed_content[id, ]
         ttb = which(source_file$parsed_content$line1 == parsed$line1 &
           source_file$parsed_content$col1 < parsed$col1 &
@@ -158,8 +167,10 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
   }
 
   infix.spaces.linter = function(source_file) {
+
     lapply(lintr:::ids_with_token(source_file, lintr:::infix_tokens, fun = `%in%`),
       function(id) {
+
         parsed = lintr:::with_id(source_file, id)
         line = source_file$lines[as.character(parsed$line1)]
         if (substr(line, parsed$col1, parsed$col2) == "^") {
@@ -209,6 +220,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
 
   # incorporate our own camelCase.withDots style.
   matchesStyles = function(name, styles = names(style.regexes)) {
+
     invalids = paste(styles[!styles %in% names(style.regexes)], collapse = ", ")
     if (nzchar(invalids)) {
       valids = paste(names(style.regexes), collapse = ", ")
@@ -224,6 +236,7 @@ if (isLintrVersionOk() && require("lintr", quietly = TRUE) && require("rex", qui
   }
 
   object.naming.linter = lintr:::make_object_linter(function(source_file, token) {
+
     sp = source_file$parsed_content
     if (tail(c("", sp$token[sp$terminal & sp$id < token$id]), n = 1) == "'$'") {
       # ignore list member names

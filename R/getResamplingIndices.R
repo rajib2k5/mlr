@@ -30,6 +30,7 @@
 #' getResamplingIndices(r, inner = TRUE)
 #' @export
 getResamplingIndices = function(object, inner = FALSE) {
+
   assertClass(object, "ResampleResult")
   assertList(object$extract)
   if (inner == TRUE) {

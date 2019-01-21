@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.plr = function() {
+
   makeRLearnerClassif(
     cl = "classif.plr",
     package = "stepPlr",
@@ -18,6 +19,7 @@ makeRLearner.classif.plr = function() {
 
 #' @export
 trainLearner.classif.plr = function(.learner, .task, .subset, .weights = NULL, cp.type, cp, ...) {
+
   d = getTaskData(.task, .subset, target.extra = TRUE, recode.target = "01")
   # cp.type has preference
   if (!missing(cp.type)) {
@@ -38,6 +40,7 @@ trainLearner.classif.plr = function(.learner, .task, .subset, .weights = NULL, c
 
 #' @export
 predictLearner.classif.plr = function(.learner, .model, .newdata, ...) {
+
   p = stepPlr::predict.plr(.model$learner.model, newx = .newdata, type = "response", ...)
   levs = c(.model$task.desc$negative, .model$task.desc$positive)
   if (.learner$predict.type == "prob") {

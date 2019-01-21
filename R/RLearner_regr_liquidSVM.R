@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.liquidSVM = function() {
+
   makeRLearnerRegr(
     cl = "regr.liquidSVM",
     package = "liquidSVM",
@@ -34,11 +35,13 @@ makeRLearner.regr.liquidSVM = function() {
 
 #' @export
 trainLearner.regr.liquidSVM = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   f = getTaskFormula(.task)
   liquidSVM::svm(f, getTaskData(.task, .subset), ...)
 }
 
 #' @export
 predictLearner.regr.liquidSVM = function(.learner, .model, .newdata, ...) {
+
   predict(.model$learner.model, newdata = .newdata, ...)
 }

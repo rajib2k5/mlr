@@ -50,6 +50,7 @@
 #' r = crossval("classif.lda", iris.task, iters = 2L)
 #' print(calculateConfusionMatrix(r$pred))
 calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = "both") {
+
   checkPrediction(pred, task.type = "classif", check.truth = TRUE, no.na = TRUE)
   assertFlag(relative)
   assertFlag(sums)
@@ -98,6 +99,7 @@ calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = 
 
   if (relative) {
     normConfMatrix = function(r) {
+
       if (any(r[js] > 0)) {
         r / sum(r[js])
       } else {
@@ -133,6 +135,7 @@ calculateConfusionMatrix = function(pred, relative = FALSE, sums = FALSE, set = 
 #' @param ... (any)\cr
 #'  Currently not used.
 print.ConfusionMatrix = function(x, both = TRUE, digits = 2, ...) {
+
   assertFlag(both)
   assertInt(digits, lower = 1)
 
@@ -148,18 +151,22 @@ print.ConfusionMatrix = function(x, both = TRUE, digits = 2, ...) {
   if (x$relative) {
     js = 1:k
     res = paste(format(x$relative.row[js, js], digits = digits, nsmall = nsmall),
-      format(x$relative.col[js, js], digits = digits, nsmall = nsmall), sep = "/")
+      format(x$relative.col[js, js], digits = digits, nsmall = nsmall),
+      sep = "/"
+    )
     attributes(res) = attributes(x$relative.row[js, js])
 
 
     col.err = x$relative.col[k + 1, ]
     row.err = x$relative.row[, k + 1]
     full.err = stri_pad_right(format(x$relative.error, digits = digits, nsmall = nsmall),
-      width = nchar(res[1, 1]))
+      width = nchar(res[1, 1])
+    )
 
     # bind marginal errors correctly formatted to rows and columns
     res = rbind(res, stri_pad_left(format(col.err, digits = digits, nsmall = nsmall),
-      width = nchar(res[1, 1])))
+      width = nchar(res[1, 1])
+    ))
     res = cbind(res, c(format(row.err, digits = digits, nsmall = nsmall), full.err))
 
     # also bind the marginal sums to the relative confusion matrix for printing

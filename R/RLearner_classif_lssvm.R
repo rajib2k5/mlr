@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.lssvm = function() {
+
   makeRLearnerClassif(
     cl = "classif.lssvm",
     package = "kernlab",
@@ -34,6 +35,7 @@ makeRLearner.classif.lssvm = function() {
 
 #' @export
 trainLearner.classif.lssvm = function(.learner, .task, .subset, .weights = NULL, degree, offset, scale, sigma, order, length, lambda, normalized, ...) {
+
   # FIXME: custom kernel. freezes? check mailing list
   # FIXME: unify cla + regr, test all sigma stuff
 
@@ -49,6 +51,7 @@ trainLearner.classif.lssvm = function(.learner, .task, .subset, .weights = NULL,
 
 #' @export
 predictLearner.classif.lssvm = function(.learner, .model, .newdata, ...) {
+
   type = switch(.learner$predict.type, "response")
   kernlab::predict(.model$learner.model, newdata = .newdata, type = type, ...)
 }

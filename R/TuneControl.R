@@ -31,6 +31,7 @@ NULL
 makeTuneControl = function(same.resampling.instance, impute.val = NULL,
   start = NULL, tune.threshold = FALSE, tune.threshold.args = list(),
   log.fun = "default", final.dw.perc = NULL, budget = NULL, ..., cl) {
+
   if (!is.null(start)) {
     assertList(start, min.len = 1L, names = "unique")
   }
@@ -53,6 +54,7 @@ makeTuneControl = function(same.resampling.instance, impute.val = NULL,
 
 #' @export
 print.TuneControl = function(x, ...) {
+
   catf("Tune control: %s", class(x)[1])
   catf("Same resampling instance: %s", x$same.resampling.instance)
   catf("Imputation value: %s", ifelse(is.null(x$impute.val), "<worst>", sprintf("%g", x$impute.val)))

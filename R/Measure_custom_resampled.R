@@ -54,6 +54,7 @@
 makeCustomResampledMeasure = function(measure.id, aggregation.id, minimize = TRUE, properties = character(0L),
   fun, extra.args = list(), best = NULL, worst = NULL, measure.name = measure.id,
   aggregation.name = aggregation.id, note = "") {
+
   assertString(measure.id)
   assertString(aggregation.id)
   assertFlag(minimize)

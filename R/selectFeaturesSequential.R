@@ -1,6 +1,8 @@
 # FIXME: compare relative
 selectFeaturesSequential = function(learner, task, resampling, measures, bit.names, bits.to.features, control, opt.path, show.info) {
+
   seq.step = function(forward, state, gen.new.states, compare) {
+
     # we have too many vars already and cannot move forward
     if (forward && !is.na(control$max.features) && control$max.features <= sum(unlist(state$x))) {
       return(NULL)
@@ -28,6 +30,7 @@ selectFeaturesSequential = function(learner, task, resampling, measures, bit.nam
   }
 
   gen.new.states.sfs = function(x) {
+
     xs = list()
     for (i in seq_along(x))
       if (x[i] == 0) {
@@ -39,6 +42,7 @@ selectFeaturesSequential = function(learner, task, resampling, measures, bit.nam
   }
 
   gen.new.states.sbs = function(x) {
+
     xs = list()
     for (i in seq_along(x))
       if (x[i] == 1) {

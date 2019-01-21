@@ -1,8 +1,10 @@
 instantiateResampleInstance = function(desc, size, task) {
+
   UseMethod("instantiateResampleInstance")
 }
 
 instantiateResampleInstance.HoldoutDesc = function(desc, size, task = NULL) {
+
   inds = sample(size, size * desc$split)
   makeResampleInstanceInternal(desc, size, train.inds = list(inds))
 }
@@ -60,6 +62,7 @@ instantiateResampleInstance.CVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.SpCVDesc = function(desc, size, task = NULL) {
+
   if (is.null(task)) {
     stopf("Please provide a task.")
   }
@@ -80,21 +83,25 @@ instantiateResampleInstance.SpCVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.LOODesc = function(desc, size, task = NULL) {
+
   desc$iters = size
   makeResampleInstanceInternal(desc, size, test.inds = as.list(seq_len(size)))
 }
 
 instantiateResampleInstance.SubsampleDesc = function(desc, size, task = NULL) {
+
   inds = lapply(seq_len(desc$iters), function(x) sample(size, size * desc$split))
   makeResampleInstanceInternal(desc, size, train.inds = inds)
 }
 
 instantiateResampleInstance.BootstrapDesc = function(desc, size, task = NULL) {
+
   inds = lapply(seq_len(desc$iters), function(x) sample(size, size, replace = TRUE))
   makeResampleInstanceInternal(desc, size, train.inds = inds)
 }
 
 instantiateResampleInstance.RepCVDesc = function(desc, size, task = NULL) {
+
   folds = desc$iters / desc$reps
   d = makeResampleDesc("CV", iters = folds, blocking.cv = desc$blocking.cv, fixed = desc$fixed)
   i = replicate(desc$reps, makeResampleInstance(d, size = size), simplify = FALSE)
@@ -105,6 +112,7 @@ instantiateResampleInstance.RepCVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.SpRepCVDesc = function(desc, size, task = NULL) {
+
   folds = desc$iters / desc$reps
   d = makeResampleDesc("SpCV", iters = folds)
   i = replicate(desc$reps, makeResampleInstance(d, task = task), simplify = FALSE)
@@ -115,14 +123,17 @@ instantiateResampleInstance.SpRepCVDesc = function(desc, size, task = NULL) {
 }
 
 instantiateResampleInstance.FixedWindowCVDesc = function(desc, size, task = NULL, coords) {
+
   makeResamplingWindow(desc, size, task, coords, "FixedWindowCV")
 }
 
 instantiateResampleInstance.GrowingWindowCVDesc = function(desc, size, task = NULL, coords) {
+
   makeResamplingWindow(desc, size, task, coords, "GrowingWindowCV")
 }
 
 instantiateResampleInstance.CVHelperDesc = function(desc, size, task = NULL) {
+
   if (desc$iters > size) {
     stopf("Cannot use more folds (%i) than size (%i)!", desc$iters, size)
   }

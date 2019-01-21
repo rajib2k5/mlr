@@ -66,6 +66,7 @@
 #' print(res)
 #' # print(res$opt.path)
 makeWeightedClassesWrapper = function(learner, wcw.param = NULL, wcw.weight = 1) {
+
   learner = checkLearner(learner, "classif")
   pv = list()
 
@@ -100,6 +101,7 @@ makeWeightedClassesWrapper = function(learner, wcw.param = NULL, wcw.weight = 1)
 
 #' @export
 trainLearner.WeightedClassesWrapper = function(.learner, .task, .subset = NULL, .weights, wcw.weight = 1, ...) {
+
   .task = subsetTask(.task, .subset)
   td = getTaskDesc(.task)
   levs = td$class.levels
@@ -125,5 +127,6 @@ trainLearner.WeightedClassesWrapper = function(.learner, .task, .subset = NULL, 
 
 #' @export
 getLearnerProperties.WeightedClassesWrapper = function(learner) {
+
   setdiff(getLearnerProperties(learner$next.learner), "weights")
 }

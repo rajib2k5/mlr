@@ -29,6 +29,7 @@
 #' @export
 #' @family fda
 makeExtractFDAFeatMethod = function(learn, reextract, args = list()) {
+
   assertFunction(learn, args = c("data", "target", "col"))
   assertFunction(reextract, args = c("data", "target", "col"))
   assertList(args, names = "named")
@@ -50,10 +51,12 @@ makeExtractFDAFeatMethod = function(learn, reextract, args = list()) {
 #' @export
 #' @family fda_featextractor
 extractFDAFourier = function(trafo.coeff = "phase") {
+
   # create a function that calls extractFDAFeatFourier
   assertChoice(trafo.coeff, choices = c("phase", "amplitude"))
 
   lrn = function(data, target = NULL, col, trafo.coeff) {
+
     assertClass(data, "data.frame")
     assertChoice(trafo.coeff, choices = c("amplitude", "phase"))
 
@@ -105,10 +108,12 @@ extractFDAFourier = function(trafo.coeff = "phase") {
 #' @export
 #' @family fda_featextractor
 extractFDAWavelets = function(filter = "la8", boundary = "periodic") {
+
   assertCharacter(filter)
   assertChoice(boundary, c("periodic", "reflection"))
 
   lrn = function(data, target = NULL, col, filter, boundary) {
+
     requirePackages("wavelets", default.method = "load")
 
     assertClass(data, "data.frame")
@@ -116,6 +121,7 @@ extractFDAWavelets = function(filter = "la8", boundary = "periodic") {
 
     df = convertRowsToList(data[, col, drop = FALSE])
     wtdata = t(dapply(df, fun = function(x) {
+
       wt = wavelets::dwt(as.numeric(x), filter = filter, boundary = boundary)
       unlist(c(wt@W, wt@V[[wt@level]]))
     }))
@@ -143,10 +149,12 @@ extractFDAWavelets = function(filter = "la8", boundary = "periodic") {
 #' @export
 #' @family fda_featextractor
 extractFDAFPCA = function(pve = 0.99, npc = NULL) {
+
   assertNumber(pve, lower = 0, upper = 1)
   assertCount(npc, null.ok = TRUE)
 
   lrn = function(data, target, col, vals, pve, npc) {
+
     requirePackages("mboost", default.method = "load")
     requirePackages("refund", default.method = "load")
     assert(
@@ -194,18 +202,22 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
 
   # Helper function for getFDAMultiResFeatures, extracts for a whole subsequence.
   getUniFDAMultiResFeatures = function(data, res.level, shift) {
+
     feat.list = apply(data, 1, getCurveFeatures, res.level = res.level, shift = shift)
     data.frame(t(feat.list))
   }
 
   getFDAMultiResFeatures = function(data, res.level = 3L, shift = 0.5, curve.lens) {
+
     # Assert that curve.lens sums up to ncol(data)
     stopifnot(sum(curve.lens) == ncol(data))
 
     clsum = cumsum(curve.lens)
     feat.list = apply(data, 1, function(x) {
+
       # Extract the data from the different subcurves specified by curve.lens
       subfeats = Map(function(seqstart, seqend) {
+
         getCurveFeatures(x[seqstart:seqend], res.level = res.level, shift = shift)
       }, clsum - curve.lens + 1, cumsum(curve.lens))
       # And return as vector
@@ -217,6 +229,7 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
 
   #  Get Features from a single (sub-)curve
   getCurveFeatures = function(x, res.level = 3, shift = 0.5) {
+
     m = length(x)
     start = 1L
     feats = numeric(0L)
@@ -243,10 +256,12 @@ extractFDAMultiResFeatures = function(res.level = 3L, shift = 0.5, curve.lens = 
   }
 
   getSegmentFeatures = function(x) {
+
     mean(x)
   }
 
   lrn = function(data, target, col, res.level, shift, curve.lens) {
+
     data = data[, col, drop = FALSE]
     if (is.data.frame(data)) {
       data = as.matrix(data)

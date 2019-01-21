@@ -28,10 +28,12 @@
 #' @rdname TuneResult
 NULL
 makeTuneResult = function(learner, control, x, y, resampling, threshold, opt.path, ...) {
+
   makeOptResult(learner, control, x, y, resampling, threshold, opt.path, "TuneResult", ...)
 }
 
 makeTuneResultFromOptPath = function(learner, par.set, measures, resampling, control, opt.path) {
+
   i = getOptPathBestIndex(opt.path, measureAggrName(measures[[1]]), ties = "random")
   e = getOptPathEl(opt.path, i)
   x = trafoValue(par.set, e$x)
@@ -43,6 +45,7 @@ makeTuneResultFromOptPath = function(learner, par.set, measures, resampling, con
 
 #' @export
 print.TuneResult = function(x, ...) {
+
   catf("Tune result:")
   catf("Op. pars: %s", paramValueToString(x$opt.path$par.set, x$x))
   if (!is.null(x$threshold)) {

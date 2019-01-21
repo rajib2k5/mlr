@@ -91,6 +91,7 @@
 #' @export
 makeStackedLearner = function(base.learners, super.learner = NULL, predict.type = NULL,
   method = "stack.nocv", use.feat = FALSE, resampling = NULL, parset = list()) {
+
   if (is.character(base.learners)) base.learners = lapply(base.learners, checkLearner)
   if (is.null(super.learner) && method == "compress") {
     super.learner = makeLearner(stri_paste(base.learners[[1]]$type, ".nnet"))
@@ -173,6 +174,7 @@ makeStackedLearner = function(base.learners, super.learner = NULL, predict.type 
 #'
 #' @export
 getStackedBaseLearnerPredictions = function(model, newdata = NULL) {
+
   # get base learner and predict type
   bms = model$learner.model$base.models
   method = model$learner.model$method
@@ -195,6 +197,7 @@ getStackedBaseLearnerPredictions = function(model, newdata = NULL) {
 
 #' @export
 trainLearner.StackedLearner = function(.learner, .task, .subset, ...) {
+
   # reduce to subset we want to train ensemble on
   .task = subsetTask(.task, subset = .subset)
   switch(.learner$method,
@@ -211,6 +214,7 @@ trainLearner.StackedLearner = function(.learner, .task, .subset, ...) {
 # won't use the crossvalidated predictions (for method = "stack.cv").
 #' @export
 predictLearner.StackedLearner = function(.learner, .model, .newdata, ...) {
+
   use.feat = .model$learner$use.feat
 
   # get predict.type from learner and super model (if available)
@@ -305,6 +309,7 @@ predictLearner.StackedLearner = function(.learner, .model, .newdata, ...) {
 # Sets the predict.type for the super learner of a stacked learner
 #' @export
 setPredictType.StackedLearner = function(learner, predict.type) {
+
   lrn = setPredictType.Learner(learner, predict.type)
   lrn$predict.type = predict.type
   if ("super.learner" %in% names(lrn)) lrn$super.learner$predict.type = predict.type
@@ -315,6 +320,7 @@ setPredictType.StackedLearner = function(learner, predict.type) {
 
 # super simple averaging of base-learner predictions without weights. we should beat this
 averageBaseLearners = function(learner, task) {
+
   bls = learner$base.learners
   base.models = probs = vector("list", length(bls))
   for (i in seq_along(bls)) {
@@ -332,6 +338,7 @@ averageBaseLearners = function(learner, task) {
 
 # stacking where we predict the training set in-sample, then super-learn on that
 stackNoCV = function(learner, task) {
+
   td = getTaskDesc(task)
   type = ifelse(td$type == "regr", "regr",
     ifelse(length(td$class.levels) == 2L, "classif", "multiclassif"))
@@ -374,6 +381,7 @@ stackNoCV = function(learner, task) {
 
 # stacking where we crossval the training set with the base learners, then super-learn on that
 stackCV = function(learner, task) {
+
   td = getTaskDesc(task)
   type = ifelse(td$type == "regr", "regr",
     ifelse(length(td$class.levels) == 2L, "classif", "multiclassif"))
@@ -423,6 +431,7 @@ stackCV = function(learner, task) {
 
 hillclimbBaseLearners = function(learner, task, replace = TRUE, init = 0, bagprob = 1, bagtime = 1,
   metric = NULL, ...) {
+
   assertFlag(replace)
   assertInt(init, lower = 0)
   assertNumber(bagprob, lower = 0, upper = 1)
@@ -436,6 +445,7 @@ hillclimbBaseLearners = function(learner, task, replace = TRUE, init = 0, bagpro
       metric = function(pred, true) mean((pred - true)^2)
     } else {
       metric = function(pred, true) {
+
         pred = colnames(pred)[max.col(pred)]
         tb = table(pred, true)
         return(1 - sum(diag(tb)) / sum(tb))
@@ -541,6 +551,7 @@ hillclimbBaseLearners = function(learner, task, replace = TRUE, init = 0, bagpro
 }
 
 compressBaseLearners = function(learner, task, parset = list()) {
+
   lrn = learner
   lrn$method = "hill.climb"
   ensemble.model = train(lrn, task)
@@ -582,6 +593,7 @@ compressBaseLearners = function(learner, task, parset = list()) {
 
 # Returns response for correct usage in stackNoCV and stackCV and for predictions
 getResponse = function(pred, full.matrix = TRUE) {
+
   # if classification with probabilities
   if (pred$predict.type == "prob") {
     if (full.matrix) {
@@ -602,6 +614,7 @@ getResponse = function(pred, full.matrix = TRUE) {
 
 # Create a super learner task
 makeSuperLearnerTask = function(learner, data, target) {
+
   if (learner$super.learner$type == "classif") {
     makeClassifTask(data = data, target = target)
   } else {
@@ -611,6 +624,7 @@ makeSuperLearnerTask = function(learner, data, target) {
 
 # Count the ratio
 rowiseRatio = function(probs, levels, model.weight = NULL) {
+
   m = length(levels)
   p = ncol(probs)
   if (is.null(model.weight)) {
@@ -628,6 +642,7 @@ rowiseRatio = function(probs, levels, model.weight = NULL) {
 }
 
 getPseudoData = function(.data, k = 3, prob = 0.1, s = NULL, ...) {
+
   res = NULL
   n = nrow(.data)
   ori.names = names(.data)
@@ -657,6 +672,7 @@ getPseudoData = function(.data, k = 3, prob = 0.1, s = NULL, ...) {
 
   # Func to calc dist
   hamming = function(mat) {
+
     n = nrow(mat)
     m = ncol(mat)
     res = matrix(0, n, n)
@@ -672,6 +688,7 @@ getPseudoData = function(.data, k = 3, prob = 0.1, s = NULL, ...) {
   }
 
   one.nn = function(mat, ind1, ind2) {
+
     n = nrow(mat)
     dist.mat.1 = matrix(0, n, n)
     dist.mat.2 = matrix(0, n, n)

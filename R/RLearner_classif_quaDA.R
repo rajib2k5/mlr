@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.quaDA = function() {
+
   makeRLearnerClassif(
     cl = "classif.quaDA",
     package = "DiscriMiner",
@@ -16,12 +17,14 @@ makeRLearner.classif.quaDA = function() {
 
 #' @export
 trainLearner.classif.quaDA = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   d = getTaskData(.task, .subset, target.extra = TRUE, recode.target = "drop.levels")
   DiscriMiner::quaDA(variables = d$data, group = d$target, ...)
 }
 
 #' @export
 predictLearner.classif.quaDA = function(.learner, .model, .newdata, ...) {
+
   m = .model$learner.model
   p = DiscriMiner::classify(m, newdata = .newdata)
   # p$scores #we loose this information

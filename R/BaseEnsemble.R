@@ -12,6 +12,7 @@
 makeBaseEnsemble = function(id, base.learners, bls.type = NULL,
   ens.type = NULL, package = character(0L),
   par.set = makeParamSet(), par.vals = list(), cl) {
+
   assertString(id)
   assertVector(base.learners, min.len = 1L)
   base.learners = lapply(base.learners, checkLearner, type = bls.type)

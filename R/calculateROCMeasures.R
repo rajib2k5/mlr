@@ -36,6 +36,7 @@
 #' pred = predict(fit, task = sonar.task)
 #' calculateROCMeasures(pred)
 calculateROCMeasures = function(pred) {
+
   checkPrediction(pred, task.type = "classif", check.truth = TRUE, no.na = TRUE, binary = TRUE)
   tab = calculateConfusionMatrix(pred, relative = FALSE)$result[1:2, 1:2]
   response = getPredictionResponse(pred)
@@ -85,6 +86,7 @@ calculateROCMeasures = function(pred) {
 #'  Currently not used.
 #' @export
 print.ROCMeasures = function(x, abbreviations = TRUE, digits = 2, ...) {
+
   checkFlag(abbreviations)
   checkInt(digits, lower = 1)
 

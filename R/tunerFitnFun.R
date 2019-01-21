@@ -8,6 +8,7 @@
 # one x
 tunerFitnFun = function(x, learner, task, resampling, measures, par.set, ctrl,
   opt.path, show.info, convertx, remove.nas, resample.fun, always.minimize = TRUE) {
+
   x = convertx(x, par.set)
   # transform parameters
   dob = ifelse(getOptPathLength(opt.path) == 0, 1, max(opt.path$env$dob) + 1)
@@ -28,6 +29,7 @@ tunerFitnFun = function(x, learner, task, resampling, measures, par.set, ctrl,
 }
 
 tunerSmoofFun = function(learner, task, resampling, measures, par.set, ctrl, opt.path, show.info, convertx, remove.nas, resample.fun) {
+
   measures = ensureVector(measures, n = 1L, cl = "Measure")
 
   # remove trafos for mbo, we do this in tunerFitnFun
@@ -37,6 +39,7 @@ tunerSmoofFun = function(learner, task, resampling, measures, par.set, ctrl, opt
 
 
   fn = function(x) {
+
     # tell smoof the optimization direction, don't transform y later
     tunerFitnFun(x, learner, task, resampling, measures, par.set, ctrl, opt.path, show.info, convertx, remove.nas, resample.fun, always.minimize = FALSE)
   }
@@ -54,6 +57,7 @@ tunerSmoofFun = function(learner, task, resampling, measures, par.set, ctrl, opt
 # multiple xs in parallel
 tunerFitnFunVectorized = function(xs, learner, task, resampling, measures, par.set, ctrl,
   opt.path, show.info, convertx, remove.nas, resample.fun) {
+
   xs = convertx(xs, par.set)
   dob = ifelse(getOptPathLength(opt.path) == 0, 1, max(opt.path$env$dob) + 1)
   res.list = evalOptimizationStatesTune(learner, task, resampling, measures, par.set, ctrl,
@@ -65,6 +69,7 @@ tunerFitnFunVectorized = function(xs, learner, task, resampling, measures, par.s
 
 # short helper that imputes illegal values and also negates for maximization problems
 convertYForTuner = function(y, measures, ctrl, always.minimize = TRUE) {
+
   is.multicrit = inherits(ctrl, "TuneMultiCritControl")
   k = ifelse(is.multicrit, length(y), 1L)
   for (j in seq_len(k)) {

@@ -32,6 +32,7 @@
 #' @family wrapper
 #' @export
 makePreprocWrapper = function(learner, train, predict, par.set = makeParamSet(), par.vals = list()) {
+
   learner = checkLearner(learner)
   assertFunction(train, args = c("data", "target", "args"))
   assertFunction(predict, args = c("data", "target", "args", "control"))
@@ -51,6 +52,7 @@ makePreprocWrapper = function(learner, train, predict, par.set = makeParamSet(),
 
 #' @export
 trainLearner.PreprocWrapper = function(.learner, .task, .subset = NULL, ...) {
+
   pvs = .learner$par.vals
   pp = .learner$train(data = getTaskData(.task, .subset, functionals.as = "matrix"),
     target = getTaskTargetNames(.task), args = pvs)
@@ -72,6 +74,7 @@ trainLearner.PreprocWrapper = function(.learner, .task, .subset = NULL, ...) {
 
 #' @export
 predictLearner.PreprocWrapper = function(.learner, .model, .newdata, ...) {
+
   .newdata = .learner$predict(.newdata, .model$task.desc$target,
     .learner$par.vals, .model$learner.model$control)
   if (!is.data.frame(.newdata)) {

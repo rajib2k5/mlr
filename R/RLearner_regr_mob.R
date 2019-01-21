@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.mob = function() {
+
   makeRLearnerRegr(
     cl = "regr.mob",
     package = c("party", "modeltools"),
@@ -26,6 +27,7 @@ makeRLearner.regr.mob = function() {
 #' @export
 trainLearner.regr.mob = function(.learner, .task, .subset, .weights = NULL, alpha, bonferroni, minsplit,
   trim, breakties, verbose, part.feats, term.feats, ...) {
+
   cntrl = learnerArgsToControl(party::mob_control, alpha, bonferroni, minsplit, trim, breakties, verbose)
 
   feats = getTaskFeatureNames(.task)
@@ -55,5 +57,6 @@ trainLearner.regr.mob = function(.learner, .task, .subset, .weights = NULL, alph
 
 #' @export
 predictLearner.regr.mob = function(.learner, .model, .newdata, ...) {
+
   predict(.model$learner.model, newdata = .newdata, ...)
 }

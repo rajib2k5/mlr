@@ -1,4 +1,5 @@
 makeSupervisedTask = function(type, data, target, weights, blocking, fixup.data, check.data, coordinates) {
+
   task = makeTask(type = type, data = data, weights = weights, blocking = blocking, fixup.data = fixup.data, check.data = check.data, coordinates = coordinates)
 
   if (check.data) {
@@ -16,6 +17,7 @@ makeSupervisedTask = function(type, data, target, weights, blocking, fixup.data,
 
 #' @export
 print.SupervisedTask = function(x, print.target = TRUE, print.weights = TRUE, ...) {
+
   td = x$task.desc
   catf("Supervised task: %s", td$id)
   catf("Type: %s", td$type)

@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.classif.xgboost = function() {
+
   makeRLearnerClassif(
     cl = "classif.xgboost",
     package = "xgboost",
@@ -59,6 +60,7 @@ makeRLearner.classif.xgboost = function() {
 
 #' @export
 trainLearner.classif.xgboost = function(.learner, .task, .subset, .weights = NULL, ...) {
+
   td = getTaskDesc(.task)
   parlist = list(...)
   nc = length(td$class.levels)
@@ -93,6 +95,7 @@ trainLearner.classif.xgboost = function(.learner, .task, .subset, .weights = NUL
 
 #' @export
 predictLearner.classif.xgboost = function(.learner, .model, .newdata, ...) {
+
   td = .model$task.desc
   m = .model$learner.model
   cls = td$class.levels
@@ -144,6 +147,7 @@ predictLearner.classif.xgboost = function(.learner, .model, .newdata, ...) {
 
 #' @export
 getFeatureImportanceLearner.classif.xgboost = function(.learner, .model, ...) {
+
   mod = getLearnerModel(.model, more.unwrap = TRUE)
   imp = xgboost::xgb.importance(feature_names = .model$features,
     model = mod, ...)

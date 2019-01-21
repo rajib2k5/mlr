@@ -29,6 +29,7 @@
 #' mod = train(learner, task, subset = training.set)
 #' print(mod)
 train = function(learner, task, subset = NULL, weights = NULL) {
+
   learner = checkLearner(learner)
   assertClass(task, classes = "Task")
   if (is.logical(subset)) {
@@ -93,6 +94,7 @@ train = function(learner, task, subset = NULL, weights = NULL) {
       identity
     } else {
       function(x) {
+
         withCallingHandlers(x, error = function(c) utils::dump.frames())
       }
     }

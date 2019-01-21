@@ -2,6 +2,7 @@ context("learnerArgsToControl")
 
 test_that("learnerArgsToControl with list returns the input", {
   checkLearnerArgsToControl = function(arg1, arg2, ...) {
+
     learnerArgsToControl(control = list, arg1, arg2, ...)
   }
 
@@ -24,6 +25,7 @@ test_that("learnerArgsToControl with list returns the input", {
 
 test_that("learnerArgsToControl works with a control object", {
   checkLearnerArgsToControlWithControl = function(fdev, devmax, ...) {
+
     learnerArgsToControl(control = glmnet::glmnet.control, fdev, devmax, ...)
   }
 

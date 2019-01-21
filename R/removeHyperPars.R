@@ -12,6 +12,7 @@
 #' @export
 #' @family learner
 removeHyperPars = function(learner, ids = character(0L)) {
+
   assertClass(learner, classes = "Learner")
   assertCharacter(ids, any.missing = FALSE)
   d = setdiff(ids, names(getHyperPars(learner)))
@@ -23,6 +24,7 @@ removeHyperPars = function(learner, ids = character(0L)) {
 
 #' @export
 removeHyperPars.Learner = function(learner, ids = character(0L)) {
+
   learner$par.vals[ids] = NULL
   return(learner)
 }

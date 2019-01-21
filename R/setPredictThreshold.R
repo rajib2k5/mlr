@@ -12,6 +12,7 @@
 #' @family learner
 #' @export
 setPredictThreshold = function(learner, predict.threshold) {
+
   learner = checkLearner(learner, type = "classif")
   if (learner$predict.type != "prob") {
     stopf("predict.type = 'prob' must hold to set a predict.threshold!")

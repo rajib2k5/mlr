@@ -45,6 +45,7 @@
 #' plotTuneMultiCritResult(res, path = TRUE)
 #' }
 tuneParamsMultiCrit = function(learner, task, resampling, measures, par.set, control, show.info = getMlrOption("show.info"), resample.fun = resample) {
+
   learner = checkLearner(learner)
   assertClass(task, classes = "Task")
   assertList(measures, types = "Measure", min.len = 2L)

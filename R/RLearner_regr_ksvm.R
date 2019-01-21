@@ -1,5 +1,6 @@
 #' @export
 makeRLearner.regr.ksvm = function() {
+
   makeRLearnerRegr(
     cl = "regr.ksvm",
     package = "kernlab",
@@ -40,6 +41,7 @@ makeRLearner.regr.ksvm = function() {
 
 #' @export
 trainLearner.regr.ksvm = function(.learner, .task, .subset, .weights = NULL, degree, offset, scale, sigma, order, length, lambda, ...) {
+
   kpar = learnerArgsToControl(list, degree, offset, scale, sigma, order, length, lambda)
   f = getTaskFormula(.task)
   # difference in missing(kpar) and kpar = list()!
@@ -52,5 +54,6 @@ trainLearner.regr.ksvm = function(.learner, .task, .subset, .weights = NULL, deg
 
 #' @export
 predictLearner.regr.ksvm = function(.learner, .model, .newdata, ...) {
+
   kernlab::predict(.model$learner.model, newdata = .newdata, ...)[, 1L]
 }

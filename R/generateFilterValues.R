@@ -34,6 +34,7 @@
 #' @aliases FilterValues
 #' @export
 generateFilterValuesData = function(task, method = "randomForestSRC.rfsrc", nselect = getTaskNFeats(task), ..., more.args = list()) {
+
   assert(checkClass(task, "ClassifTask"), checkClass(task, "RegrTask"), checkClass(task, "SurvTask"))
   assertSubset(method, choices = ls(.FilterRegister), empty.ok = FALSE)
   td = getTaskDesc(task)
@@ -75,6 +76,7 @@ generateFilterValuesData = function(task, method = "randomForestSRC.rfsrc", nsel
   fn = getTaskFeatureNames(task)
 
   fval = lapply(filter, function(x) {
+
     x = do.call(x$fun, c(list(task = task, nselect = nselect), more.args[[x$name]]))
     missing.score = setdiff(fn, names(x))
     x[missing.score] = NA_real_
@@ -93,6 +95,7 @@ generateFilterValuesData = function(task, method = "randomForestSRC.rfsrc", nsel
 }
 #' @export
 print.FilterValues = function(x, ...) {
+
   catf("FilterValues:")
   catf("Task: %s", x$task.desc$id)
   printHead(x$data, ...)
@@ -119,6 +122,7 @@ print.FilterValues = function(x, ...) {
 #' @family filter
 #' @export
 getFilterValues = function(task, method = "randomForestSRC.rfsrc", nselect = getTaskNFeats(task), ...) {
+
   .Deprecated("generateFilterValuesData")
   assertChoice(method, choices = ls(.FilterRegister))
   out = generateFilterValuesData(task, method, nselect, ...)
@@ -154,6 +158,7 @@ getFilterValues = function(task, method = "randomForestSRC.rfsrc", nselect = get
 #' fv = generateFilterValuesData(iris.task, method = "variance")
 #' plotFilterValues(fv)
 plotFilterValues = function(fvalues, sort = "dec", n.show = 20L, feat.type.cols = FALSE, facet.wrap.nrow = NULL, facet.wrap.ncol = NULL) {
+
   assertClass(fvalues, classes = "FilterValues")
   assertChoice(sort, choices = c("dec", "inc", "none"))
   if (!(is.null(fvalues$method))) {
