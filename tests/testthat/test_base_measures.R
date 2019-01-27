@@ -655,8 +655,10 @@ test_that("check measure calculations", {
   expect_equal(measureMultilabelHamloss(multi.y, !multi.y), multilabel.hamloss$worst)
   # compare with mldr
   expect_equal(mldr::hamming_loss(multi.y, multi.p), measureMultilabelHamloss(multi.y, multi.p))
-  # mldr defines the accuracy as 1-hamloss
-  expect_equal(mldr::accuracy(multi.y, multi.p), 1 - measureMultilabelHamloss(multi.y, multi.p))
+  # mldr defines the accuracy as 1-hamloss -> this changed in mldr v0.4.1: https://github.com/fcharte/mldr/issues/47)
+  # instead we cimpare now mldr::accuracy to measureMultilabelACC
+  # expect_equal(mldr::accuracy(multi.y, multi.p), 1 - measureMultilabelHamloss(multi.y, multi.p))
+  expect_equal(mldr::accuracy(multi.y, multi.p), measureMultilabelACC(multi.y, multi.p))
   # manual checks
   expect_equal(measureMultilabelHamloss(matrix(tf, ncol = 2), matrix(tt, ncol = 2)), 1 / 2) # 1 of 2 values are wrong
   expect_equal(measureMultilabelHamloss(cbind(tf, tf), cbind(tf, tt)), 1 / 4) # 1 of 4 values are wrong
